@@ -1,23 +1,15 @@
 import { NextResponse } from 'next/server'
-import { readFile, writeFile } from 'fs/promises'
-import { existsSync } from 'fs'
-import path from 'path'
-
-const dataDir = path.join(process.env.VERCEL ? '/tmp' : process.cwd(), 'data')
-const metadataFile = path.join(dataDir, 'updates.json')
+import clientPromise from '@/lib/mongodb'
+import { ObjectId } from 'mongodb'
 
 // GET - Fetch a single update by ID
 export async function GET(request, { params }) {
   try {
     const { id } = params
-    
-    if (!existsSync(metadataFile)) {
-      return NextResponse.json({ message: 'Update not found' }, { status: 404 })
-    }
+    const client = await clientPromise
+    const db = client.db()
 
-    const data = await readFile(metadataFile, 'utf-8')
-    const updatesData = JSON.parse(data)
-    const update = updatesData.updates.find(u => u.id === id)
+    const update = await db.collection('updates').findOne({ _id: new ObjectId(id) })
 
     if (!update) {
       return NextResponse.json({ message: 'Update not found' }, { status: 404 })
@@ -26,10 +18,7 @@ export async function GET(request, { params }) {
     return NextResponse.json({ update })
   } catch (error) {
     console.error('Error fetching update:', error)
-    return NextResponse.json(
-      { message: 'Failed to fetch update', error: error.message },
-      { status: 500 }
-    )
+    return NextResponse.json({ message: 'Failed to fetch update', error: error.message }, { status: 500 })
   }
 }
 
@@ -38,41 +27,28 @@ export async function PUT(request, { params }) {
   try {
     const { id } = params
     const body = await request.json()
-    
-    if (!existsSync(metadataFile)) {
-      return NextResponse.json({ message: 'Update not found' }, { status: 404 })
+    const client = await clientPromise
+    const db = client.db()
+
+    const update = await db.collection('updates').findOne({ _id: new ObjectId(id) })
+    if (!update) return NextResponse.json({ message: 'Update not found' }, { status: 404 })
+
+    const updated = {
+      ...update,
+      title: body.title || update.title,
+      description: body.description || update.description,
+      mediaType: body.mediaType || update.mediaType,
+      mediaUrl: body.mediaUrl !== undefined ? body.mediaUrl : update.mediaUrl,
+      updatedAt: new Date(),
     }
 
-    const data = await readFile(metadataFile, 'utf-8')
-    const updatesData = JSON.parse(data)
-    const updateIndex = updatesData.updates.findIndex(u => u.id === id)
+    await db.collection('updates').updateOne({ _id: new ObjectId(id) }, { $set: updated })
 
-    if (updateIndex === -1) {
-      return NextResponse.json({ message: 'Update not found' }, { status: 404 })
-    }
-
-    // Update the update
-    updatesData.updates[updateIndex] = {
-      ...updatesData.updates[updateIndex],
-      title: body.title || updatesData.updates[updateIndex].title,
-      description: body.description || updatesData.updates[updateIndex].description,
-      mediaType: body.mediaType || updatesData.updates[updateIndex].mediaType,
-      mediaUrl: body.mediaUrl !== undefined ? body.mediaUrl : updatesData.updates[updateIndex].mediaUrl,
-      updatedAt: new Date().toISOString(),
-    }
-
-    await writeFile(metadataFile, JSON.stringify(updatesData, null, 2))
-
-    return NextResponse.json({ 
-      message: 'Update updated successfully', 
-      update: updatesData.updates[updateIndex] 
-    })
+    const saved = await db.collection('updates').findOne({ _id: new ObjectId(id) })
+    return NextResponse.json({ message: 'Update updated successfully', update: saved })
   } catch (error) {
     console.error('Error updating update:', error)
-    return NextResponse.json(
-      { message: 'Failed to update', error: error.message },
-      { status: 500 }
-    )
+    return NextResponse.json({ message: 'Failed to update', error: error.message }, { status: 500 })
   }
 }
 
@@ -80,30 +56,17 @@ export async function PUT(request, { params }) {
 export async function DELETE(request, { params }) {
   try {
     const { id } = params
-    
-    if (!existsSync(metadataFile)) {
+    const client = await clientPromise
+    const db = client.db()
+
+    const result = await db.collection('updates').deleteOne({ _id: new ObjectId(id) })
+    if (result.deletedCount === 0) {
       return NextResponse.json({ message: 'Update not found' }, { status: 404 })
     }
-
-    const data = await readFile(metadataFile, 'utf-8')
-    const updatesData = JSON.parse(data)
-    const updateIndex = updatesData.updates.findIndex(u => u.id === id)
-
-    if (updateIndex === -1) {
-      return NextResponse.json({ message: 'Update not found' }, { status: 404 })
-    }
-
-    // Remove the update
-    updatesData.updates.splice(updateIndex, 1)
-
-    await writeFile(metadataFile, JSON.stringify(updatesData, null, 2))
 
     return NextResponse.json({ message: 'Update deleted successfully' })
   } catch (error) {
     console.error('Error deleting update:', error)
-    return NextResponse.json(
-      { message: 'Failed to delete', error: error.message },
-      { status: 500 }
-    )
+    return NextResponse.json({ message: 'Failed to delete', error: error.message }, { status: 500 })
   }
 }

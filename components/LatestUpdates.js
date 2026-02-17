@@ -43,7 +43,7 @@ export default function LatestUpdates({ initialUpdates = [] }) {
     const fetchUpdates = async () => {
       try {
         setIsLoading(true)
-        const response = await fetch(`${apiUrl}/api/updates`, {
+        const response = await fetch('/api/updates', {
           cache: 'no-store',
         })
         
@@ -58,16 +58,16 @@ export default function LatestUpdates({ initialUpdates = [] }) {
       }
     }
 
-    // Fetch immediately if no initial updates and API is available
-    if (initialUpdates.length === 0 && apiUrl) {
+    // Fetch immediately if no initial updates
+    if (initialUpdates.length === 0) {
       fetchUpdates()
     }
 
-    // Fetch fresh updates every 60 seconds (only if API is available)
-    const interval = apiUrl ? setInterval(fetchUpdates, 60000) : undefined
+    // Fetch fresh updates every 30 seconds
+    const interval = setInterval(fetchUpdates, 30000)
 
     return () => {
-      if (interval) clearInterval(interval)
+      clearInterval(interval)
     }
   }, [initialUpdates.length, apiUrl])
 

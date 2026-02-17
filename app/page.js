@@ -4,7 +4,7 @@ import LatestUpdates from '@/components/LatestUpdates'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 
-// Fetch updates at build time with ISR
+// Fetch updates on every request for real-time updates
 async function getUpdates() {
   try {
     // Add timeout to prevent hanging
@@ -13,7 +13,7 @@ async function getUpdates() {
     
     const base = process.env.NEXT_PUBLIC_API_URL || ''
     const res = await fetch(`${base}/api/updates`, {
-      next: { revalidate: parseInt(process.env.REVALIDATE_TIME) || 60 }, // ISR: revalidate every 60 seconds
+      cache: 'no-store', // Force fresh data on every request
       signal: controller.signal,
     })
     
@@ -47,6 +47,9 @@ export const metadata = {
   },
 }
 
+// Force dynamic rendering to ensure fresh updates
+export const dynamic = 'force-dynamic'
+
 export default async function HomePage() {
   const updates = await getUpdates()
 
@@ -55,8 +58,8 @@ export default async function HomePage() {
       <Navigation />
       <main>
         <HeroSection />
-        <BentoGrid />
         <LatestUpdates initialUpdates={updates} />
+        <BentoGrid />
       </main>
       <Footer />
     </>
