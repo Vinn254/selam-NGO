@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server'
-import clientPromise from '@/lib/mongodb'
+import dbConnect from '@/lib/mongodb'
 import { ObjectId } from 'mongodb'
 
 // GET - Fetch a single update by ID
 export async function GET(request, { params }) {
   try {
     const { id } = params
-    const client = await clientPromise
+    const client = await dbConnect()
     const db = client.db()
 
     const update = await db.collection('updates').findOne({ _id: new ObjectId(id) })
@@ -27,7 +27,7 @@ export async function PUT(request, { params }) {
   try {
     const { id } = params
     const body = await request.json()
-    const client = await clientPromise
+    const client = await dbConnect()
     const db = client.db()
 
     const update = await db.collection('updates').findOne({ _id: new ObjectId(id) })
@@ -56,7 +56,7 @@ export async function PUT(request, { params }) {
 export async function DELETE(request, { params }) {
   try {
     const { id } = params
-    const client = await clientPromise
+    const client = await dbConnect()
     const db = client.db()
 
     const result = await db.collection('updates').deleteOne({ _id: new ObjectId(id) })

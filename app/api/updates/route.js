@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server'
-import clientPromise from '@/lib/mongodb'
+import dbConnect from '@/lib/mongodb'
 import { ObjectId } from 'mongodb'
 
 // GET - Fetch all updates
 export async function GET(request) {
   try {
-    const client = await clientPromise
+    const client = await dbConnect()
     const db = client.db()
     const updates = await db
       .collection('updates')
@@ -46,7 +46,7 @@ export async function POST(request) {
       updatedAt: new Date(),
     }
 
-    const client = await clientPromise
+    const client = await dbConnect()
     const db = client.db()
     const result = await db.collection('updates').insertOne(newUpdate)
 
