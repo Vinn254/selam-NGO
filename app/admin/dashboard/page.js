@@ -13,6 +13,7 @@ export default function AdminDashboard() {
   const [uploadProgress, setUploadProgress] = useState(0)
   const [message, setMessage] = useState({ type: '', text: '' })
   const router = useRouter()
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || ''
 
   // Form state for document upload
   const [formData, setFormData] = useState({
@@ -55,7 +56,7 @@ export default function AdminDashboard() {
 
   const fetchDocuments = async () => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/documents`)
+      const response = await fetch(`${apiUrl}/api/documents`)
       if (response.ok) {
         const data = await response.json()
         setDocuments(data.documents || [])
@@ -68,7 +69,7 @@ export default function AdminDashboard() {
   const fetchApplications = async () => {
     try {
       const token = localStorage.getItem('adminToken')
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/applications`, {
+      const response = await fetch(`${apiUrl}/api/applications`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -85,7 +86,7 @@ export default function AdminDashboard() {
   const fetchUpdates = async () => {
     try {
       const token = localStorage.getItem('adminToken')
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/updates`, {
+      const response = await fetch(`${apiUrl}/api/updates`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -161,7 +162,7 @@ export default function AdminDashboard() {
         setLoading(false)
       })
 
-      xhr.open('POST', `${process.env.NEXT_PUBLIC_API_URL}/api/documents/upload`)
+      xhr.open('POST', `${apiUrl}/api/documents/upload`)
       xhr.setRequestHeader('Authorization', `Bearer ${token}`)
       xhr.send(data)
     } catch (error) {
@@ -175,7 +176,7 @@ export default function AdminDashboard() {
 
     try {
       const token = localStorage.getItem('adminToken')
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/documents/${documentId}`, {
+      const response = await fetch(`${apiUrl}/api/documents/${documentId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -263,7 +264,7 @@ export default function AdminDashboard() {
         const imageFormData = new FormData()
         imageFormData.append('image', updateImageFile)
 
-        const uploadResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/updates/upload`, {
+        const uploadResponse = await fetch(`${apiUrl}/api/updates/upload`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -290,7 +291,7 @@ export default function AdminDashboard() {
         const videoFormData = new FormData()
         videoFormData.append('video', updateVideoFile)
 
-        const uploadResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/updates/video-upload`, {
+        const uploadResponse = await fetch(`${apiUrl}/api/updates/video-upload`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -311,7 +312,7 @@ export default function AdminDashboard() {
         setVideoUploading(false)
       }
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/updates`, {
+      const response = await fetch(`${apiUrl}/api/updates`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -351,7 +352,7 @@ export default function AdminDashboard() {
 
     try {
       const token = localStorage.getItem('adminToken')
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/updates/${updateId}`, {
+      const response = await fetch(`${apiUrl}/api/updates/${updateId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -374,7 +375,7 @@ export default function AdminDashboard() {
   const updateApplicationStatus = async (applicationId, newStatus) => {
     try {
       const token = localStorage.getItem('adminToken')
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/applications/${applicationId}`, {
+      const response = await fetch(`${apiUrl}/api/applications/${applicationId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -400,7 +401,7 @@ export default function AdminDashboard() {
 
     try {
       const token = localStorage.getItem('adminToken')
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/applications/${applicationId}`, {
+      const response = await fetch(`${apiUrl}/api/applications/${applicationId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
