@@ -3,7 +3,7 @@ import { readFile, writeFile } from 'fs/promises'
 import { existsSync } from 'fs'
 import path from 'path'
 
-const dataDir = path.join(process.cwd(), 'data')
+const dataDir = path.join(process.env.VERCEL ? '/tmp' : process.cwd(), 'data')
 const metadataFile = path.join(dataDir, 'updates.json')
 
 // GET - Fetch a single update by ID

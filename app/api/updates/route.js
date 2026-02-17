@@ -4,7 +4,7 @@ import { existsSync, mkdirSync } from 'fs'
 import path from 'path'
 
 // Ensure data directory exists
-const dataDir = path.join(process.cwd(), 'data')
+const dataDir = path.join(process.env.VERCEL ? '/tmp' : process.cwd(), 'data')
 if (!existsSync(dataDir)) {
   mkdirSync(dataDir, { recursive: true })
 }

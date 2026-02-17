@@ -101,7 +101,7 @@ export async function POST(request) {
 
     // In a real application, save this to a database
     // For now, we'll save it to a JSON file
-    const metadataDir = path.join(process.cwd(), 'data')
+    const metadataDir = path.join(process.env.VERCEL ? '/tmp' : process.cwd(), 'data')
     if (!existsSync(metadataDir)) {
       await mkdir(metadataDir, { recursive: true })
     }
