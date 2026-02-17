@@ -11,7 +11,8 @@ async function getUpdates() {
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), 5000) // 5 second timeout
     
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/updates`, {
+    const base = process.env.NEXT_PUBLIC_API_URL || ''
+    const res = await fetch(`${base}/api/updates`, {
       next: { revalidate: parseInt(process.env.REVALIDATE_TIME) || 60 }, // ISR: revalidate every 60 seconds
       signal: controller.signal,
     })

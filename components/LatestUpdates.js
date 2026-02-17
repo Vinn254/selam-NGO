@@ -3,12 +3,11 @@
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 
-// Get API URL safely for client-side
+// Get API URL safely for client-side (falls back to relative path when not set)
 const getApiUrl = () => {
-  if (typeof window !== 'undefined' && process.env.NEXT_PUBLIC_API_URL) {
-    return process.env.NEXT_PUBLIC_API_URL
-  }
-  return ''
+  return typeof process !== 'undefined' && process.env.NEXT_PUBLIC_API_URL
+    ? process.env.NEXT_PUBLIC_API_URL
+    : ''
 }
 
 export default function LatestUpdates({ initialUpdates = [] }) {
@@ -42,13 +41,6 @@ export default function LatestUpdates({ initialUpdates = [] }) {
   // Fetch fresh updates periodically
   useEffect(() => {
     const fetchUpdates = async () => {
-      // Skip if no API URL is configured
-      if (!apiUrl) {
-        console.warn('API URL not configured')
-        setIsLoading(false)
-        return
-      }
-      
       try {
         setIsLoading(true)
         const response = await fetch(`${apiUrl}/api/updates`, {
