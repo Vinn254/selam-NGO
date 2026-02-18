@@ -4,6 +4,28 @@ import { ObjectId } from 'mongodb'
 
 export const dynamic = 'force-dynamic'
 
+// Verify auth token
+function verifyAuth(request) {
+  const authHeader = request.headers.get('authorization')
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return null
+  }
+
+  try {
+    const token = authHeader.substring(7)
+    const decoded = JSON.parse(Buffer.from(token, 'base64').toString())
+    
+    // Check if token is expired
+    if (decoded.exp && Date.now() > decoded.exp) {
+      return null
+    }
+    
+    return decoded
+  } catch (error) {
+    return null
+  }
+}
+
 // GET - Fetch a single update by ID
 export async function GET(request, { params }) {
   try {
@@ -27,6 +49,12 @@ export async function GET(request, { params }) {
 // PUT - Update an existing update
 export async function PUT(request, { params }) {
   try {
+    // Verify authentication
+    const auth = verifyAuth(request)
+    if (!auth) {
+      return NextResponse.json({ message: 'Unauthorized. Please login first.' }, { status: 401 })
+    }
+
     const { id } = params
     const body = await request.json()
     const client = await dbConnect()
@@ -57,6 +85,12 @@ export async function PUT(request, { params }) {
 // DELETE - Delete an update
 export async function DELETE(request, { params }) {
   try {
+    // Verify authentication
+    const auth = verifyAuth(request)
+    if (!auth) {
+      return NextResponse.json({ message: 'Unauthorized. Please login first.' }, { status: 401 })
+    }
+
     const { id } = params
     const client = await dbConnect()
     const db = client.db()

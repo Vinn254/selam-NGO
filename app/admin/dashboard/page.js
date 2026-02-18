@@ -961,7 +961,7 @@ export default function AdminDashboard() {
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
                       {updates.map((update) => (
-                        <tr key={update.id} className="hover:bg-gray-50">
+                        <tr key={update._id} className="hover:bg-gray-50">
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="text-sm font-medium text-gray-900">{update.title}</div>
                           </td>
@@ -976,11 +976,11 @@ export default function AdminDashboard() {
                             </span>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-500">{formatDate(update.date)}</div>
+                            <div className="text-sm text-gray-500">{formatDate(update.createdAt)}</div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <button
-                              onClick={() => deleteUpdate(update.id)}
+                              onClick={() => deleteUpdate(update._id)}
                               className="text-red-600 hover:text-red-900 transition-colors"
                             >
                               Delete
