@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import dbConnect from '@/lib/mongodb'
 
+export const dynamic = 'force-dynamic'
+
 // GET - Fetch all updates
 export async function GET(request) {
   try {
@@ -22,9 +24,37 @@ export async function GET(request) {
   }
 }
 
+// Verify auth token
+function verifyAuth(request) {
+  const authHeader = request.headers.get('authorization')
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return null
+  }
+
+  try {
+    const token = authHeader.substring(7)
+    const decoded = JSON.parse(Buffer.from(token, 'base64').toString())
+    
+    // Check if token is expired
+    if (decoded.exp && Date.now() > decoded.exp) {
+      return null
+    }
+    
+    return decoded
+  } catch (error) {
+    return null
+  }
+}
+
 // POST - Create a new update (admin only)
 export async function POST(request) {
   try {
+    // Verify authentication
+    const auth = verifyAuth(request)
+    if (!auth) {
+      return NextResponse.json({ message: 'Unauthorized. Please login first.' }, { status: 401 })
+    }
+
     const body = await request.json()
 
     if (!body.title || !body.description) {

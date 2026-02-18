@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server'
 import dbConnect from '@/lib/mongodb'
 import { ObjectId } from 'mongodb'
 
+export const dynamic = 'force-dynamic'
+
 // GET - Fetch a single update by ID
 export async function GET(request, { params }) {
   try {
