@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server'
 import dbConnect from '@/lib/mongodb'
-import { ObjectId } from 'mongodb'
 
 // GET - Fetch all updates
 export async function GET(request) {

@@ -123,6 +123,7 @@ const nextConfig = {
     // Note: optimizeCss requires critters package which is not installed
     // optimizeCss: true, 
     optimizePackageImports: ['framer-motion', 'axios'],
+    serverComponentsExternalPackages: ['mongodb'],
   },
 }
 
