@@ -75,9 +75,9 @@ export default function Navigation() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`font-medium transition-colors duration-200 ${
+                  className={`nav-link font-medium transition-colors duration-200 ${
                     scrolled 
-                      ? pathname === item.href ? 'text-emerald-600' : 'text-gray-700 hover:text-emerald-600'
+                      ? pathname === item.href ? 'nav-link-active' : 'text-gray-700 hover:text-emerald-600'
                       : pathname === item.href ? 'text-white' : 'text-white/90 hover:text-white'
                   }`}
                 >
@@ -119,7 +119,7 @@ export default function Navigation() {
         
         {/* Menu Panel */}
         <div 
-          className={`absolute right-0 top-0 bottom-0 w-full max-w-sm bg-gradient-to-br from-emerald-600 via-emerald-700 to-teal-800 shadow-2xl transform transition-transform duration-300 ease-out ${
+          className={`absolute right-0 top-0 bottom-0 w-full max-w-sm mobile-menu-panel shadow-2xl transform transition-transform duration-300 ease-out ${
             isOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
         >
@@ -131,7 +131,7 @@ export default function Navigation() {
                   key={item.href}
                   href={item.href}
                   className={`group relative py-4 px-6 text-white font-semibold text-lg rounded-xl transition-all duration-200 hover:bg-white/10 ${
-                    pathname === item.href ? 'bg-white/20' : ''
+                    pathname === item.href ? 'bg-white/20 nav-link-active' : 'nav-link'
                   }`}
                   style={{
                     animationDelay: `${index * 50}ms`,

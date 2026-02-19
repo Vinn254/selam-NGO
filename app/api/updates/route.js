@@ -52,10 +52,17 @@ export async function POST(request) {
     // Verify authentication
     const auth = verifyAuth(request)
     if (!auth) {
+      console.error('Auth verification failed')
       return NextResponse.json({ message: 'Unauthorized. Please login first.' }, { status: 401 })
     }
 
-    const body = await request.json()
+    let body
+    try {
+      body = await request.json()
+    } catch (parseError) {
+      console.error('JSON parse error:', parseError)
+      return NextResponse.json({ message: 'Invalid JSON body' }, { status: 400 })
+    }
 
     if (!body.title || !body.description) {
       return NextResponse.json({ message: 'Title and description are required' }, { status: 400 })
@@ -75,7 +82,14 @@ export async function POST(request) {
       updatedAt: new Date(),
     }
 
-    const client = await dbConnect()
+    let client
+    try {
+      client = await dbConnect()
+    } catch (dbError) {
+      console.error('Database connection failed:', dbError.message)
+      return NextResponse.json({ message: 'Database connection failed', error: dbError.message }, { status: 500 })
+    }
+
     const db = client.db()
     const result = await db.collection('updates').insertOne(newUpdate)
 

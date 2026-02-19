@@ -1,6 +1,7 @@
-'use client'
+"use client"
 
 import Link from 'next/link'
+import Image from 'next/image'
 
 /**
  * Modern logo design for Selam NGO
@@ -30,45 +31,16 @@ export default function Logo({ scrolled = false, size = 'default' }) {
 
   return (
     <Link href="/" className="flex items-center space-x-2 group">
-      {/* Logo Icon - Modern design with emerald gradient */}
-      <div className={`${sizeClasses[size]} relative rounded-xl flex items-center justify-center overflow-hidden bg-gradient-to-br from-emerald-500 via-teal-500 to-emerald-600 shadow-lg group-hover:shadow-emerald-500/40 transition-all duration-300 group-hover:scale-105`}>
-        {/* Subtle gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent" />
-        
-        {/* SVG Icon - Abstract "S" shape representing growth/hands */}
-        <svg 
-          width={iconSize[size]} 
-          height={iconSize[size]} 
-          viewBox="0 0 36 36" 
-          fill="none" 
-          xmlns="http://www.w3.org/2000/svg"
-          className="relative z-10"
-        >
-          {/* Abstract S shape with leaf/hands motif */}
-          <path 
-            d="M18 6C12.48 6 10 10 10 14C10 18 14 20 18 22C22 24 26 24 26 28C26 32 22 34 18 34" 
-            stroke="white" 
-            strokeWidth="3" 
-            strokeLinecap="round" 
-            strokeLinejoin="round"
-            fill="none"
-          />
-          {/* Leaf accent */}
-          <path 
-            d="M22 10C24 8 28 8 28 12C28 16 24 18 20 16" 
-            stroke="white" 
-            strokeWidth="2" 
-            strokeLinecap="round" 
-            strokeLinejoin="round"
-            fill="none"
-            opacity="0.8"
-          />
-          {/* Small accent dot */}
-          <circle cx="12" cy="28" r="2" fill="white" opacity="0.6" />
-        </svg>
+      <div className={`${sizeClasses[size]} relative rounded-xl flex items-center justify-center overflow-hidden shadow-lg transition-all duration-300 group-hover:scale-105 bg-white/0`}> 
+        <Image
+          src="/logo.jpeg"
+          alt="Selam logo"
+          width={iconSize[size]}
+          height={iconSize[size]}
+          className="relative z-10 rounded-md object-cover"
+        />
       </div>
 
-      {/* Logo Text - Modern gradient styling with unique 'la' design */}
       <span className={`font-display font-bold ${textSizes[size]} transition-colors duration-300 ${
         scrolled 
           ? 'text-gray-900' 

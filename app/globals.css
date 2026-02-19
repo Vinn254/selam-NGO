@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Brand color variables (used when .brand-theme is applied) */
+:root {
+  --brand-green: #1f8a3a;
+  --brand-yellow: #f6c043;
+  --brand-red: #d6272f;
+  --brand-black: #0b0b0b;
+}
+
 /* Scroll down indicator animations */
 @keyframes scroll-wheel {
   0%, 100% {
@@ -80,6 +88,74 @@
   /* Hero Section - Lighter Green Gradient */
   .hero-gradient {
     background: linear-gradient(135deg, rgba(34, 197, 94, 0.4) 0%, rgba(20, 184, 166, 0.35) 50%, rgba(6, 95, 70, 0.45) 100%);
+  }
+
+  /* Brand theme overrides (applies only when html has .brand-theme) */
+  /* Brand-theme: modern blended palette tuned for contrast */
+  .brand-theme {
+    color: var(--brand-black);
+  }
+
+  .brand-theme .btn-primary {
+    background-image: linear-gradient(90deg, var(--brand-green) 0%, #3aa34a 28%, var(--brand-yellow) 56%, #f08b3a 72%, var(--brand-red) 100%);
+    background-size: 200% 100%;
+    color: #fff;
+    box-shadow: 0 12px 40px rgba(15, 30, 20, 0.18);
+    border-radius: 12px;
+    transition: background-position 350ms ease, transform 160ms ease;
+  }
+
+  .brand-theme .btn-primary:hover {
+    background-position: 100% 0;
+    transform: translateY(-2px);
+  }
+
+  .brand-theme .btn-secondary {
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    color: var(--brand-black);
+    border: 1px solid rgba(11,11,11,0.06);
+  }
+
+  .brand-theme .green-pattern-bg {
+    background-color: #fffef9;
+    background-image:
+      radial-gradient(at 10% 10%, rgba(31,138,58,0.06) 0px, transparent 45%),
+      radial-gradient(at 90% 0%, rgba(246,192,67,0.04) 0px, transparent 45%),
+      radial-gradient(at 0% 80%, rgba(214,39,47,0.03) 0px, transparent 45%);
+  }
+
+  .brand-theme .green-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(31,138,58,0.06), rgba(246,192,67,0.04), rgba(214,39,47,0.03));
+    opacity: 0.95;
+  }
+
+  .brand-theme .whatsapp-float {
+    background: linear-gradient(180deg, var(--brand-green), #0f7a31);
+    box-shadow: 0 12px 28px rgba(31,138,58,0.22);
+  }
+
+  .brand-theme .mobile-menu-panel {
+    background: linear-gradient(135deg, var(--brand-green) 0%, var(--brand-yellow) 50%, var(--brand-red) 100%);
+  }
+
+  .brand-theme .nav-link {
+    color: rgba(11,11,11,0.92);
+  }
+
+  .brand-theme .nav-link:hover {
+    color: var(--brand-green);
+  }
+
+  .brand-theme .nav-link-active {
+    color: var(--brand-red) !important;
+    font-weight: 700;
+  }
+
+  .brand-theme h1, .brand-theme h2, .brand-theme h3 {
+    color: var(--brand-black);
   }
 
   /* Ken Burns effect for hero images */
