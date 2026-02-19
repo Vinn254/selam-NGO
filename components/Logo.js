@@ -47,15 +47,15 @@ export default function Logo({ scrolled = false, size = 'default' }) {
           : 'text-white'
       }`}>
         <span className={scrolled 
-          ? 'bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-600 bg-clip-text text-transparent' 
+          ? 'bg-gradient-to-r from-[#1f8a3a] via-[#3aa34a] to-[#10b981] bg-clip-text text-transparent' 
           : 'bg-gradient-to-r from-white via-emerald-200 to-white bg-clip-text text-transparent'
         }>se</span>
         <span className={`${scrolled 
-          ? 'bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 bg-clip-text text-transparent' 
+          ? 'bg-gradient-to-r from-[#f6c043] via-[#ff9800] to-[#d6272f] bg-clip-text text-transparent' 
           : 'bg-gradient-to-r from-amber-300 via-orange-300 to-red-300 bg-clip-text text-transparent'
         }`}>la</span>
         <span className={scrolled 
-          ? 'bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-600 bg-clip-text text-transparent' 
+          ? 'bg-gradient-to-r from-[#1f8a3a] via-[#3aa34a] to-[#10b981] bg-clip-text text-transparent' 
           : 'bg-gradient-to-r from-white via-emerald-200 to-white bg-clip-text text-transparent'
         }>m</span>
       </span>

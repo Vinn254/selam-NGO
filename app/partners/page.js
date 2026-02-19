@@ -92,7 +92,7 @@ export default function PartnersPage() {
       <Navigation />
       <main className="min-h-screen page-background">
         {/* Hero Section */}
-        <section className="relative pt-32 pb-20 bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-600">
+        <section className="relative pt-32 pb-20 bg-gradient-to-br from-[#1f8a3a] via-[#3aa34a] to-[#f6c043]">
           <div className="absolute inset-0 opacity-50" style={{ backgroundImage: `url("${patternSvg}")` }}></div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center">
@@ -159,7 +159,7 @@ export default function PartnersPage() {
         ))}
 
         {/* Partnership Benefits */}
-        <section className="py-20 bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-600">
+        <section className="py-20 bg-gradient-to-br from-[#f6c043] via-[#ff9800] to-[#1f8a3a]">
           <div className="absolute inset-0 opacity-50" style={{ backgroundImage: `url("${patternSvg}")` }}></div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center mb-16">
