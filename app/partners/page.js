@@ -109,8 +109,8 @@ export default function PartnersPage() {
         {/* Partnership Philosophy */}
         <section className="py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="modern-card modern-card-green text-white p-8">
-              <div className="modern-card-content">
+            <div className="modern-card modern-card-briefing text-white p-8">
+              <div className="modern-card-content relative z-10">
                 <h2 className="text-3xl sm:text-4xl font-display font-bold mb-6">
                   Stronger Together
                 </h2>
