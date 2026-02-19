@@ -15,7 +15,7 @@ const waysToHelp = [
     description: 'Share your time, skills, and passion to make a direct impact in communities',
     action: 'Apply to Volunteer',
     link: '#volunteer',
-    color: 'emerald',
+    color: 'modern-card-green',
   },
   {
     icon: (
@@ -27,7 +27,7 @@ const waysToHelp = [
     description: 'Collaborate with us for meaningful corporate social responsibility initiatives',
     action: 'Become a Partner',
     link: '#partner',
-    color: 'teal',
+    color: 'modern-card-blue',
   },
   {
     icon: (
@@ -39,7 +39,7 @@ const waysToHelp = [
     description: 'Help us reach more people by sharing our mission on social media and beyond',
     action: 'Share Your Story',
     link: '#story',
-    color: 'blue',
+    color: 'modern-card-orange',
   },
 ]
 
@@ -188,10 +188,11 @@ export default function JoinUsPage() {
   return (
     <>
       <Navigation />
-      <main className="min-h-screen">
+      <main className="min-h-screen page-background">
         {/* Hero Section */}
-        <section className="relative pt-32 pb-20 bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="relative pt-32 pb-20 bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-600">
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2760%27%20height%3D%2760%27%20viewBox%3D%270%200%2060%2060%27%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%3E%3Cg%20fill%3D%27none%27%20fill-rule%3D%27evenodd%27%3E%3Cg%20fill%3D%27%23ffffff%27%20fill-opacity%3D%270.08%27%3E%3Cpath%20d%3D%27M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%27/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-50"></div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center">
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-white mb-6">
                 Join Our Mission
@@ -204,38 +205,40 @@ export default function JoinUsPage() {
         </section>
 
         {/* Ways to Help */}
-        <section className="py-20 green-pattern-bg">
+        <section className="py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl font-display font-bold text-gray-900 mb-4">
                 Ways to Get Involved
               </h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Choose how you'd like to support our mission
+                Choose how you&apos;d like to support our mission
               </p>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger-container">
               {waysToHelp.map((way, index) => (
                 <div
                   key={index}
-                  className="green-card p-8 rounded-2xl text-center"
+                  className={`${way.color} text-white p-8 rounded-2xl text-center modern-card`}
                 >
-                  <div className={`text-5xl mb-4 text-${way.color}-600`}>{way.icon}</div>
-                  <h3 className="text-xl font-display font-bold text-gray-900 mb-3">
-                    {way.title}
-                  </h3>
-                  <p className="text-gray-600 mb-6">{way.description}</p>
-                  <a
-                    href={way.link}
-                    onClick={(e) => {
-                      e.preventDefault()
-                      setActiveForm(way.link.replace('#', ''))
-                      setSubmitStatus(null)
-                    }}
-                    className="inline-block px-6 py-2 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors duration-200"
-                  >
-                    {way.action}
-                  </a>
+                  <div className="modern-card-content">
+                    <div className="text-5xl mb-4">{way.icon}</div>
+                    <h3 className="text-xl font-display font-bold mb-3">
+                      {way.title}
+                    </h3>
+                    <p className="text-white/90 mb-6">{way.description}</p>
+                    <a
+                      href={way.link}
+                      onClick={(e) => {
+                        e.preventDefault()
+                        setActiveForm(way.link.replace('#', ''))
+                        setSubmitStatus(null)
+                      }}
+                      className="inline-block px-6 py-2 bg-white/20 backdrop-blur-sm text-white font-semibold rounded-lg hover:bg-white/30 transition-colors duration-200"
+                    >
+                      {way.action}
+                    </a>
+                  </div>
                 </div>
               ))}
             </div>

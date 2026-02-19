@@ -28,6 +28,8 @@ const programs = [
     ],
     image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=600&fit=crop',
     impact: '15,000+ students supported annually',
+    icon: '📚',
+    color: 'modern-card-green',
   },
   {
     id: 2,
@@ -43,6 +45,8 @@ const programs = [
     ],
     image: 'https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=800&h=600&fit=crop',
     impact: '25,000+ patients treated annually',
+    icon: '🏥',
+    color: 'modern-card-blue',
   },
   {
     id: 3,
@@ -58,6 +62,8 @@ const programs = [
     ],
     image: 'https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=800&h=600&fit=crop',
     impact: '10,000+ individuals economically empowered',
+    icon: '🤝',
+    color: 'modern-card-orange',
   },
   {
     id: 4,
@@ -73,17 +79,22 @@ const programs = [
     ],
     image: 'https://images.unsplash.com/photo-1541844053589-346841d0b34c?w=800&h=600&fit=crop',
     impact: '30+ communities with clean water access',
+    icon: '💧',
+    color: 'modern-card-cyan',
   },
 ]
+
+const patternSvg = "data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"
 
 export default function WhatWeDoPage() {
   return (
     <>
       <Navigation />
-      <main className="min-h-screen">
+      <main className="min-h-screen page-background">
         {/* Hero Section */}
-        <section className="relative pt-32 pb-20 bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="relative pt-32 pb-20 bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-600">
+          <div className="absolute inset-0 opacity-50" style={{ backgroundImage: `url("${patternSvg}")` }}></div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center">
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-white mb-6">
                 What We Do
@@ -97,46 +108,47 @@ export default function WhatWeDoPage() {
 
         {/* Programs */}
         {programs.map((program, index) => (
-          <section
-            key={program.id}
-            className={`py-20 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}
-          >
+          <section key={program.id} className="py-20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className={`grid md:grid-cols-2 gap-12 items-center ${
                 index % 2 === 1 ? 'md:flex-row-reverse' : ''
               }`}>
                 <div className={index % 2 === 1 ? 'md:order-2' : ''}>
-                  <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${program.gradient} mb-6 text-3xl`}>
-                    {program.icon}
-                  </div>
-                  <h2 className="text-3xl sm:text-4xl font-display font-bold text-gray-900 mb-4">
-                    {program.title}
-                  </h2>
-                  <p className="text-lg text-gray-600 mb-6">
-                    {program.description}
-                  </p>
-                  
-                  <div className="mb-6">
-                    <h3 className="text-xl font-display font-bold text-gray-900 mb-4">
-                      Key Initiatives:
-                    </h3>
-                    <ul className="space-y-3">
-                      {program.initiatives.map((initiative, idx) => (
-                        <li key={idx} className="flex items-start">
-                          <svg className="w-6 h-6 text-primary-600 mr-3 flex-shrink-0 mt-0.5" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-                            <path d="M5 13l4 4L19 7"></path>
-                          </svg>
-                          <span className="text-gray-600">{initiative}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  <div className={`modern-card ${program.color} text-white p-8 mb-6`}>
+                    <div className="modern-card-content">
+                      <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm mb-6 text-3xl">
+                        {program.icon}
+                      </div>
+                      <h2 className="text-3xl sm:text-4xl font-display font-bold mb-4">
+                        {program.title}
+                      </h2>
+                      <p className="text-lg text-white/90 mb-6">
+                        {program.description}
+                      </p>
+                      
+                      <div className="mb-6">
+                        <h3 className="text-xl font-display font-bold mb-4">
+                          Key Initiatives:
+                        </h3>
+                        <ul className="space-y-3">
+                          {program.initiatives.map((initiative, idx) => (
+                            <li key={idx} className="flex items-start">
+                              <svg className="w-6 h-6 text-white mr-3 flex-shrink-0 mt-0.5" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path d="M5 13l4 4L19 7"></path>
+                              </svg>
+                              <span className="text-white/90">{initiative}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
 
-                  <div className={`inline-flex items-center px-4 py-2 rounded-lg bg-gradient-to-r ${program.gradient} text-white font-semibold`}>
-                    <svg className="w-5 h-5 mr-2" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-                      <path d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                    </svg>
-                    {program.impact}
+                      <div className={`inline-flex items-center px-4 py-2 rounded-lg bg-white/20 backdrop-blur-sm text-white font-semibold`}>
+                        <svg className="w-5 h-5 mr-2" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                          <path d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                        {program.impact}
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -155,8 +167,9 @@ export default function WhatWeDoPage() {
         ))}
 
         {/* Approach Section */}
-        <section className="py-20 bg-gradient-to-br from-primary-600 to-primary-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="py-20 bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-600">
+          <div className="absolute inset-0 opacity-50" style={{ backgroundImage: `url("${patternSvg}")` }}></div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl font-display font-bold text-white mb-4">
                 Our Approach
@@ -165,19 +178,21 @@ export default function WhatWeDoPage() {
                 We believe in sustainable, community-driven development
               </p>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 stagger-container">
               {[
-                { icon: '👥', title: 'Community-Led', description: 'Local voices guide our programs' },
-                { icon: '🔄', title: 'Sustainable', description: 'Building long-term solutions' },
-                { icon: '🤲', title: 'Inclusive', description: 'Reaching the most vulnerable' },
-                { icon: '📊', title: 'Data-Driven', description: 'Measuring impact and learning' },
+                { icon: '👥', title: 'Community-Led', description: 'Local voices guide our programs', color: 'modern-card-green' },
+                { icon: '🔄', title: 'Sustainable', description: 'Building long-term solutions', color: 'modern-card-yellow' },
+                { icon: '🤲', title: 'Inclusive', description: 'Reaching the most vulnerable', color: 'modern-card-orange' },
+                { icon: '📊', title: 'Data-Driven', description: 'Measuring impact and learning', color: 'modern-card-purple' },
               ].map((approach, index) => (
-                <div key={index} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center">
-                  <div className="text-5xl mb-4">{approach.icon}</div>
-                  <h3 className="text-xl font-display font-bold text-white mb-2">
-                    {approach.title}
-                  </h3>
-                  <p className="text-white/80">{approach.description}</p>
+                <div key={index} className={`modern-card ${approach.color} text-white p-6 text-center`}>
+                  <div className="modern-card-content">
+                    <div className="text-5xl mb-4">{approach.icon}</div>
+                    <h3 className="text-xl font-display font-bold mb-2">
+                      {approach.title}
+                    </h3>
+                    <p className="text-white/80">{approach.description}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -185,21 +200,25 @@ export default function WhatWeDoPage() {
         </section>
 
         {/* Call to Action */}
-        <section className="py-20 green-pattern-bg">
+        <section className="py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-gray-900 mb-6">
-              Join Our Mission
-            </h2>
-            <p className="text-lg text-gray-600 mb-8">
-              Be part of the change. Together, we can transform lives and build stronger communities
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/join-us" className="btn-primary">
-                Get Involved
-              </a>
-              <a href="/partners" className="btn-secondary">
-                Become a Partner
-              </a>
+            <div className="modern-card modern-card-purple text-white p-8 md:p-12">
+              <div className="modern-card-content">
+                <h2 className="text-3xl sm:text-4xl font-display font-bold mb-6">
+                  Join Our Mission
+                </h2>
+                <p className="text-lg text-white/90 mb-8">
+                  Be part of the change. Together, we can transform lives and build stronger communities
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <a href="/join-us" className="modern-card modern-card-green text-white px-8 py-4 inline-block">
+                    <span className="modern-card-content text-center font-semibold">Get Involved</span>
+                  </a>
+                  <a href="/partners" className="modern-card modern-card-blue text-white px-8 py-4 inline-block">
+                    <span className="modern-card-content text-center font-semibold">Become a Partner</span>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </section>

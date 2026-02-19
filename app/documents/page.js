@@ -94,9 +94,9 @@ export default function DocumentsPage() {
   return (
     <>
       <Navigation />
-      <main className="min-h-screen bg-gray-50">
+      <main className="min-h-screen page-background">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 text-white py-20">
+        <section className="bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-600 text-white py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold mb-6">
@@ -191,29 +191,29 @@ export default function DocumentsPage() {
                 <div className="mb-6 text-sm text-gray-600">
                   Showing {filteredDocuments.length} {filteredDocuments.length === 1 ? 'document' : 'documents'}
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {filteredDocuments.map((doc) => (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-container">
+                  {filteredDocuments.map((doc, index) => (
                     <div
                       key={doc._id}
-                      className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-200"
+                      className={`modern-card ${index % 2 === 0 ? 'modern-card-green' : 'modern-card-blue'} text-white p-6`}
                     >
                       {/* Document Header */}
-                      <div className="p-6">
+                      <div className="modern-card-content">
                         <div className="flex items-start justify-between mb-4">
                           <div className="flex-shrink-0">
                             {getFileIcon(doc.fileType)}
                           </div>
-                          <span className={`px-2 py-1 text-xs font-semibold rounded-full ${getCategoryColor(doc.category)}`}>
+                          <span className="px-2 py-1 text-xs font-semibold rounded-full bg-white/20 backdrop-blur-sm">
                             {doc.category}
                           </span>
                         </div>
 
                         {/* Document Info */}
-                        <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2">
+                        <h3 className="text-lg font-bold mb-2 line-clamp-2">
                           {doc.title}
                         </h3>
                         {doc.description && (
-                          <p className="text-sm text-gray-600 mb-4 line-clamp-3">
+                          <p className="text-sm text-white/90 mb-4 line-clamp-3">
                             {doc.description}
                           </p>
                         )}

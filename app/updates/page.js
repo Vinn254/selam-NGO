@@ -40,13 +40,16 @@ export default async function UpdatesPage() {
     }).format(date)
   }
 
+  const cardColors = ['modern-card-green', 'modern-card-yellow', 'modern-card-orange', 'modern-card-purple', 'modern-card-pink', 'modern-card-blue', 'modern-card-cyan']
+
   return (
     <>
       <Navigation />
-      <main className="min-h-screen">
+      <main className="min-h-screen page-background">
         {/* Hero Section */}
-        <section className="relative pt-32 pb-20 bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="relative pt-32 pb-20 bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-600">
+          <div className="absolute inset-0 bg-[url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")] opacity-50"></div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center">
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-white mb-6">
                 Latest Updates
@@ -59,7 +62,7 @@ export default async function UpdatesPage() {
         </section>
 
         {/* Updates Grid */}
-        <section className="py-20 bg-white">
+        <section className="py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {updates.length === 0 ? (
               <div className="text-center py-20">
@@ -72,15 +75,15 @@ export default async function UpdatesPage() {
                 </p>
               </div>
             ) : (
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {updates.map((update) => (
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 stagger-container">
+                {updates.map((update, index) => (
                   <article
                     key={update._id || update.id}
-                    className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+                    className={`modern-card ${cardColors[index % cardColors.length]} text-white overflow-hidden`}
                   >
                     {/* Image */}
                     {update.image && (
-                      <div className="relative h-56 w-full bg-gray-200">
+                      <div className="relative h-56 w-full bg-black/20">
                         <Image
                           src={update.image}
                           alt={update.title}
@@ -92,26 +95,26 @@ export default async function UpdatesPage() {
                     )}
 
                     {/* Content */}
-                    <div className="p-6">
+                    <div className="modern-card-content">
                       {/* Date */}
-                      <time className="text-sm text-primary-600 font-semibold">
+                      <time className="text-sm text-white/80 font-semibold">
                         {formatDate(update.createdAt || update.date)}
                       </time>
 
                       {/* Title */}
-                      <h3 className="text-xl font-display font-bold text-gray-900 mt-2 mb-3">
+                      <h3 className="text-xl font-display font-bold mt-2 mb-3">
                         {update.title}
                       </h3>
 
                       {/* Description */}
-                      <p className="text-gray-600 line-clamp-3 mb-4">
+                      <p className="text-white/90 line-clamp-3 mb-4">
                         {update.description}
                       </p>
 
                       {/* Read More Link */}
                       <a
                         href={`/updates/${update._id || update.id}`}
-                        className="inline-flex items-center space-x-1 text-primary-600 font-semibold hover:text-primary-700 transition-colors duration-200 group"
+                        className="inline-flex items-center space-x-1 text-white font-semibold hover:text-white/80 transition-colors duration-200 group"
                       >
                         <span>Read more</span>
                         <svg 
@@ -135,28 +138,32 @@ export default async function UpdatesPage() {
         </section>
 
         {/* Newsletter Signup */}
-        <section className="py-20 bg-gray-50">
+        <section className="py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-gray-900 mb-6">
-              Stay Updated
-            </h2>
-            <p className="text-lg text-gray-600 mb-8">
-              Subscribe to our newsletter to receive the latest updates directly in your inbox
-            </p>
-            <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                required
-              />
-              <button
-                type="submit"
-                className="px-6 py-3 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 transition-colors duration-200"
-              >
-                Subscribe
-              </button>
-            </form>
+            <div className="modern-card modern-card-purple text-white p-8 md:p-12">
+              <div className="modern-card-content">
+                <h2 className="text-3xl sm:text-4xl font-display font-bold mb-6">
+                  Stay Updated
+                </h2>
+                <p className="text-lg text-white/90 mb-8">
+                  Subscribe to our newsletter to receive the latest updates directly in your inbox
+                </p>
+                <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                    className="flex-1 px-4 py-3 border border-white/30 bg-white/10 rounded-lg text-white placeholder-white/60 focus:ring-2 focus:ring-white/50 focus:border-transparent backdrop-blur-sm"
+                    required
+                  />
+                  <button
+                    type="submit"
+                    className="px-6 py-3 bg-white text-purple-600 font-semibold rounded-lg hover:bg-white/90 transition-colors duration-200"
+                  >
+                    Subscribe
+                  </button>
+                </form>
+              </div>
+            </div>
           </div>
         </section>
       </main>
