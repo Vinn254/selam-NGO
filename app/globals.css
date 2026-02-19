@@ -394,6 +394,8 @@
   .stagger-container > *:nth-child(9) { animation-delay: 0.9s; }
   .stagger-container > *:nth-child(10) { animation-delay: 1s; }
   
+  /* Force Vercel rebuild */
+  
   /* Smooth Blur Effect for Menu */
   .menu-backdrop {
     backdrop-filter: blur(12px);
