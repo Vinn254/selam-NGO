@@ -46,8 +46,7 @@ function LatestUpdates({ initialUpdates = [] }) {
     try {
       setIsLoading(true)
       const response = await fetch('/api/updates', {
-        cache: 'force-cache',
-        next: { revalidate: 3600 },
+        cache: 'no-store',
       })
       
       if (response.ok) {
@@ -63,10 +62,8 @@ function LatestUpdates({ initialUpdates = [] }) {
 
   // Fetch updates on mount
   useEffect(() => {
-    // Fetch immediately if no initial updates
-    if (initialUpdates.length === 0) {
-      fetchUpdates()
-    }
+    // Always fetch fresh updates on mount
+    fetchUpdates()
 
     // Fetch fresh updates every 30 seconds
     const interval = setInterval(fetchUpdates, 30000)
@@ -74,7 +71,7 @@ function LatestUpdates({ initialUpdates = [] }) {
     return () => {
       clearInterval(interval)
     }
-  }, [fetchUpdates, initialUpdates.length])
+  }, [fetchUpdates])
 
   const scrollLeft = () => {
     if (sliderRef.current) {
