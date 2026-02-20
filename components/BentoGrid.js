@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, memo } from 'react'
 
 const visionMission = [
   {
@@ -77,7 +77,7 @@ const objectives = [
   },
 ]
 
-export default function BentoGrid() {
+function BentoGrid() {
   const [visibleItems, setVisibleItems] = useState(new Set())
   const [mounted, setMounted] = useState(false)
   const observerRef = useRef(null)
@@ -220,3 +220,5 @@ export default function BentoGrid() {
     </section>
   )
 }
+
+export default memo(BentoGrid)

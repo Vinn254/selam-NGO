@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, memo, useCallback } from 'react'
 import Image from 'next/image'
 
 // Get API URL safely for client-side (falls back to relative path when not set)
@@ -10,13 +10,14 @@ const getApiUrl = () => {
     : ''
 }
 
-export default function LatestUpdates({ initialUpdates = [] }) {
+function LatestUpdates({ initialUpdates = [] }) {
   const [updates, setUpdates] = useState(initialUpdates)
   const [isLoading, setIsLoading] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const sliderRef = useRef(null)
   const sectionRef = useRef(null)
   const apiUrl = getApiUrl()
+  const fetchTimeoutRef = useRef(null)
 
   // Intersection observer for scroll animation
   useEffect(() => {
@@ -25,6 +26,8 @@ export default function LatestUpdates({ initialUpdates = [] }) {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setIsVisible(true)
+            // Only fetch once when visible
+            observer.unobserve(entry.target)
           }
         })
       },
@@ -38,16 +41,16 @@ export default function LatestUpdates({ initialUpdates = [] }) {
     return () => observer.disconnect()
   }, [])
 
-  // Fetch fresh updates periodically
-  useEffect(() => {
-    const fetchUpdates = async () => {
-      try {
-        setIsLoading(true)
-        const response = await fetch('/api/updates', {
-          cache: 'no-store',
-        })
-        
-        if (response.ok) {
+  // Optimized fetch updates with better caching
+  const fetchUpdates = useCallback(async () => {
+    try {
+      setIsLoading(true)
+      const response = await fetch('/api/updates', {
+        cache: 'force-cache',
+        next: { revalidate: 3600 },
+      })
+      
+      if (response.ok) {
           const data = await response.json()
           setUpdates(data.updates || [])
         }
@@ -275,3 +278,5 @@ export default function LatestUpdates({ initialUpdates = [] }) {
     </section>
   )
 }
+
+export default memo(LatestUpdates)

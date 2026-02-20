@@ -1,38 +1,45 @@
-import HeroSection from '@/components/HeroSection'
-import BentoGrid from '@/components/BentoGrid'
-import LatestUpdates from '@/components/LatestUpdates'
+import dynamic from 'next/dynamic'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 
-// Fetch updates on every request for real-time updates
+// Dynamic imports for better code-splitting and performance
+const HeroSection = dynamic(() => import('@/components/HeroSection'), {
+  loading: () => <div className="h-screen min-h-[600px] max-h-[900px] bg-gradient-to-br from-emerald-800 to-teal-900 animate-pulse" />,
+  ssr: true,
+})
+
+const BentoGrid = dynamic(() => import('@/components/BentoGrid'), {
+  loading: () => <div className="h-64 bg-gradient-to-r from-gray-200 to-gray-300 animate-pulse" />,
+  ssr: true,
+})
+
+const LatestUpdates = dynamic(() => import('@/components/LatestUpdates'), {
+  loading: () => <div className="h-96 bg-gradient-to-r from-gray-200 to-gray-300 animate-pulse" />,
+  ssr: true,
+})
+
+// Fetch updates with optimized caching strategy
 async function getUpdates() {
   try {
-    // Add timeout to prevent hanging
     const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), 5000) // 5 second timeout
+    const timeoutId = setTimeout(() => controller.abort(), 3000) // Reduced to 3 seconds
     
     const base = process.env.NEXT_PUBLIC_API_URL || ''
     const res = await fetch(`${base}/api/updates`, {
-      cache: 'no-store', // Force fresh data on every request
+      cache: 'force-cache', // Cache for better performance
       signal: controller.signal,
+      next: { revalidate: 3600 }, // Revalidate every hour
     })
     
     clearTimeout(timeoutId)
     
     if (!res.ok) {
-      console.warn('Updates API returned non-OK status:', res.status)
       return []
     }
     
     const data = await res.json()
     return data.updates || []
   } catch (error) {
-    // Log but don't throw - gracefully handle API unavailability
-    if (error.name === 'AbortError') {
-      console.warn('Updates API request timed out')
-    } else {
-      console.warn('Failed to fetch updates:', error.message)
-    }
     return []
   }
 }
@@ -47,8 +54,8 @@ export const metadata = {
   },
 }
 
-// Force dynamic rendering to ensure fresh updates
-export const dynamic = 'force-dynamic'
+// Enable incremental static regeneration for better caching
+export const revalidate = 3600 // Revalidate every hour
 
 export default async function HomePage() {
   const updates = await getUpdates()

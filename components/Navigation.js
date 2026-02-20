@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import Logo from '@/components/Logo'
@@ -13,7 +13,7 @@ const navItems = [
   { name: 'Join Us', href: '/join-us' },
 ]
 
-export default function Navigation() {
+function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
@@ -167,3 +167,5 @@ export default function Navigation() {
     </>
   )
 }
+
+export default memo(Navigation)
