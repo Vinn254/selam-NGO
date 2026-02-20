@@ -15,11 +15,16 @@ export async function GET(request) {
       .sort({ createdAt: -1 })
       .toArray()
 
-    return NextResponse.json({ updates })
+    // Convert ObjectId to string for proper serialization
+    const serializedUpdates = updates.map(update => ({
+      ...update,
+      _id: update._id?.toString()
+    }))
+
+    return NextResponse.json({ updates: serializedUpdates })
   } catch (error) {
-    console.error('Error fetching updates, using local data fallback:', error.message)
-    // Fallback to local JSON data when MongoDB is unavailable
-    return NextResponse.json({ updates: localUpdates.updates, source: 'local' })
+    console.error('Error fetching updates:', error.message)
+    return NextResponse.json({ updates: [], message: 'Database not available' }, { status: 500 })
   }
 }
 
