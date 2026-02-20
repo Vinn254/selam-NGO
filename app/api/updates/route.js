@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import dbConnect from '@/lib/mongodb'
+import localUpdates from '@/data/updates.json'
 
 export const dynamic = 'force-dynamic'
 
@@ -16,11 +17,9 @@ export async function GET(request) {
 
     return NextResponse.json({ updates })
   } catch (error) {
-    console.error('Error fetching updates:', error)
-    return NextResponse.json(
-      { message: 'Failed to fetch updates', error: error.message },
-      { status: 500 }
-    )
+    console.error('Error fetching updates, using local data fallback:', error.message)
+    // Fallback to local JSON data when MongoDB is unavailable
+    return NextResponse.json({ updates: localUpdates.updates, source: 'local' })
   }
 }
 

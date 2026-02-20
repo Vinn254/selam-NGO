@@ -105,35 +105,6 @@ function HeroSection() {
     return () => clearInterval(interval)
   }, [])
 
-  const heroContent = useMemo(() => (
-    <div className="relative z-20 h-full flex items-center">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className={`max-w-3xl transition-all duration-[1500ms] ease-out ${
-          isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 leading-tight text-balance">
-            Empowering Communities,
-            <br />
-            <span className="text-accent-300">Transforming Lives</span>
-          </h1>
-          
-          <p className="text-lg sm:text-xl md:text-2xl text-white/90 mb-8 max-w-2xl text-balance">
-            Selam is dedicated to creating sustainable change through education, healthcare, and community development across areas in Kenya.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4">
-            <a href="#what-we-do" className="btn-primary text-center">
-              Discover Our Work
-            </a>
-            <a href="/join-us" className="btn-secondary text-center">
-              Get Involved
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  ), [isLoaded])
-
   return (
     <section className="relative h-screen min-h-[600px] max-h-[900px] overflow-hidden">
       <div className="absolute inset-0">
@@ -168,86 +139,6 @@ function HeroSection() {
                   onLoad={() => handleImageLoad(index)}
                 />
               </div>
-              <div className="absolute inset-0 hero-gradient" />
-            </div>
-          )
-        })}
-      </div>
-
-      {heroContent}
-
-      <CarouselIndicators current={currentIndex} onSelect={goToSlide} count={heroImages.length} />
-      <ScrollIndicator />
-    </section>
-  )
-}
-
-export default memo(HeroSection)
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [imagesLoaded, setImagesLoaded] = useState(new Set())
-  const [isTransitioning, setIsTransitioning] = useState(false)
-
-  const handleImageLoad = useCallback((index) => {
-    setImagesLoaded((prev) => new Set([...prev, index]))
-  }, [])
-
-  const goToSlide = useCallback((index) => {
-    if (index !== currentIndex && !isTransitioning) {
-      setIsTransitioning(true)
-      setCurrentIndex(index)
-      setTimeout(() => setIsTransitioning(false), 2000)
-    }
-  }, [currentIndex, isTransitioning])
-
-  useEffect(() => {
-    setIsLoaded(true)
-    
-    // Auto-advance carousel every 8 seconds for smoother transitions
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % heroImages.length)
-    }, 8000)
-
-    return () => clearInterval(interval)
-  }, [])
-
-  return (
-    <section className="relative h-screen min-h-[600px] max-h-[900px] overflow-hidden">
-      {/* Background Images with Smooth Fade + Ken Burns Transition */}
-      <div className="absolute inset-0">
-        {heroImages.map((image, index) => {
-          const isActive = index === currentIndex
-          const isNext = (index === currentIndex + 1) || (currentIndex === heroImages.length - 1 && index === 0)
-          
-          return (
-            <div
-              key={index}
-              className={`absolute inset-0 transition-all duration-[2000ms] ease-in-out ${
-                isActive 
-                  ? 'opacity-100 z-10 scale-100' 
-                  : isNext
-                    ? 'opacity-0 z-0 scale-105'
-                    : 'opacity-0 z-0 scale-100'
-              }`}
-            >
-              {/* Placeholder background while loading */}
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-800 to-teal-900" />
-              
-              <div className={`absolute inset-0 ${isActive ? 'hero-ken-burns' : ''}`}>
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  priority={image.priority}
-                  quality={80}
-                  sizes="100vw"
-                  className={`object-cover transition-opacity duration-700 ease-out ${
-                    imagesLoaded.has(index) ? 'opacity-100' : 'opacity-0'
-                  }`}
-                  onLoad={() => handleImageLoad(index)}
-                />
-              </div>
-              {/* Gradient Overlay - Lighter Green Tint */}
               <div className="absolute inset-0 hero-gradient" />
             </div>
           )

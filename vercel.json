@@ -3,7 +3,7 @@
   "devCommand": "next dev",
   "installCommand": "npm install",
   "framework": "nextjs",
-  "env": [],
+  "env": {},
   "regions": ["iad1"],
   "functions": {
     "api/**/*.js": {

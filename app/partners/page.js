@@ -14,16 +14,6 @@ export const metadata = {
 
 const partnerCategories = [
   {
-    title: 'International Partners',
-    description: 'Global organizations supporting our mission',
-    partners: [
-      { name: 'United Nations Development Programme', type: 'Development Agency' },
-      { name: 'World Health Organization', type: 'Health Organization' },
-      { name: 'UNICEF Kenya', type: 'Children\'s Fund' },
-      { name: 'Save the Children', type: 'International NGO' },
-    ],
-  },
-  {
     title: 'Government Partners',
     description: 'Collaborating with local and national authorities',
     partners: [
@@ -31,16 +21,6 @@ const partnerCategories = [
       { name: 'Ministry of Education', type: 'Government Agency' },
       { name: 'Regional Health Bureaus', type: 'Local Government' },
       { name: 'Woreda Administrations', type: 'Local Government' },
-    ],
-  },
-  {
-    title: 'Corporate Partners',
-    description: 'Businesses committed to social responsibility',
-    partners: [
-      { name: 'Kenyan Airlines', type: 'Corporate Sponsor' },
-      { name: 'Commercial Bank of Kenya', type: 'Financial Partner' },
-      { name: 'Telkom Kenya', type: 'Technology Partner' },
-      { name: 'Dashen Bank', type: 'Financial Partner' },
     ],
   },
   {

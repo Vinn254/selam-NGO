@@ -67,7 +67,8 @@ const socialLinks = [
 ]
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear()
+  // Use static year to avoid hydration mismatch
+  const currentYear = 2026
 
   return (
     <footer className="bg-gray-900 text-white">

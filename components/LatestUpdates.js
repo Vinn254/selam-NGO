@@ -55,12 +55,14 @@ function LatestUpdates({ initialUpdates = [] }) {
           setUpdates(data.updates || [])
         }
       } catch (error) {
-        console.error('Failed to fetch updates:', error)
-      } finally {
-        setIsLoading(false)
-      }
+      console.error('Failed to fetch updates:', error)
+    } finally {
+      setIsLoading(false)
     }
+  }, [])
 
+  // Fetch updates on mount
+  useEffect(() => {
     // Fetch immediately if no initial updates
     if (initialUpdates.length === 0) {
       fetchUpdates()
@@ -72,7 +74,7 @@ function LatestUpdates({ initialUpdates = [] }) {
     return () => {
       clearInterval(interval)
     }
-  }, [initialUpdates.length, apiUrl])
+  }, [fetchUpdates, initialUpdates.length])
 
   const scrollLeft = () => {
     if (sliderRef.current) {
