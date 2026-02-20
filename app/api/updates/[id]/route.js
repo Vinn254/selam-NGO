@@ -92,7 +92,18 @@ export async function DELETE(request, { params }) {
     }
 
     const { id } = params
-    const client = await dbConnect()
+    
+    let client
+    try {
+      client = await dbConnect()
+    } catch (dbError) {
+      console.error('Database connection failed:', dbError.message)
+      return NextResponse.json({ 
+        message: 'Database connection failed. Please ensure MONGO_URI is configured in Vercel.', 
+        error: dbError.message 
+      }, { status: 500 })
+    }
+    
     const db = client.db()
 
     const result = await db.collection('updates').deleteOne({ _id: new ObjectId(id) })
