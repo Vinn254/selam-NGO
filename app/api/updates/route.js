@@ -86,7 +86,10 @@ export async function POST(request) {
       client = await dbConnect()
     } catch (dbError) {
       console.error('Database connection failed:', dbError.message)
-      return NextResponse.json({ message: 'Database connection failed', error: dbError.message }, { status: 500 })
+      return NextResponse.json({ 
+        message: 'Database connection failed. Please ensure MONGODB_URI is configured in Vercel environment variables.', 
+        error: dbError.message 
+      }, { status: 500 })
     }
 
     const db = client.db()
