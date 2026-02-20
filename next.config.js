@@ -34,16 +34,12 @@ const nextConfig = {
   
   // Static Export Configuration
   output: 'standalone',
-  
-  // SWC Minification
-  swcMinify: true,
 
   // Compiler Options
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production' ? {
       exclude: ['error', 'warn'],
     } : false,
-    removeDebugger: true,
   },
   
   // Headers for Security and Performance
