@@ -84,51 +84,44 @@ export async function PUT(request, { params }) {
 
 // DELETE - Delete an update
 export async function DELETE(request, { params }) {
-  console.log('DELETE called with params:', params)
+  const { id } = await params
+  console.log('Delete ID:', id)
   
-  try {
-    // Verify authentication
-    const auth = verifyAuth(request)
-    if (!auth) {
-      return NextResponse.json({ message: 'Unauthorized. Please login first.' }, { status: 401 })
-    }
-
-    const { id } = params
-    console.log('Delete ID:', id)
-    
-    if (!id) {
-      return NextResponse.json({ message: 'No ID provided' }, { status: 400 })
-    }
-    
-    let client
-    try {
-      client = await dbConnect()
-    } catch (dbError) {
-      console.error('Database connection failed:', dbError.message)
-      return NextResponse.json({ 
-        message: 'Database connection failed. Please ensure MONGO_URI is configured in Vercel.', 
-        error: dbError.message 
-      }, { status: 500 })
-    }
-    
-    const db = client.db()
-
-    // Try to delete by ID - handle both string and ObjectId formats
-    let result
-    try {
-      result = await db.collection('updates').deleteOne({ _id: new ObjectId(id) })
-    } catch (idError) {
-      // If ObjectId conversion fails, try as string
-      result = await db.collection('updates').deleteOne({ _id: id })
-    }
-    
-    if (result.deletedCount === 0) {
-      return NextResponse.json({ message: 'Update not found. ID: ' + id }, { status: 404 })
-    }
-
-    return NextResponse.json({ message: 'Update deleted successfully' })
-  } catch (error) {
-    console.error('Error deleting update:', error)
-    return NextResponse.json({ message: 'Failed to delete', error: error.message }, { status: 500 })
+  // Verify authentication
+  const auth = verifyAuth(request)
+  if (!auth) {
+    return NextResponse.json({ message: 'Unauthorized. Please login first.' }, { status: 401 })
   }
+  
+  if (!id) {
+    return NextResponse.json({ message: 'No ID provided' }, { status: 400 })
+  }
+  
+  let client
+  try {
+    client = await dbConnect()
+  } catch (dbError) {
+    console.error('Database connection failed:', dbError.message)
+    return NextResponse.json({ 
+      message: 'Database connection failed. Please ensure MONGO_URI is configured in Vercel.', 
+      error: dbError.message 
+    }, { status: 500 })
+  }
+  
+  const db = client.db()
+
+  // Try to delete by ID - handle both string and ObjectId formats
+  let result
+  try {
+    result = await db.collection('updates').deleteOne({ _id: new ObjectId(id) })
+  } catch (idError) {
+    // If ObjectId conversion fails, try as string
+    result = await db.collection('updates').deleteOne({ _id: id })
+  }
+  
+  if (result.deletedCount === 0) {
+    return NextResponse.json({ message: 'Update not found. ID: ' + id }, { status: 404 })
+  }
+
+  return NextResponse.json({ message: 'Update deleted successfully' })
 }
