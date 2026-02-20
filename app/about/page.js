@@ -67,7 +67,7 @@ export default function AboutPage() {
         </section>
 
         {/* Impact Stats */}
-        <section className="relative py-20 bg-gradient-to-br from-[#f6c043] via-[#ff9800] to-[#1f8a3a]">
+        <section className="relative py-20 bg-gradient-to-br from-[#0d9488] via-[#14b8a6] to-[#0f766e]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-display font-bold text-white mb-4">
@@ -79,10 +79,10 @@ export default function AboutPage() {
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 stagger-container">
               {[
-                { number: '50,000+', label: 'Lives Transformed', color: 'modern-card-green' },
-                { number: '15', label: 'Regions Served', color: 'modern-card-yellow' },
-                { number: '100+', label: 'Active Projects', color: 'modern-card-orange' },
-                { number: '200+', label: 'Community Partners', color: 'modern-card-purple' },
+                { number: '10,000+', label: 'Lives Transformed', color: 'modern-card-green' },
+                { number: '8', label: 'Regions Served', color: 'modern-card-yellow' },
+                { number: '25+', label: 'Active Projects', color: 'modern-card-orange' },
+                { number: '50+', label: 'Community Partners', color: 'modern-card-purple' },
               ].map((stat, index) => (
                 <div key={index} className={`modern-card ${stat.color} text-white text-center`}>
                   <div className="modern-card-content">

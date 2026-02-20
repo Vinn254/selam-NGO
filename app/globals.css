@@ -315,7 +315,7 @@
 
   /* Yellow-Green Briefing Card for Body Sections */
   .modern-card-briefing {
-    background: linear-gradient(135deg, #f6c043 0%, #f09d3a 25%, #2d8a4d 50%, #1f8a3a 75%, #3aa34a 100%);
+    background: linear-gradient(135deg, #0d9488 0%, #14b8a6 25%, #0f766e 50%, #059669 75%, #10b981 100%);
     position: relative;
     overflow: hidden;
   }

@@ -37,25 +37,21 @@ const partnerCategories = [
 
 const partnershipBenefits = [
   {
-    icon: '🤝',
     title: 'Strategic Collaboration',
     description: 'Work together on impactful projects that align with your mission and values',
     color: 'modern-card-green',
   },
   {
-    icon: '📊',
     title: 'Measurable Impact',
     description: 'Receive detailed reports and data on the outcomes of your partnership',
     color: 'modern-card-yellow',
   },
   {
-    icon: '🌍',
     title: 'Community Connection',
     description: 'Direct engagement with communities and beneficiaries',
     color: 'modern-card-orange',
   },
   {
-    icon: '✨',
     title: 'Brand Visibility',
     description: 'Recognition across our platforms and community events',
     color: 'modern-card-purple',
@@ -72,7 +68,7 @@ export default function PartnersPage() {
       <Navigation />
       <main className="min-h-screen page-background">
         {/* Hero Section */}
-        <section className="relative pt-32 pb-20 bg-gradient-to-br from-[#1f8a3a] via-[#3aa34a] to-[#f6c043]">
+        <section className="relative pt-32 pb-20 bg-gradient-to-br from-[#059669] via-[#0d9488] to-[#14b8a6]">
           <div className="absolute inset-0 opacity-50" style={{ backgroundImage: `url("${patternSvg}")` }}></div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center">
@@ -139,7 +135,7 @@ export default function PartnersPage() {
         ))}
 
         {/* Partnership Benefits */}
-        <section className="py-20 bg-gradient-to-br from-[#f6c043] via-[#ff9800] to-[#1f8a3a]">
+        <section className="py-20 bg-gradient-to-br from-[#059669] via-[#0d9488] to-[#14b8a6]">
           <div className="absolute inset-0 opacity-50" style={{ backgroundImage: `url("${patternSvg}")` }}></div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center mb-16">
@@ -154,7 +150,6 @@ export default function PartnersPage() {
               {partnershipBenefits.map((benefit, index) => (
                 <div key={index} className={`modern-card ${benefit.color} text-white p-6 text-center`}>
                   <div className="modern-card-content">
-                    <div className="text-5xl mb-4">{benefit.icon}</div>
                     <h3 className="text-xl font-display font-bold mb-3">
                       {benefit.title}
                     </h3>

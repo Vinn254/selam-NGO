@@ -167,7 +167,7 @@ export default function WhatWeDoPage() {
         ))}
 
         {/* Approach Section */}
-        <section className="py-20 bg-gradient-to-br from-[#f6c043] via-[#ff9800] to-[#1f8a3a]">
+        <section className="py-20 bg-gradient-to-br from-[#0d9488] via-[#14b8a6] to-[#0f766e]">
           <div className="absolute inset-0 opacity-50" style={{ backgroundImage: `url("${patternSvg}")` }}></div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center mb-16">
@@ -180,14 +180,13 @@ export default function WhatWeDoPage() {
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 stagger-container">
               {[
-                { icon: '👥', title: 'Community-Led', description: 'Local voices guide our programs', color: 'modern-card-green' },
-                { icon: '🔄', title: 'Sustainable', description: 'Building long-term solutions', color: 'modern-card-yellow' },
-                { icon: '🤲', title: 'Inclusive', description: 'Reaching the most vulnerable', color: 'modern-card-orange' },
-                { icon: '📊', title: 'Data-Driven', description: 'Measuring impact and learning', color: 'modern-card-purple' },
+                { title: 'Community-Led', description: 'Local voices guide our programs', color: 'modern-card-green' },
+                { title: 'Sustainable', description: 'Building long-term solutions', color: 'modern-card-yellow' },
+                { title: 'Inclusive', description: 'Reaching the most vulnerable', color: 'modern-card-orange' },
+                { title: 'Data-Driven', description: 'Measuring impact and learning', color: 'modern-card-purple' },
               ].map((approach, index) => (
                 <div key={index} className={`modern-card ${approach.color} text-white p-6 text-center`}>
                   <div className="modern-card-content">
-                    <div className="text-5xl mb-4">{approach.icon}</div>
                     <h3 className="text-xl font-display font-bold mb-2">
                       {approach.title}
                     </h3>
