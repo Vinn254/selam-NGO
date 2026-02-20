@@ -96,7 +96,7 @@ export default function DocumentsPage() {
       <Navigation />
       <main className="min-h-screen page-background">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-[#1f8a3a] via-[#3aa34a] to-[#f6c043] text-white py-20">
+        <section className="bg-gradient-to-br from-[#059669] via-[#0d9488] to-[#14b8a6] text-white py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold mb-6">

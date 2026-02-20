@@ -686,7 +686,7 @@ export default function JoinUsPage() {
         </section>
 
         {/* Impact Stats */}
-        <section className="py-20 bg-gradient-to-br from-[#f6c043] via-[#ff9800] to-[#1f8a3a]">
+        <section className="py-20 bg-gradient-to-br from-[#0d9488] via-[#14b8a6] to-[#0f766e]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-display font-bold text-white mb-4">
@@ -698,10 +698,10 @@ export default function JoinUsPage() {
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
-                { number: '50,000+', label: 'Lives Transformed' },
-                { number: '15', label: 'Regions Served' },
-                { number: '100+', label: 'Active Projects' },
-                { number: '200+', label: 'Community Partners' },
+                { number: '10,000+', label: 'Lives Transformed' },
+                { number: '8', label: 'Regions Served' },
+                { number: '25+', label: 'Active Projects' },
+                { number: '50+', label: 'Community Partners' },
               ].map((stat, index) => (
                 <div key={index} className="text-center">
                   <div className="text-4xl sm:text-5xl font-display font-bold text-white mb-2">
