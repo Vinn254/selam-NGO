@@ -41,7 +41,7 @@ export const metadata = {
 }
 
 // Enable incremental static regeneration for better caching
-export const revalidate = 60 // Revalidate every minute for faster updates
+export const revalidate = 10 // Revalidate every 10 seconds for faster updates
 
 export default async function HomePage() {
   const updates = await getUpdates()
