@@ -84,6 +84,8 @@ export async function PUT(request, { params }) {
 
 // DELETE - Delete an update
 export async function DELETE(request, { params }) {
+  console.log('DELETE called with params:', params)
+  
   try {
     // Verify authentication
     const auth = verifyAuth(request)
@@ -92,6 +94,11 @@ export async function DELETE(request, { params }) {
     }
 
     const { id } = params
+    console.log('Delete ID:', id)
+    
+    if (!id) {
+      return NextResponse.json({ message: 'No ID provided' }, { status: 400 })
+    }
     
     let client
     try {
