@@ -160,7 +160,7 @@ function BentoGrid() {
         </div>
 
         {/* Objectives - 5 Cards */}
-        <div className="mb-12">
+        <div className="mb-8">
           <h3 className="text-2xl font-display font-bold text-gray-900 mb-6 text-center">
             Our Objectives
           </h3>
