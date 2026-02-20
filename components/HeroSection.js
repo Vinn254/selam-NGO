@@ -106,7 +106,7 @@ function HeroSection() {
   }, [])
 
   return (
-    <section className="relative h-screen min-h-[600px] max-h-[900px] overflow-hidden">
+    <section className="relative h-[75vh] min-h-[500px] max-h-[700px] overflow-hidden">
       <div className="absolute inset-0">
         {heroImages.map((image, index) => {
           const isActive = index === currentIndex

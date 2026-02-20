@@ -61,8 +61,8 @@ export default async function HomePage() {
       <Navigation />
       <main>
         <HeroSection />
-        <LatestUpdates initialUpdates={updates} />
         <BentoGrid />
+        <LatestUpdates initialUpdates={updates} />
       </main>
       <Footer />
     </>

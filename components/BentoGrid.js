@@ -102,7 +102,7 @@ function BentoGrid() {
   }, [])
 
   return (
-    <section className="py-24 green-pattern-bg" id="about">
+    <section className="py-16 green-pattern-bg" id="about">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div 
