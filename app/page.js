@@ -62,7 +62,7 @@ export default async function HomePage() {
       <main>
         <HeroSection />
         <BentoGrid />
-        <LatestUpdates initialUpdates={updates} />
+        {updates.length > 0 && <LatestUpdates initialUpdates={updates} />}
       </main>
       <Footer />
     </>
