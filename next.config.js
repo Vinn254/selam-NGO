@@ -88,6 +88,19 @@ const nextConfig = {
         ],
       },
       {
+        source: '/manifest.json',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=86400, immutable'
+          },
+          {
+            key: 'Content-Type',
+            value: 'application/json'
+          }
+        ]
+      },
+      {
         source: '/_next/static/:path*',
         headers: [
           {

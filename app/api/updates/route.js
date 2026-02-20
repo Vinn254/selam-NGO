@@ -1,8 +1,40 @@
 import { NextResponse } from 'next/server'
 import dbConnect from '@/lib/mongodb'
 import localUpdates from '@/data/updates.json'
+import fs from 'fs'
+import path from 'path'
 
 export const dynamic = 'force-dynamic'
+
+// Function to update local JSON file as backup
+async function updateLocalJsonFile(newUpdate) {
+  try {
+    const filePath = path.join(process.cwd(), 'data', 'updates.json')
+    const currentData = JSON.parse(fs.readFileSync(filePath, 'utf8'))
+    
+    // Add new update to the beginning of the array
+    const updatesArray = currentData.updates || currentData || []
+    updatesArray.unshift({
+      _id: newUpdate._id?.toString() || Date.now().toString(),
+      title: newUpdate.title,
+      description: newUpdate.description,
+      mediaType: newUpdate.mediaType || 'image',
+      mediaUrl: newUpdate.mediaUrl || '',
+      createdAt: newUpdate.createdAt?.toISOString() || new Date().toISOString(),
+      updatedAt: newUpdate.updatedAt?.toISOString() || new Date().toISOString(),
+    })
+    
+    // Keep only the latest 20 updates in local file
+    const trimmedUpdates = updatesArray.slice(0, 20)
+    
+    fs.writeFileSync(filePath, JSON.stringify({ updates: trimmedUpdates }, null, 2))
+    console.log('Local JSON file updated successfully')
+    return true
+  } catch (error) {
+    console.error('Failed to update local JSON file:', error.message)
+    return false
+  }
+}
 
 // GET - Fetch all updates
 export async function GET(request) {
@@ -23,8 +55,12 @@ export async function GET(request) {
 
     return NextResponse.json({ updates: serializedUpdates })
   } catch (error) {
-    console.error('Error fetching updates:', error.message)
-    return NextResponse.json({ updates: [], message: 'Database not available' }, { status: 500 })
+    console.error('Error fetching updates from MongoDB:', error.message)
+    
+    // Fallback to local JSON file if MongoDB is not available
+    console.log('Falling back to local updates.json file')
+    const fallbackUpdates = localUpdates.updates || localUpdates || []
+    return NextResponse.json({ updates: fallbackUpdates, source: 'local' })
   }
 }
 
@@ -91,6 +127,16 @@ export async function POST(request) {
       client = await dbConnect()
     } catch (dbError) {
       console.error('Database connection failed:', dbError.message)
+      // Fallback: Save directly to local JSON file when MongoDB is not available
+      console.log('MongoDB unavailable - saving to local JSON file only')
+      const localSaveResult = await updateLocalJsonFile(newUpdate)
+      if (localSaveResult) {
+        return NextResponse.json({ 
+          message: 'Update saved to local storage (MongoDB unavailable)', 
+          update: newUpdate,
+          source: 'local'
+        }, { status: 201 })
+      }
       return NextResponse.json({ 
         message: 'Database connection failed. Please ensure MONGODB_URI is configured in Vercel environment variables.', 
         error: dbError.message 
@@ -101,6 +147,9 @@ export async function POST(request) {
     const result = await db.collection('updates').insertOne(newUpdate)
 
     const saved = await db.collection('updates').findOne({ _id: result.insertedId })
+
+    // Also save to local JSON file as backup
+    await updateLocalJsonFile(saved)
 
     return NextResponse.json({ message: 'Update created successfully', update: saved }, { status: 201 })
   } catch (error) {

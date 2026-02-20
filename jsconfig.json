@@ -4,6 +4,7 @@
     "paths": {
       "@/*": ["./*"]
     },
-    "checkJs": true
+    "checkJs": true,
+    "resolveJsonModule": true
   }
 }
