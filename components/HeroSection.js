@@ -343,3 +343,5 @@ export default memo(HeroSection)
     </section>
   )
 }
+
+export default memo(HeroSection)
