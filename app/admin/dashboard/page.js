@@ -85,15 +85,12 @@ export default function AdminDashboard() {
 
   const fetchUpdates = async () => {
     try {
-      const token = localStorage.getItem('adminToken')
-      const response = await fetch(`${apiUrl}/api/updates`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      })
+      const response = await fetch(`/api/updates`)
       if (response.ok) {
         const data = await response.json()
         setUpdates(data.updates || [])
+      } else {
+        console.error('Failed to fetch updates:', response.status)
       }
     } catch (error) {
       console.error('Failed to fetch updates:', error)
@@ -352,7 +349,7 @@ export default function AdminDashboard() {
 
     try {
       const token = localStorage.getItem('adminToken')
-      const response = await fetch(`${apiUrl}/api/updates/${updateId}`, {
+      const response = await fetch(`/api/updates/${updateId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
