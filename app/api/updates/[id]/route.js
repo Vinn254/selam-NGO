@@ -106,9 +106,17 @@ export async function DELETE(request, { params }) {
     
     const db = client.db()
 
-    const result = await db.collection('updates').deleteOne({ _id: new ObjectId(id) })
+    // Try to delete by ID - handle both string and ObjectId formats
+    let result
+    try {
+      result = await db.collection('updates').deleteOne({ _id: new ObjectId(id) })
+    } catch (idError) {
+      // If ObjectId conversion fails, try as string
+      result = await db.collection('updates').deleteOne({ _id: id })
+    }
+    
     if (result.deletedCount === 0) {
-      return NextResponse.json({ message: 'Update not found' }, { status: 404 })
+      return NextResponse.json({ message: 'Update not found. ID: ' + id }, { status: 404 })
     }
 
     return NextResponse.json({ message: 'Update deleted successfully' })
