@@ -1,6 +1,24 @@
 {
   "updates": [
     {
+      "_id": "new1",
+      "title": "Education Program Expands to New Regions",
+      "description": "Selam NGO is proud to announce the expansion of our education program to three new counties. This initiative will provide learning materials and teacher training to over 50 schools.",
+      "mediaType": "image",
+      "mediaUrl": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80",
+      "createdAt": "2026-02-20T10:00:00Z",
+      "updatedAt": "2026-02-20T10:00:00Z"
+    },
+    {
+      "_id": "new2",
+      "title": "Women's Empowerment Workshop Success",
+      "description": "Over 200 women participated in our recent entrepreneurship workshop in Nairobi. The training covered business skills, financial literacy, and leadership development.",
+      "mediaType": "image",
+      "mediaUrl": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&q=80",
+      "createdAt": "2026-02-18T10:00:00Z",
+      "updatedAt": "2026-02-18T10:00:00Z"
+    },
+    {
       "_id": "1",
       "title": "Community Health Initiative Launches in Rural Areas",
       "description": "Selam NGO has launched a comprehensive health initiative bringing medical care to underserved rural communities. Our team of healthcare professionals is providing free checkups, medications, and health education to over 5,000 residents.",
