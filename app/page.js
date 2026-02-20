@@ -6,22 +6,12 @@ import Footer from '@/components/Footer'
 
 // Fetch updates with optimized caching strategy
 async function getUpdates() {
-  // Skip fetch during build time to prevent hanging
-  if (process.env.NODE_ENV === 'production' && process.env.__NEXT_PRIVATE_BUILD_ID) {
-    return []
-  }
-
   try {
     const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), 2000) // Timeout after 2 seconds
+    const timeoutId = setTimeout(() => controller.abort(), 2000)
     
-    const base = process.env.NEXT_PUBLIC_API_URL || ''
-    if (!base) {
-      clearTimeout(timeoutId)
-      return []
-    }
-
-    const res = await fetch(`${base}/api/updates`, {
+    // Use relative API path - works in both dev and production
+    const res = await fetch(`/api/updates`, {
       cache: 'no-store',
       signal: controller.signal,
     })
