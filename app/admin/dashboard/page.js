@@ -368,6 +368,39 @@ export default function AdminDashboard() {
     }
   }
 
+  const editUpdate = async (update) => {
+    const newTitle = prompt('Edit Title:', update.title)
+    if (newTitle === null) return
+    
+    const newDescription = prompt('Edit Description:', update.description)
+    if (newDescription === null) return
+
+    try {
+      const token = localStorage.getItem('adminToken')
+      const response = await fetch(`/api/updates/${update._id}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: newTitle,
+          description: newDescription,
+        }),
+      })
+
+      if (response.ok) {
+        setMessage({ type: 'success', text: 'Update edited successfully!' })
+        fetchUpdates()
+      } else {
+        const data = await response.json()
+        setMessage({ type: 'error', text: data.message || 'Edit failed' })
+      }
+    } catch (error) {
+      setMessage({ type: 'error', text: 'Failed to edit update' })
+    }
+  }
+
   // Application handling functions
   const updateApplicationStatus = async (applicationId, newStatus) => {
     try {
@@ -976,6 +1009,12 @@ export default function AdminDashboard() {
                             <div className="text-sm text-gray-500">{formatDate(update.createdAt)}</div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <button
+                              onClick={() => editUpdate(update)}
+                              className="text-blue-600 hover:text-blue-900 transition-colors mr-4"
+                            >
+                              Edit
+                            </button>
                             <button
                               onClick={() => deleteUpdate(update._id)}
                               className="text-red-600 hover:text-red-900 transition-colors"
