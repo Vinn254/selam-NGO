@@ -47,18 +47,18 @@ export default function AboutPage() {
             {/* Modern Animated Core Value Cards */}
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 stagger-container mb-12">
               {[
-                { title: 'Integrity & Accountability', desc: 'Acting with honesty and taking responsibility', color: 'modern-card-green-extra-light' },
-                { title: 'Inclusivity & Equality', desc: 'Treating everyone equally regardless of background', color: 'modern-card-green-bright' },
-                { title: 'Community Participation', desc: 'Encouraging everyone to take part', color: 'modern-card-green-vibrant' },
-                { title: 'Transparency', desc: 'Being open in all that we do', color: 'modern-card-green-light' },
-                { title: 'Sustainability', desc: 'Committed to sustainable practices', color: 'modern-card-green-teal' },
-                { title: 'Social Justice', desc: 'Standing up for what is right', color: 'modern-card-green-emerald' },
-                { title: 'Environmental Responsibility', desc: 'Protecting our environment', color: 'modern-card-green-mint' },
+                { title: 'Integrity & Accountability', desc: 'Acting with honesty and taking responsibility', color: 'modern-card-yellow-light' },
+                { title: 'Inclusivity & Equality', desc: 'Treating everyone equally regardless of background', color: 'modern-card-orange-light' },
+                { title: 'Community Participation', desc: 'Encouraging everyone to take part', color: 'modern-card-red-light' },
+                { title: 'Transparency', desc: 'Being open in all that we do', color: 'modern-card-amber-light' },
+                { title: 'Sustainability', desc: 'Committed to sustainable practices', color: 'modern-card-yellow-light' },
+                { title: 'Social Justice', desc: 'Standing up for what is right', color: 'modern-card-orange-light' },
+                { title: 'Environmental Responsibility', desc: 'Protecting our environment', color: 'modern-card-red-light' },
               ].map((value, index) => (
-                <div key={index} className={`modern-card ${value.color} text-white`}>
+                <div key={index} className={`modern-card ${value.color} text-gray-900`}>
                   <div className="modern-card-content">
                     <h3 className="text-lg font-bold mb-2">{value.title}</h3>
-                    <p className="text-white/90 text-sm">{value.desc}</p>
+                    <p className="text-gray-800 text-sm">{value.desc}</p>
                   </div>
                 </div>
               ))}
@@ -79,17 +79,17 @@ export default function AboutPage() {
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 stagger-container">
               {[
-                { number: '10,000+', label: 'Lives Transformed', color: 'modern-card-green-extra-light' },
-                { number: '8', label: 'Regions Served', color: 'modern-card-green-bright' },
-                { number: '25+', label: 'Active Projects', color: 'modern-card-green-vibrant' },
-                { number: '50+', label: 'Community Partners', color: 'modern-card-green-light' },
+                { number: '10,000+', label: 'Lives Transformed', color: 'modern-card-yellow-light' },
+                { number: '8', label: 'Regions Served', color: 'modern-card-orange-light' },
+                { number: '25+', label: 'Active Projects', color: 'modern-card-red-light' },
+                { number: '50+', label: 'Community Partners', color: 'modern-card-amber-light' },
               ].map((stat, index) => (
-                <div key={index} className={`modern-card ${stat.color} text-white text-center`}>
+                <div key={index} className={`modern-card ${stat.color} text-gray-900 text-center`}>
                   <div className="modern-card-content">
                     <div className="text-4xl sm:text-5xl font-display font-bold mb-2">
                       {stat.number}
                     </div>
-                    <div className="text-lg text-white/90">{stat.label}</div>
+                    <div className="text-lg text-gray-800">{stat.label}</div>
                   </div>
                 </div>
               ))}
