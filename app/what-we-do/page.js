@@ -28,7 +28,7 @@ const programs = [
     ],
     image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=600&fit=crop',
     impact: '15,000+ students supported annually',
-    color: 'modern-card-green',
+    color: 'modern-card-green-light',
   },
   {
     id: 2,
@@ -44,7 +44,7 @@ const programs = [
     ],
     image: 'https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=800&h=600&fit=crop',
     impact: '25,000+ patients treated annually',
-    color: 'modern-card-green',
+    color: 'modern-card-green-teal',
   },
   {
     id: 3,
@@ -60,7 +60,7 @@ const programs = [
     ],
     image: 'https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=800&h=600&fit=crop',
     impact: '10,000+ individuals economically empowered',
-    color: 'modern-card-green',
+    color: 'modern-card-green-emerald',
   },
   {
     id: 4,
@@ -76,7 +76,7 @@ const programs = [
     ],
     image: 'https://images.unsplash.com/photo-1541844053589-346841d0b34c?w=800&h=600&fit=crop',
     impact: '30+ communities with clean water access',
-    color: 'modern-card-green',
+    color: 'modern-card-green-mint',
   },
 ]
 
@@ -165,10 +165,10 @@ export default function WhatWeDoPage() {
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 stagger-container">
               {[
-                { title: 'Community-Led', description: 'Local voices guide our programs', color: 'modern-card-green' },
-                { title: 'Sustainable', description: 'Building long-term solutions', color: 'modern-card-green' },
-                { title: 'Inclusive', description: 'Reaching the most vulnerable', color: 'modern-card-green' },
-                { title: 'Data-Driven', description: 'Measuring impact and learning', color: 'modern-card-green' },
+                { title: 'Community-Led', description: 'Local voices guide our programs', color: 'modern-card-green-light' },
+                { title: 'Sustainable', description: 'Building long-term solutions', color: 'modern-card-green-teal' },
+                { title: 'Inclusive', description: 'Reaching the most vulnerable', color: 'modern-card-green-emerald' },
+                { title: 'Data-Driven', description: 'Measuring impact and learning', color: 'modern-card-green-mint' },
               ].map((approach, index) => (
                 <div key={index} className={`modern-card ${approach.color} text-white p-6 text-center`}>
                   <div className="modern-card-content">

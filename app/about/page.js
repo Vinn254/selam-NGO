@@ -19,7 +19,7 @@ export default function AboutPage() {
       <Navigation />
       <main className="min-h-screen page-background">
         {/* Hero Section */}
-        <section className="relative pt-32 pb-20 bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-600">
+        <section className="relative pt-32 pb-20 bg-[#059669]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center">
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-white mb-6">
@@ -47,13 +47,13 @@ export default function AboutPage() {
             {/* Modern Animated Core Value Cards */}
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 stagger-container mb-12">
               {[
-                { title: 'Integrity & Accountability', desc: 'Acting with honesty and taking responsibility', color: 'modern-card-green' },
-                { title: 'Inclusivity & Equality', desc: 'Treating everyone equally regardless of background', color: 'modern-card-yellow' },
-                { title: 'Community Participation', desc: 'Encouraging everyone to take part', color: 'modern-card-orange' },
-                { title: 'Transparency', desc: 'Being open in all that we do', color: 'modern-card-purple' },
-                { title: 'Sustainability', desc: 'Committed to sustainable practices', color: 'modern-card-pink' },
-                { title: 'Social Justice', desc: 'Standing up for what is right', color: 'modern-card-blue' },
-                { title: 'Environmental Responsibility', desc: 'Protecting our environment', color: 'modern-card-cyan' },
+                { title: 'Integrity & Accountability', desc: 'Acting with honesty and taking responsibility', color: 'modern-card-green-light' },
+                { title: 'Inclusivity & Equality', desc: 'Treating everyone equally regardless of background', color: 'modern-card-green-teal' },
+                { title: 'Community Participation', desc: 'Encouraging everyone to take part', color: 'modern-card-green-emerald' },
+                { title: 'Transparency', desc: 'Being open in all that we do', color: 'modern-card-green-mint' },
+                { title: 'Sustainability', desc: 'Committed to sustainable practices', color: 'modern-card-green-light' },
+                { title: 'Social Justice', desc: 'Standing up for what is right', color: 'modern-card-green-teal' },
+                { title: 'Environmental Responsibility', desc: 'Protecting our environment', color: 'modern-card-green-emerald' },
               ].map((value, index) => (
                 <div key={index} className={`modern-card ${value.color} text-white`}>
                   <div className="modern-card-content">
@@ -67,7 +67,7 @@ export default function AboutPage() {
         </section>
 
         {/* Impact Stats */}
-        <section className="relative py-20 bg-gradient-to-br from-[#0d9488] via-[#14b8a6] to-[#0f766e]">
+        <section className="relative py-20 bg-[#059669]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-display font-bold text-white mb-4">
@@ -79,10 +79,10 @@ export default function AboutPage() {
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 stagger-container">
               {[
-                { number: '10,000+', label: 'Lives Transformed', color: 'modern-card-green' },
-                { number: '8', label: 'Regions Served', color: 'modern-card-yellow' },
-                { number: '25+', label: 'Active Projects', color: 'modern-card-orange' },
-                { number: '50+', label: 'Community Partners', color: 'modern-card-purple' },
+                { number: '10,000+', label: 'Lives Transformed', color: 'modern-card-green-light' },
+                { number: '8', label: 'Regions Served', color: 'modern-card-green-teal' },
+                { number: '25+', label: 'Active Projects', color: 'modern-card-green-emerald' },
+                { number: '50+', label: 'Community Partners', color: 'modern-card-green-mint' },
               ].map((stat, index) => (
                 <div key={index} className={`modern-card ${stat.color} text-white text-center`}>
                   <div className="modern-card-content">

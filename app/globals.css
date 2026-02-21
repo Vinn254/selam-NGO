@@ -311,6 +311,23 @@
     background: linear-gradient(135deg, #06b6d4 0%, #0891b2 50%, #0e7490 100%);
   }
 
+  /* Light Green Blended Variants for What We Do */
+  .modern-card-green-light {
+    background: linear-gradient(135deg, #34d399 0%, #6ee7b7 50%, #a7f3d0 100%);
+  }
+
+  .modern-card-green-teal {
+    background: linear-gradient(135deg, #059669 0%, #0d9488 50%, #14b8a6 100%);
+  }
+
+  .modern-card-green-emerald {
+    background: linear-gradient(135deg, #047857 0%, #059669 50%, #10b981 100%);
+  }
+
+  .modern-card-green-mint {
+    background: linear-gradient(135deg, #65a30d 0%, #84cc16 50%, #a3e635 100%);
+  }
+
   /* Yellow-Green Briefing Card for Body Sections */
   .modern-card-briefing {
     background: #059669;
