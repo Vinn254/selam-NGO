@@ -28,7 +28,6 @@ const programs = [
     ],
     image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=600&fit=crop',
     impact: '15,000+ students supported annually',
-    icon: '📚',
     color: 'modern-card-green',
   },
   {
@@ -45,8 +44,7 @@ const programs = [
     ],
     image: 'https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=800&h=600&fit=crop',
     impact: '25,000+ patients treated annually',
-    icon: '🏥',
-    color: 'modern-card-blue',
+    color: 'modern-card-green',
   },
   {
     id: 3,
@@ -62,8 +60,7 @@ const programs = [
     ],
     image: 'https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=800&h=600&fit=crop',
     impact: '10,000+ individuals economically empowered',
-    icon: '🤝',
-    color: 'modern-card-orange',
+    color: 'modern-card-green',
   },
   {
     id: 4,
@@ -79,8 +76,7 @@ const programs = [
     ],
     image: 'https://images.unsplash.com/photo-1541844053589-346841d0b34c?w=800&h=600&fit=crop',
     impact: '30+ communities with clean water access',
-    icon: '💧',
-    color: 'modern-card-cyan',
+    color: 'modern-card-green',
   },
 ]
 
@@ -92,7 +88,7 @@ export default function WhatWeDoPage() {
       <Navigation />
       <main className="min-h-screen page-background">
         {/* Hero Section */}
-        <section className="relative pt-32 pb-20 bg-gradient-to-br from-[#059669] via-[#0d9488] to-[#14b8a6]">
+        <section className="relative pt-32 pb-20 bg-[#059669]">
           <div className="absolute inset-0 opacity-50" style={{ backgroundImage: `url("${patternSvg}")` }}></div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center">
@@ -116,9 +112,6 @@ export default function WhatWeDoPage() {
                 <div className={index % 2 === 1 ? 'md:order-2' : ''}>
                   <div className={`modern-card ${program.color} text-white p-8 mb-6`}>
                     <div className="modern-card-content">
-                      <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm mb-6 text-3xl">
-                        {program.icon}
-                      </div>
                       <h2 className="text-3xl sm:text-4xl font-display font-bold mb-4">
                         {program.title}
                       </h2>
@@ -132,20 +125,12 @@ export default function WhatWeDoPage() {
                         </h3>
                         <ul className="space-y-3">
                           {program.initiatives.map((initiative, idx) => (
-                            <li key={idx} className="flex items-start">
-                              <svg className="w-6 h-6 text-white mr-3 flex-shrink-0 mt-0.5" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-                                <path d="M5 13l4 4L19 7"></path>
-                              </svg>
-                              <span className="text-white/90">{initiative}</span>
-                            </li>
+                            <li key={idx} className="text-white/90">{initiative}</li>
                           ))}
                         </ul>
                       </div>
 
                       <div className={`inline-flex items-center px-4 py-2 rounded-lg bg-white/20 backdrop-blur-sm text-white font-semibold`}>
-                        <svg className="w-5 h-5 mr-2" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-                          <path d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                        </svg>
                         {program.impact}
                       </div>
                     </div>
@@ -167,7 +152,7 @@ export default function WhatWeDoPage() {
         ))}
 
         {/* Approach Section */}
-        <section className="py-20 bg-gradient-to-br from-[#0d9488] via-[#14b8a6] to-[#0f766e]">
+        <section className="py-20 bg-[#059669]">
           <div className="absolute inset-0 opacity-50" style={{ backgroundImage: `url("${patternSvg}")` }}></div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center mb-16">
@@ -181,9 +166,9 @@ export default function WhatWeDoPage() {
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 stagger-container">
               {[
                 { title: 'Community-Led', description: 'Local voices guide our programs', color: 'modern-card-green' },
-                { title: 'Sustainable', description: 'Building long-term solutions', color: 'modern-card-yellow' },
-                { title: 'Inclusive', description: 'Reaching the most vulnerable', color: 'modern-card-orange' },
-                { title: 'Data-Driven', description: 'Measuring impact and learning', color: 'modern-card-purple' },
+                { title: 'Sustainable', description: 'Building long-term solutions', color: 'modern-card-green' },
+                { title: 'Inclusive', description: 'Reaching the most vulnerable', color: 'modern-card-green' },
+                { title: 'Data-Driven', description: 'Measuring impact and learning', color: 'modern-card-green' },
               ].map((approach, index) => (
                 <div key={index} className={`modern-card ${approach.color} text-white p-6 text-center`}>
                   <div className="modern-card-content">
@@ -201,7 +186,7 @@ export default function WhatWeDoPage() {
         {/* Call to Action */}
         <section className="py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="modern-card modern-card-purple text-white p-8 md:p-12">
+            <div className="modern-card modern-card-green text-white p-8 md:p-12">
               <div className="modern-card-content">
                 <h2 className="text-3xl sm:text-4xl font-display font-bold mb-6">
                   Join Our Mission
@@ -213,7 +198,7 @@ export default function WhatWeDoPage() {
                   <a href="/join-us" className="modern-card modern-card-green text-white px-8 py-4 inline-block">
                     <span className="modern-card-content text-center font-semibold">Get Involved</span>
                   </a>
-                  <a href="/partners" className="modern-card modern-card-blue text-white px-8 py-4 inline-block">
+                  <a href="/partners" className="modern-card modern-card-green text-white px-8 py-4 inline-block">
                     <span className="modern-card-content text-center font-semibold">Become a Partner</span>
                   </a>
                 </div>

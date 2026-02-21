@@ -44,21 +44,21 @@ const partnershipBenefits = [
   {
     title: 'Measurable Impact',
     description: 'Receive detailed reports and data on the outcomes of your partnership',
-    color: 'modern-card-yellow',
+    color: 'modern-card-green',
   },
   {
     title: 'Community Connection',
     description: 'Direct engagement with communities and beneficiaries',
-    color: 'modern-card-orange',
+    color: 'modern-card-green',
   },
   {
     title: 'Brand Visibility',
     description: 'Recognition across our platforms and community events',
-    color: 'modern-card-purple',
+    color: 'modern-card-green',
   },
 ]
 
-const cardColors = ['modern-card-green', 'modern-card-yellow', 'modern-card-orange', 'modern-card-purple', 'modern-card-pink', 'modern-card-blue', 'modern-card-cyan']
+const cardColors = ['modern-card-green', 'modern-card-green', 'modern-card-green', 'modern-card-green', 'modern-card-green', 'modern-card-green', 'modern-card-green']
 
 const patternSvg = "data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"
 
@@ -68,7 +68,7 @@ export default function PartnersPage() {
       <Navigation />
       <main className="min-h-screen page-background">
         {/* Hero Section */}
-        <section className="relative pt-32 pb-20 bg-gradient-to-br from-[#059669] via-[#0d9488] to-[#14b8a6]">
+        <section className="relative pt-32 pb-20 bg-[#059669]">
           <div className="absolute inset-0 opacity-50" style={{ backgroundImage: `url("${patternSvg}")` }}></div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center">
@@ -117,11 +117,6 @@ export default function PartnersPage() {
                     className={`modern-card ${cardColors[(index * 4 + idx) % cardColors.length]} text-white p-6`}
                   >
                     <div className="modern-card-content">
-                      <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mb-4 backdrop-blur-sm">
-                        <svg className="w-6 h-6 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-                          <path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                        </svg>
-                      </div>
                       <h3 className="text-lg font-display font-bold mb-2">
                         {partner.name}
                       </h3>
@@ -135,7 +130,7 @@ export default function PartnersPage() {
         ))}
 
         {/* Partnership Benefits */}
-        <section className="py-20 bg-gradient-to-br from-[#059669] via-[#0d9488] to-[#14b8a6]">
+        <section className="py-20 bg-[#059669]">
           <div className="absolute inset-0 opacity-50" style={{ backgroundImage: `url("${patternSvg}")` }}></div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center mb-16">
@@ -177,27 +172,21 @@ export default function PartnersPage() {
                 {
                   title: 'Financial Support',
                   description: 'Provide funding for specific programs or general operations',
-                  icon: '💰',
                   color: 'modern-card-green',
                 },
                 {
                   title: 'In-Kind Donations',
                   description: 'Contribute equipment, supplies, or professional services',
-                  icon: '🎁',
-                  color: 'modern-card-yellow',
+                  color: 'modern-card-green',
                 },
                 {
                   title: 'Technical Expertise',
                   description: 'Share knowledge and skills to strengthen our programs',
-                  icon: '🔧',
-                  color: 'modern-card-orange',
+                  color: 'modern-card-green',
                 },
               ].map((type, index) => (
                 <div key={index} className={`modern-card ${type.color} text-white p-8 text-center`}>
                   <div className="modern-card-content">
-                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm mb-4 text-4xl">
-                      {type.icon}
-                    </div>
                     <h3 className="text-xl font-display font-bold mb-3">
                       {type.title}
                     </h3>
@@ -212,7 +201,7 @@ export default function PartnersPage() {
         {/* Call to Action */}
         <section className="py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="modern-card modern-card-purple text-white p-8 md:p-12">
+            <div className="modern-card modern-card-green text-white p-8 md:p-12">
               <div className="modern-card-content">
                 <h2 className="text-3xl sm:text-4xl font-display font-bold mb-6">
                   Become a Partner
@@ -228,7 +217,7 @@ export default function PartnersPage() {
                     href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/[^0-9]/g, '')}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="modern-card modern-card-blue text-white px-8 py-4 inline-block"
+                    className="modern-card modern-card-green text-white px-8 py-4 inline-block"
                   >
                     <span className="modern-card-content text-center font-semibold">Contact Us</span>
                   </a>

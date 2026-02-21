@@ -76,13 +76,11 @@
     }
   }
   
-  /* Non-home page background - yellow-green blend with texture */
+  /* Non-home page background - solid green */
   body.page-background {
-    background: linear-gradient(135deg, #e8f5e9 0%, #f0f7e6 25%, #fff8e1 50%, #e8f5e9 75%, #f1f8e9 100%);
+    background: #e8f5e9;
     background-attachment: fixed;
     min-height: 100vh;
-    animation: subtleShift 15s ease-in-out infinite;
-    position: relative;
   }
 
   /* Subtle background shift animation */
@@ -286,7 +284,7 @@
 
   /* Card Color Variants */
   .modern-card-green {
-    background: linear-gradient(135deg, #10b981 0%, #14b8a6 50%, #0d9488 100%);
+    background: #059669;
   }
 
   .modern-card-yellow {
@@ -315,7 +313,7 @@
 
   /* Yellow-Green Briefing Card for Body Sections */
   .modern-card-briefing {
-    background: linear-gradient(135deg, #0d9488 0%, #14b8a6 25%, #0f766e 50%, #059669 75%, #10b981 100%);
+    background: #059669;
     position: relative;
     overflow: hidden;
   }
