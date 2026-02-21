@@ -39,26 +39,26 @@ const partnershipBenefits = [
   {
     title: 'Strategic Collaboration',
     description: 'Work together on impactful projects that align with your mission and values',
-    color: 'modern-card-cool-cyan',
+    color: 'modern-card-green-light',
   },
   {
     title: 'Measurable Impact',
     description: 'Receive detailed reports and data on the outcomes of your partnership',
-    color: 'modern-card-cool-blue',
+    color: 'modern-card-green-teal',
   },
   {
     title: 'Community Connection',
     description: 'Direct engagement with communities and beneficiaries',
-    color: 'modern-card-cool-indigo',
+    color: 'modern-card-green-emerald',
   },
   {
     title: 'Brand Visibility',
     description: 'Recognition across our platforms and community events',
-    color: 'modern-card-cool-purple',
+    color: 'modern-card-green-mint',
   },
 ]
 
-const cardColors = ['modern-card-cool-cyan', 'modern-card-cool-blue', 'modern-card-cool-indigo', 'modern-card-cool-purple', 'modern-card-cool-pink', 'modern-card-cool-teal', 'modern-card-cool-cyan']
+const cardColors = ['modern-card-green-light', 'modern-card-green-teal', 'modern-card-green-emerald', 'modern-card-green-mint', 'modern-card-green-light', 'modern-card-green-teal', 'modern-card-green-emerald']
 
 const patternSvg = "data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"
 
@@ -172,17 +172,17 @@ export default function PartnersPage() {
                 {
                   title: 'Financial Support',
                   description: 'Provide funding for specific programs or general operations',
-                  color: 'modern-card-cool-cyan',
+                  color: 'modern-card-green-light',
                 },
                 {
                   title: 'In-Kind Donations',
                   description: 'Contribute equipment, supplies, or professional services',
-                  color: 'modern-card-cool-blue',
+                  color: 'modern-card-green-teal',
                 },
                 {
                   title: 'Technical Expertise',
                   description: 'Share knowledge and skills to strengthen our programs',
-                  color: 'modern-card-cool-indigo',
+                  color: 'modern-card-green-emerald',
                 },
               ].map((type, index) => (
                 <div key={index} className={`modern-card ${type.color} text-white p-8 text-center`}>
