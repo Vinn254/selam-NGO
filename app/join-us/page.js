@@ -3,17 +3,7 @@
 import { useState } from 'react'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
-
-export const metadata = {
-  title: 'Join Us | Selam CBO Kenya - Volunteer & Partner Opportunities in Kisumu',
-  description: 'Join Selam CBO Kenya and make a difference in vulnerable communities. Explore volunteer opportunities, partnership programs, and ways to support youth, women, and children empowerment initiatives in Kisumu.',
-  keywords: ['volunteer Kenya', 'join Selam CBO', 'partner with CBO', 'youth empowerment volunteer', 'women empowerment opportunities', 'community development volunteer', 'Kisumu volunteer', 'corporate partnership Kenya'],
-  openGraph: {
-    title: 'Join Selam CBO Kenya | Volunteer & Partnership Opportunities',
-    description: 'Partner with Selam CBO Kenya to empower vulnerable communities through education, vocational training, and sustainable development programs.',
-    images: ['/og-join.jpg'],
-  },
-}
+import WhatsAppButton from '@/components/WhatsAppButton'
 
 const waysToHelp = [
   {
@@ -222,7 +212,7 @@ export default function JoinUsPage() {
                 Ways to Get Involved
               </h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Choose how you&apos;d like to support our mission
+                Choose how you'd like to support our mission
               </p>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger-container">
@@ -365,7 +355,7 @@ export default function JoinUsPage() {
                         value={volunteerData.phone}
                         onChange={handleVolunteerChange}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                        placeholder="+251 911 123 456"
+                        placeholder="+254 711 123 456"
                       />
                     </div>
                     <div>
@@ -501,7 +491,7 @@ export default function JoinUsPage() {
                         value={partnerData.phone}
                         onChange={handlePartnerChange}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                        placeholder="+251 911 123 456"
+                        placeholder="+254 711 123 456"
                       />
                     </div>
                     <div>
@@ -516,31 +506,33 @@ export default function JoinUsPage() {
                         onChange={handlePartnerChange}
                         required
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                        placeholder="Your Company Name"
+                        placeholder="Company Name"
                       />
                     </div>
                   </div>
-                  <div>
-                    <label htmlFor="part-type" className="block text-sm font-semibold text-gray-700 mb-2">
-                      Partnership Type *
-                    </label>
-                    <select
-                      id="part-type"
-                      name="partnershipType"
-                      value={partnerData.partnershipType}
-                      onChange={handlePartnerChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                    >
-                      <option value="corporate">Corporate Partnership</option>
-                      <option value="foundation">Foundation/Grant</option>
-                      <option value="institutional">Institutional Partnership</option>
-                      <option value="media">Media Partnership</option>
-                      <option value="other">Other</option>
-                    </select>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <label htmlFor="part-type" className="block text-sm font-semibold text-gray-700 mb-2">
+                        Partnership Type
+                      </label>
+                      <select
+                        id="part-type"
+                        name="partnershipType"
+                        value={partnerData.partnershipType}
+                        onChange={handlePartnerChange}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                      >
+                        <option value="corporate">Corporate Partnership</option>
+                        <option value="foundation">Foundation/Grant</option>
+                        <option value="government">Government Agency</option>
+                        <option value="educational">Educational Institution</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </div>
                   </div>
                   <div>
                     <label htmlFor="part-message" className="block text-sm font-semibold text-gray-700 mb-2">
-                      Tell us about your partnership goals
+                      How would you like to collaborate?
                     </label>
                     <textarea
                       id="part-message"
@@ -549,7 +541,7 @@ export default function JoinUsPage() {
                       onChange={handlePartnerChange}
                       rows={4}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                      placeholder="Describe your organization and how you'd like to collaborate..."
+                      placeholder="Tell us about your organization and how you'd like to partner..."
                     />
                   </div>
                   <button
@@ -557,7 +549,7 @@ export default function JoinUsPage() {
                     disabled={isSubmitting}
                     className="w-full px-6 py-3 bg-teal-600 text-white font-semibold rounded-lg hover:bg-teal-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {isSubmitting ? 'Submitting...' : 'Submit Partnership Inquiry'}
+                    {isSubmitting ? 'Submitting...' : 'Submit Partnership Request'}
                   </button>
                 </form>
               </div>
@@ -571,7 +563,7 @@ export default function JoinUsPage() {
                     Share Your Story
                   </h2>
                   <p className="text-gray-600">
-                    Have you been impacted by our work or witnessed our impact? We'd love to hear from you.
+                    Have you been impacted by our work? We'd love to hear your story.
                   </p>
                 </div>
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -609,7 +601,7 @@ export default function JoinUsPage() {
                   </div>
                   <div>
                     <label htmlFor="story-type" className="block text-sm font-semibold text-gray-700 mb-2">
-                      Story Type *
+                      Story Type
                     </label>
                     <select
                       id="story-type"
@@ -618,11 +610,9 @@ export default function JoinUsPage() {
                       onChange={handleStoryChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     >
-                      <option value="testimonial">Personal Testimonial</option>
-                      <option value="impact">Impact Story</option>
-                      <option value="volunteer">Volunteer Experience</option>
-                      <option value="partner">Partner Collaboration</option>
-                      <option value="community">Community Story</option>
+                      <option value="testimonial">Testimonial</option>
+                      <option value="experience">My Experience</option>
+                      <option value="suggestion">Suggestion</option>
                       <option value="other">Other</option>
                     </select>
                   </div>
@@ -638,7 +628,7 @@ export default function JoinUsPage() {
                       required
                       rows={6}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="Share your experience with Selam NGO..."
+                      placeholder="Share your story with us..."
                     />
                   </div>
                   <div className="flex items-start">
@@ -649,10 +639,10 @@ export default function JoinUsPage() {
                       checked={storyData.consent}
                       onChange={handleStoryChange}
                       required
-                      className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-1"
+                      className="mt-1 mr-3"
                     />
-                    <label htmlFor="story-consent" className="ml-3 text-sm text-gray-600">
-                      I consent to my story being shared on Selam's website and social media channels. I understand that my name may be used alongside my story unless I request otherwise.
+                    <label htmlFor="story-consent" className="text-sm text-gray-600">
+                      I consent to my story being used for promotional purposes on Selam CBO Kenya's platforms.
                     </label>
                   </div>
                   <button
@@ -668,64 +658,20 @@ export default function JoinUsPage() {
 
             {/* Success/Error Messages */}
             {submitStatus === 'success' && (
-              <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-                <div className="flex items-center">
-                  <svg className="w-6 h-6 text-green-600 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <div>
-                    <p className="font-semibold text-green-800">Thank you for your application!</p>
-                    <p className="text-green-700 text-sm">We'll review your submission and get back to you soon.</p>
-                  </div>
-                </div>
+              <div className="mt-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+                Thank you! Your application has been submitted successfully. We'll be in touch soon.
               </div>
             )}
             {submitStatus === 'error' && (
-              <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-                <div className="flex items-center">
-                  <svg className="w-6 h-6 text-red-600 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                  <div>
-                    <p className="font-semibold text-red-800">Something went wrong</p>
-                    <p className="text-red-700 text-sm">Please try again or contact us directly.</p>
-                  </div>
-                </div>
+              <div className="mt-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                Sorry, there was an error submitting your application. Please try again.
               </div>
             )}
-          </div>
-        </section>
-
-        {/* Impact Stats */}
-        <section className="py-20 bg-gradient-to-br from-[#0d9488] via-[#14b8a6] to-[#0f766e]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-display font-bold text-white mb-4">
-                Your Impact
-              </h2>
-              <p className="text-lg text-white/90">
-                See what your support can achieve
-              </p>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {[
-                { number: '10,000+', label: 'Lives Transformed' },
-                { number: '8', label: 'Regions Served' },
-                { number: '25+', label: 'Active Projects' },
-                { number: '50+', label: 'Community Partners' },
-              ].map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="text-4xl sm:text-5xl font-display font-bold text-white mb-2">
-                    {stat.number}
-                  </div>
-                  <div className="text-lg text-white/80">{stat.label}</div>
-                </div>
-              ))}
-            </div>
           </div>
         </section>
       </main>
       <Footer />
+      <WhatsAppButton />
     </>
   )
 }

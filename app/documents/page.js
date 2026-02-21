@@ -5,17 +5,6 @@ import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
 
-export const metadata = {
-  title: 'Documents & Reports | Selam CBO Kenya - Transparency & Accountability',
-  description: 'Access Selam CBO Kenya\'s annual reports, financial statements, newsletters, and policy documents. We are committed to transparency and accountability in community development.',
-  keywords: ['Selam CBO documents', 'annual reports Kenya CBO', 'financial statements NGO', 'transparency reports Kenya', 'policy documents CBO', 'community development reports', 'accountability Kenya non-profit', 'documents download Kenya'],
-  openGraph: {
-    title: 'Documents & Reports | Selam CBO Kenya - Transparency in Community Development',
-    description: 'View Selam CBO Kenya\'s annual reports, financial statements, and policy documents demonstrating our commitment to transparency and accountability.',
-    images: ['/og-documents.jpg'],
-  },
-}
-
 export default function DocumentsPage() {
   const [documents, setDocuments] = useState([])
   const [loading, setLoading] = useState(true)
