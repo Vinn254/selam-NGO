@@ -205,12 +205,12 @@
   }
 
   .brand-theme .mobile-menu-panel {
-    background: linear-gradient(135deg, var(--brand-green) 0%, var(--brand-yellow) 50%, var(--brand-red) 100%);
+    background: linear-gradient(135deg, #34d399 0%, #10b981 50%, #059669 100%);
   }
 
   /* Default Mobile Menu Panel */
   .mobile-menu-panel {
-    background: #059669;
+    background: linear-gradient(135deg, #34d399 0%, #10b981 50%, #059669 100%);
   }
 
   .brand-theme .nav-link {
