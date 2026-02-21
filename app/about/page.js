@@ -47,13 +47,13 @@ export default function AboutPage() {
             {/* Modern Animated Core Value Cards */}
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 stagger-container mb-12">
               {[
-                { title: 'Integrity & Accountability', desc: 'Acting with honesty and taking responsibility', color: 'modern-card-green-light' },
-                { title: 'Inclusivity & Equality', desc: 'Treating everyone equally regardless of background', color: 'modern-card-green-teal' },
-                { title: 'Community Participation', desc: 'Encouraging everyone to take part', color: 'modern-card-green-emerald' },
-                { title: 'Transparency', desc: 'Being open in all that we do', color: 'modern-card-green-mint' },
-                { title: 'Sustainability', desc: 'Committed to sustainable practices', color: 'modern-card-green-light' },
-                { title: 'Social Justice', desc: 'Standing up for what is right', color: 'modern-card-green-teal' },
-                { title: 'Environmental Responsibility', desc: 'Protecting our environment', color: 'modern-card-green-emerald' },
+                { title: 'Integrity & Accountability', desc: 'Acting with honesty and taking responsibility', color: 'modern-card-green-extra-light' },
+                { title: 'Inclusivity & Equality', desc: 'Treating everyone equally regardless of background', color: 'modern-card-green-bright' },
+                { title: 'Community Participation', desc: 'Encouraging everyone to take part', color: 'modern-card-green-vibrant' },
+                { title: 'Transparency', desc: 'Being open in all that we do', color: 'modern-card-green-light' },
+                { title: 'Sustainability', desc: 'Committed to sustainable practices', color: 'modern-card-green-teal' },
+                { title: 'Social Justice', desc: 'Standing up for what is right', color: 'modern-card-green-emerald' },
+                { title: 'Environmental Responsibility', desc: 'Protecting our environment', color: 'modern-card-green-mint' },
               ].map((value, index) => (
                 <div key={index} className={`modern-card ${value.color} text-white`}>
                   <div className="modern-card-content">
@@ -79,10 +79,10 @@ export default function AboutPage() {
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 stagger-container">
               {[
-                { number: '10,000+', label: 'Lives Transformed', color: 'modern-card-green-light' },
-                { number: '8', label: 'Regions Served', color: 'modern-card-green-teal' },
-                { number: '25+', label: 'Active Projects', color: 'modern-card-green-emerald' },
-                { number: '50+', label: 'Community Partners', color: 'modern-card-green-mint' },
+                { number: '10,000+', label: 'Lives Transformed', color: 'modern-card-green-extra-light' },
+                { number: '8', label: 'Regions Served', color: 'modern-card-green-bright' },
+                { number: '25+', label: 'Active Projects', color: 'modern-card-green-vibrant' },
+                { number: '50+', label: 'Community Partners', color: 'modern-card-green-light' },
               ].map((stat, index) => (
                 <div key={index} className={`modern-card ${stat.color} text-white text-center`}>
                   <div className="modern-card-content">
@@ -100,19 +100,23 @@ export default function AboutPage() {
         {/* Call to Action */}
         <section className="py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-gray-900 mb-6">
-              Join Us in Making a Difference
-            </h2>
-            <p className="text-lg text-gray-600 mb-8">
-              Together, we can create lasting change and empower communities across Kenya
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/join-us" className="modern-card modern-card-green text-white px-8 py-4 inline-block">
-                <span className="modern-card-content text-center font-semibold">Get Involved</span>
-              </a>
-              <a href="/what-we-do" className="modern-card modern-card-blue text-white px-8 py-4 inline-block">
-                <span className="modern-card-content text-center font-semibold">Our Programs</span>
-              </a>
+            <div className="modern-card modern-card-green-extra-light text-gray-900 p-8 md:p-12">
+              <div className="modern-card-content">
+                <h2 className="text-3xl sm:text-4xl font-display font-bold mb-6">
+                  Join Us in Making a Difference
+                </h2>
+                <p className="text-lg text-gray-900/90 mb-8">
+                  Together, we can create lasting change and empower communities across Kenya
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <a href="/join-us" className="modern-card modern-card-green-bright text-white px-8 py-4 inline-block">
+                    <span className="modern-card-content text-center font-semibold">Get Involved</span>
+                  </a>
+                  <a href="/what-we-do" className="modern-card modern-card-green-vibrant text-white px-8 py-4 inline-block">
+                    <span className="modern-card-content text-center font-semibold">Our Programs</span>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </section>

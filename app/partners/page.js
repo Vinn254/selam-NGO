@@ -39,26 +39,26 @@ const partnershipBenefits = [
   {
     title: 'Strategic Collaboration',
     description: 'Work together on impactful projects that align with your mission and values',
-    color: 'modern-card-green-light',
+    color: 'modern-card-green-extra-light',
   },
   {
     title: 'Measurable Impact',
     description: 'Receive detailed reports and data on the outcomes of your partnership',
-    color: 'modern-card-green-teal',
+    color: 'modern-card-green-bright',
   },
   {
     title: 'Community Connection',
     description: 'Direct engagement with communities and beneficiaries',
-    color: 'modern-card-green-emerald',
+    color: 'modern-card-green-vibrant',
   },
   {
     title: 'Brand Visibility',
     description: 'Recognition across our platforms and community events',
-    color: 'modern-card-green-mint',
+    color: 'modern-card-green-light',
   },
 ]
 
-const cardColors = ['modern-card-green-light', 'modern-card-green-teal', 'modern-card-green-emerald', 'modern-card-green-mint', 'modern-card-green-light', 'modern-card-green-teal', 'modern-card-green-emerald']
+const cardColors = ['modern-card-green-extra-light', 'modern-card-green-bright', 'modern-card-green-vibrant', 'modern-card-green-light', 'modern-card-green-teal', 'modern-card-green-emerald', 'modern-card-green-mint']
 
 const patternSvg = "data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"
 
@@ -201,28 +201,24 @@ export default function PartnersPage() {
         {/* Call to Action */}
         <section className="py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="modern-card modern-card-green text-white p-8 md:p-12">
-              <div className="modern-card-content">
-                <h2 className="text-3xl sm:text-4xl font-display font-bold mb-6">
-                  Become a Partner
-                </h2>
-                <p className="text-lg text-white/90 mb-8">
-                  Let's work together to create sustainable change and empower communities
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <a href="/join-us" className="modern-card modern-card-green text-white px-8 py-4 inline-block">
-                    <span className="modern-card-content text-center font-semibold">Partner With Us</span>
-                  </a>
-                  <a
-                    href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/[^0-9]/g, '')}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="modern-card modern-card-green text-white px-8 py-4 inline-block"
-                  >
-                    <span className="modern-card-content text-center font-semibold">Contact Us</span>
-                  </a>
-                </div>
-              </div>
+            <h2 className="text-3xl sm:text-4xl font-display font-bold text-gray-900 mb-6">
+              Become a Partner
+            </h2>
+            <p className="text-lg text-gray-600 mb-8">
+              Let's work together to create sustainable change and empower communities
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="/join-us" className="modern-card modern-card-green-bright text-white px-8 py-4 inline-block">
+                <span className="modern-card-content text-center font-semibold">Partner With Us</span>
+              </a>
+              <a
+                href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/[^0-9]/g, '')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="modern-card modern-card-blue text-white px-8 py-4 inline-block"
+              >
+                <span className="modern-card-content text-center font-semibold">Contact Us</span>
+              </a>
             </div>
           </div>
         </section>

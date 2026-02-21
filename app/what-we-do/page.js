@@ -165,10 +165,10 @@ export default function WhatWeDoPage() {
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 stagger-container">
               {[
-                { title: 'Community-Led', description: 'Local voices guide our programs', color: 'modern-card-green-light' },
-                { title: 'Sustainable', description: 'Building long-term solutions', color: 'modern-card-green-teal' },
-                { title: 'Inclusive', description: 'Reaching the most vulnerable', color: 'modern-card-green-emerald' },
-                { title: 'Data-Driven', description: 'Measuring impact and learning', color: 'modern-card-green-mint' },
+                { title: 'Community-Led', description: 'Local voices guide our programs', color: 'modern-card-green-extra-light' },
+                { title: 'Sustainable', description: 'Building long-term solutions', color: 'modern-card-green-bright' },
+                { title: 'Inclusive', description: 'Reaching the most vulnerable', color: 'modern-card-green-vibrant' },
+                { title: 'Data-Driven', description: 'Measuring impact and learning', color: 'modern-card-green-light' },
               ].map((approach, index) => (
                 <div key={index} className={`modern-card ${approach.color} text-white p-6 text-center`}>
                   <div className="modern-card-content">
@@ -186,23 +186,19 @@ export default function WhatWeDoPage() {
         {/* Call to Action */}
         <section className="py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="modern-card modern-card-green text-white p-8 md:p-12">
-              <div className="modern-card-content">
-                <h2 className="text-3xl sm:text-4xl font-display font-bold mb-6">
-                  Join Our Mission
-                </h2>
-                <p className="text-lg text-white/90 mb-8">
-                  Be part of the change. Together, we can transform lives and build stronger communities
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <a href="/join-us" className="modern-card modern-card-green text-white px-8 py-4 inline-block">
-                    <span className="modern-card-content text-center font-semibold">Get Involved</span>
-                  </a>
-                  <a href="/partners" className="modern-card modern-card-green text-white px-8 py-4 inline-block">
-                    <span className="modern-card-content text-center font-semibold">Become a Partner</span>
-                  </a>
-                </div>
-              </div>
+            <h2 className="text-3xl sm:text-4xl font-display font-bold text-gray-900 mb-6">
+              Join Our Mission
+            </h2>
+            <p className="text-lg text-gray-600 mb-8">
+              Be part of the change. Together, we can transform lives and build stronger communities
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="/join-us" className="modern-card modern-card-green-bright text-white px-8 py-4 inline-block">
+                <span className="modern-card-content text-center font-semibold">Get Involved</span>
+              </a>
+              <a href="/partners" className="modern-card modern-card-blue text-white px-8 py-4 inline-block">
+                <span className="modern-card-content text-center font-semibold">Become a Partner</span>
+              </a>
             </div>
           </div>
         </section>

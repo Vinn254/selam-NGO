@@ -328,6 +328,19 @@
     background: linear-gradient(135deg, #65a30d 0%, #84cc16 50%, #a3e635 100%);
   }
 
+  /* Extra Light Green for Impact/CTA sections */
+  .modern-card-green-extra-light {
+    background: linear-gradient(135deg, #6ee7b7 0%, #a7f3d0 50%, #d1fae5 100%);
+  }
+
+  .modern-card-green-bright {
+    background: linear-gradient(135deg, #34d399 0%, #10b981 50%, #059669 100%);
+  }
+
+  .modern-card-green-vibrant {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
+  }
+
   /* Yellow-Green Briefing Card for Body Sections */
   .modern-card-briefing {
     background: #059669;
