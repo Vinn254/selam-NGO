@@ -42,9 +42,7 @@ export default function Logo({ scrolled = false, size = 'default' }) {
       </div>
 
       <span className={`font-display font-bold ${textSizes[size]} text-black transition-colors duration-300`}>
-        se</span>
-        <span className="text-black">la</span>
-        <span className="text-black">m</span>
+        selam
       </span>
     </Link>
   )
