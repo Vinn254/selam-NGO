@@ -15,7 +15,7 @@ const waysToHelp = [
     description: 'Share your time, skills, and passion to make a direct impact in communities',
     action: 'Apply to Volunteer',
     link: '#volunteer',
-    color: 'modern-card-green',
+    color: 'modern-card-green-light',
   },
   {
     icon: (
@@ -27,7 +27,7 @@ const waysToHelp = [
     description: 'Collaborate with us for meaningful corporate social responsibility initiatives',
     action: 'Become a Partner',
     link: '#partner',
-    color: 'modern-card-green',
+    color: 'modern-card-green-teal',
   },
   {
     icon: (
@@ -39,7 +39,7 @@ const waysToHelp = [
     description: 'Help us reach more people by sharing our mission on social media and beyond',
     action: 'Share Your Story',
     link: '#story',
-    color: 'modern-card-green',
+    color: 'modern-card-green-emerald',
   },
 ]
 
