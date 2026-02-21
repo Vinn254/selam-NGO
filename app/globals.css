@@ -208,6 +208,11 @@
     background: linear-gradient(135deg, var(--brand-green) 0%, var(--brand-yellow) 50%, var(--brand-red) 100%);
   }
 
+  /* Default Mobile Menu Panel */
+  .mobile-menu-panel {
+    background: #059669;
+  }
+
   .brand-theme .nav-link {
     color: rgba(11,11,11,0.92);
   }

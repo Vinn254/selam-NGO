@@ -27,7 +27,7 @@ const waysToHelp = [
     description: 'Collaborate with us for meaningful corporate social responsibility initiatives',
     action: 'Become a Partner',
     link: '#partner',
-    color: 'modern-card-blue',
+    color: 'modern-card-green',
   },
   {
     icon: (
@@ -39,7 +39,7 @@ const waysToHelp = [
     description: 'Help us reach more people by sharing our mission on social media and beyond',
     action: 'Share Your Story',
     link: '#story',
-    color: 'modern-card-orange',
+    color: 'modern-card-green',
   },
 ]
 
