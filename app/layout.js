@@ -20,14 +20,14 @@ const poppins = Poppins({
 export const metadata = {
   metadataBase: new URL('https://selam.co.ke'),
   title: {
-    default: 'Selam NGO - Empowering Communities Through Sustainable Development',
-    template: '%s | Selam NGO'
+    default: 'Selam CBO Kenya | Community-Based Organization in Kisumu - Empowering Vulnerable Communities',
+    template: '%s | Selam CBO Kenya'
   },
-  description: 'Selam is a non-governmental organization dedicated to empowering communities through sustainable development, education, healthcare, and social impact initiatives across Kenya.',
-  keywords: ['NGO', 'Kenya', 'Selam', 'sustainable development', 'community empowerment', 'social impact', 'charity', 'non-profit', 'humanitarian'],
-  authors: [{ name: 'Selam NGO' }],
-  creator: 'Selam NGO',
-  publisher: 'Selam NGO',
+  description: 'Selam CBO Kenya is a community-based organization in Kisumu dedicated to empowering vulnerable communities through sustainable development, education, healthcare, and social impact initiatives for youth, women, and children.',
+  keywords: ['Community-Based Organization in Kisumu', 'Selam CBO Kenya', 'CBO Kenya', 'community empowerment Kenya', 'non-profit organization Kisumu', 'youth and women empowerment', 'poverty and education programs', 'sustainable community development', 'vocational training Kenya', 'community development Kisumu', 'NGO Kenya', 'charity Kisumu'],
+  authors: [{ name: 'Selam CBO Kenya' }],
+  creator: 'Selam CBO Kenya',
+  publisher: 'Selam CBO Kenya',
   formatDetection: {
     email: false,
     address: false,
@@ -37,24 +37,24 @@ export const metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://selam.co.ke',
-    siteName: 'Selam NGO',
-    title: 'Selam NGO - Empowering Communities Through Sustainable Development',
-    description: 'Selam is a non-governmental organization dedicated to empowering communities through sustainable development, education, healthcare, and social impact initiatives.',
+    siteName: 'Selam CBO Kenya',
+    title: 'Selam CBO Kenya | Community-Based Organization Empowering Vulnerable Communities',
+    description: 'A community-based organization in Kisumu empowering vulnerable communities through education, vocational training, mentorship, and sustainable development programs.',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Selam NGO - Empowering Communities',
+        alt: 'Selam CBO Kenya - Community-Based Organization in Kisumu',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Selam NGO - Empowering Communities',
-    description: 'Dedicated to sustainable development and social impact initiatives across Kenya.',
+    title: 'Selam CBO Kenya | Community-Based Organization in Kisumu',
+    description: 'Empowering vulnerable communities in Kisumu through education, vocational training, and sustainable development.',
     images: ['/og-image.jpg'],
-    creator: '@SelamNGO',
+    creator: '@SelamCBO',
   },
   robots: {
     index: true,
@@ -137,22 +137,34 @@ export default function RootLayout({ children }) {
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'NGO',
-              name: 'Selam NGO',
-              description: 'Empowering communities through sustainable development and social impact initiatives',
+              name: 'Selam CBO Kenya',
+              description: 'Community-Based Organization in Kisumu empowering vulnerable communities through education, vocational training, mentorship, and sustainable development for youth, women, and children.',
               url: 'https://selam.co.ke',
               logo: 'https://selam.co.ke/logo.png',
               sameAs: [
-                'https://facebook.com/SelamNGO',
-                'https://twitter.com/SelamNGO',
-                'https://instagram.com/SelamNGO',
-                'https://linkedin.com/company/selam-ngo',
+                'https://facebook.com/SelamCBO',
+                'https://twitter.com/SelamCBO',
+                'https://instagram.com/SelamCBO',
+                'https://linkedin.com/company/selam-cbo',
               ],
               contactPoint: {
                 '@type': 'ContactPoint',
                 telephone: '+254712345678',
                 contactType: 'Customer Service',
-                availableLanguage: ['English', 'Amharic'],
+                availableLanguage: ['English', 'Kiswahili'],
               },
+              areaServed: {
+                '@type': 'Place',
+                name: 'Kisumu, Kenya',
+              },
+              serviceType: [
+                'Community Development',
+                'Education Programs',
+                'Vocational Training',
+                'Youth Empowerment',
+                'Women Empowerment',
+                'Healthcare Services',
+              ],
             }),
           }}
         />

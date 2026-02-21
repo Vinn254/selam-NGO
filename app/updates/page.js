@@ -19,11 +19,12 @@ async function getUpdates() {
 }
 
 export const metadata = {
-  title: 'Latest Updates',
-  description: 'Stay informed about Selam NGO\'s recent activities, projects, and impact stories from communities across Kenya.',
+  title: 'Latest Updates | Selam CBO Kenya - News & Impact Stories from Our Community Programs',
+  description: 'Stay informed about Selam CBO Kenya\'s latest activities, projects, and impact stories from our community empowerment programs serving youth, women, and children in Kisumu, Kenya.',
+  keywords: ['Selam CBO news', 'community updates Kenya', 'impact stories Kisumu', 'youth empowerment news', 'women empowerment updates', 'education program news', 'CBO Kenya updates', 'community development stories'],
   openGraph: {
-    title: 'Latest Updates - Selam NGO',
-    description: 'Recent news and stories from our work in Kenyan communities.',
+    title: 'Latest Updates | Selam CBO Kenya - News and Impact Stories',
+    description: 'Read the latest news and impact stories from Selam CBO Kenya\'s community initiatives serving vulnerable communities in Kisumu.',
     images: ['/og-updates.jpg'],
   },
 }

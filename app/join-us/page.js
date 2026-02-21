@@ -4,6 +4,17 @@ import { useState } from 'react'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 
+export const metadata = {
+  title: 'Join Us | Selam CBO Kenya - Volunteer & Partner Opportunities in Kisumu',
+  description: 'Join Selam CBO Kenya and make a difference in vulnerable communities. Explore volunteer opportunities, partnership programs, and ways to support youth, women, and children empowerment initiatives in Kisumu.',
+  keywords: ['volunteer Kenya', 'join Selam CBO', 'partner with CBO', 'youth empowerment volunteer', 'women empowerment opportunities', 'community development volunteer', 'Kisumu volunteer', 'corporate partnership Kenya'],
+  openGraph: {
+    title: 'Join Selam CBO Kenya | Volunteer & Partnership Opportunities',
+    description: 'Partner with Selam CBO Kenya to empower vulnerable communities through education, vocational training, and sustainable development programs.',
+    images: ['/og-join.jpg'],
+  },
+}
+
 const waysToHelp = [
   {
     icon: (

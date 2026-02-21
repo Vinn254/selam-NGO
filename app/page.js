@@ -31,11 +31,12 @@ async function getUpdates() {
 }
 
 export const metadata = {
-  title: 'Home',
-  description: 'Selam NGO - Empowering communities through sustainable development, education, healthcare, and social impact initiatives across Kenya.',
+  title: 'Selam CBO Kenya | Community-Based Organization in Kisumu Empowering Vulnerable Communities',
+  description: 'Selam CBO Kenya is a community-based organization in Kisumu dedicated to empowering vulnerable communities through education, vocational training, mentorship, and sustainable development programs for youth, women, and children.',
+  keywords: ['Community-Based Organization in Kisumu', 'Selam CBO Kenya', 'community empowerment Kenya', 'non-profit organization Kisumu', 'youth and women empowerment', 'poverty and education programs', 'sustainable community development', 'vocational training programs Kenya'],
   openGraph: {
-    title: 'Selam NGO - Empowering Communities',
-    description: 'Dedicated to sustainable development and social impact initiatives across Kenya.',
+    title: 'Selam CBO Kenya | Community-Based Organization Empowering Communities in Kisumu',
+    description: 'Discover how Selam CBO supports vulnerable communities in Kisumu through education, vocational training, mentorship, and sustainable development initiatives for youth, women, and children.',
     images: ['/og-image.jpg'],
   },
 }

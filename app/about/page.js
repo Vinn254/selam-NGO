@@ -4,11 +4,12 @@ import WhatsAppButton from '@/components/WhatsAppButton'
 import Image from 'next/image'
 
 export const metadata = {
-  title: 'About Us',
-  description: 'Learn about Selam NGO\'s history, mission, vision, and the dedicated team working to empower communities across Kenya through sustainable development initiatives.',
+  title: 'About Us | Selam CBO Kenya - Community-Based Organization in Kisumu',
+  description: 'Learn about Selam CBO Kenya, a community-based organization in Kisumu empowering vulnerable communities through education, vocational training, mentorship, and sustainable development for youth, women, and children.',
+  keywords: ['About Selam CBO', 'Community-Based Organization Kisumu', 'non-profit organization Kenya', 'youth women children empowerment', 'community development Kisumu', 'CBO Kenya', 'sustainable development organizations', 'gender inequality Kenya'],
   openGraph: {
-    title: 'About Selam NGO - Our Story and Mission',
-    description: 'Discover how Selam NGO is transforming lives through education, healthcare, and community development.',
+    title: 'About Selam CBO Kenya | Community-Based Organization Empowering Vulnerable Communities',
+    description: 'Discover how Selam CBO Kenya addresses gender inequality, poverty, and limited access to education through community initiatives for youth, women, and children in Kisumu.',
     images: ['/og-about.jpg'],
   },
 }

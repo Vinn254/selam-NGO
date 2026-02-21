@@ -3,11 +3,12 @@ import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
 
 export const metadata = {
-  title: 'Partners',
-  description: 'Meet Selam NGO\'s partners and collaborators. Together, we create sustainable impact through strategic partnerships with organizations, donors, and community stakeholders.',
+  title: 'Our Partners | Selam CBO Kenya - Collaborating for Community Development in Kisumu',
+  description: 'Meet Selam CBO Kenya\'s partners and collaborators. Together we create sustainable impact through strategic partnerships with organizations, donors, and community stakeholders in Kisumu, Kenya.',
+  keywords: ['Selam CBO partners', 'community development partners Kenya', 'NGO partnerships Kisumu', 'corporate social responsibility Kenya', 'donor partnerships', 'community stakeholders Kenya', 'sustainable development partners', 'collaboration Kenya'],
   openGraph: {
-    title: 'Our Partners - Selam NGO',
-    description: 'Collaborating for greater impact across Kenya.',
+    title: 'Our Partners | Selam CBO Kenya - Collaborating for Greater Impact',
+    description: 'Discover how Selam CBO Kenya partners with organizations, donors, and community stakeholders to create lasting change in Kenyan communities.',
     images: ['/og-partners.jpg'],
   },
 }

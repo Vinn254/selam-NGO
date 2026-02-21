@@ -4,11 +4,12 @@ import WhatsAppButton from '@/components/WhatsAppButton'
 import Image from 'next/image'
 
 export const metadata = {
-  title: 'What We Do',
-  description: 'Explore Selam NGO\'s comprehensive programs in education, healthcare, and community development. Learn how we empower Kenyan communities through sustainable initiatives.',
+  title: 'Our Programs | Selam CBO Kenya - Education, Healthcare & Community Development Programs',
+  description: 'Explore Selam CBO Kenya\'s comprehensive programs including education, vocational training, mentorship, healthcare, and economic empowerment for youth, women, and children in Kisumu, Kenya.',
+  keywords: ['Selam CBO programs', 'education programs Kenya', 'vocational training Kisumu', 'youth empowerment programs', 'women empowerment Kenya', 'community development programs', 'healthcare services Kenya', 'economic empowerment Kenya'],
   openGraph: {
-    title: 'What We Do - Selam NGO Programs',
-    description: 'Discover our integrated programs transforming lives across Kenya.',
+    title: 'Our Programs | Selam CBO Kenya - Empowering Communities Through Education and Development',
+    description: 'Discover how Selam CBO Kenya\'s vocational training, mentorship, and community development programs transform lives of youth, women, and children in Kisumu.',
     images: ['/og-programs.jpg'],
   },
 }
