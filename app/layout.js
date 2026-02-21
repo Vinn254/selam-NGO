@@ -1,4 +1,5 @@
 import { Inter, Poppins } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 import WhatsAppButton from '@/components/WhatsAppButton'
 import BrandTheme from '@/components/BrandTheme'
@@ -91,6 +92,26 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <head>
+        {/* Google Analytics GA4 */}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-N3WF8PG5EX"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-N3WF8PG5EX', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        />
+        
         {/* Canonical URL for SEO */}
         <link rel="canonical" href="https://selam.co.ke/" />
         
