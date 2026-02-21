@@ -20,14 +20,14 @@ const poppins = Poppins({
 export const metadata = {
   metadataBase: new URL('https://selam.co.ke'),
   title: {
-    default: 'Selam CBO Kenya | Community-Based Organization in Kisumu - Empowering Vulnerable Communities',
-    template: '%s | Selam CBO Kenya'
+    default: 'Selam CBO Kisumu Kenya | Community-Based Organization in Kisumu - Empowering Vulnerable Communities',
+    template: '%s | Selam CBO Kisumu Kenya'
   },
-  description: 'Selam CBO Kenya is a community-based organization in Kisumu dedicated to empowering vulnerable communities through sustainable development, education, healthcare, and social impact initiatives for youth, women, and children.',
-  keywords: ['Community-Based Organization in Kisumu', 'Selam CBO Kenya', 'CBO Kenya', 'community empowerment Kenya', 'non-profit organization Kisumu', 'youth and women empowerment', 'poverty and education programs', 'sustainable community development', 'vocational training Kenya', 'community development Kisumu', 'NGO Kenya', 'charity Kisumu'],
-  authors: [{ name: 'Selam CBO Kenya' }],
-  creator: 'Selam CBO Kenya',
-  publisher: 'Selam CBO Kenya',
+  description: 'Selam CBO Kisumu Kenya is a community-based organization in Kisumu dedicated to empowering vulnerable communities through sustainable development, education, healthcare, and social impact initiatives for youth, women, and children.',
+  keywords: ['Community-Based Organization in Kisumu', 'Selam CBO Kisumu Kenya', 'CBO Kenya', 'community empowerment Kenya', 'non-profit organization Kisumu', 'youth and women empowerment', 'poverty and education programs', 'sustainable community development', 'vocational training Kenya', 'community development Kisumu', 'NGO Kenya', 'charity Kisumu'],
+  authors: [{ name: 'Selam CBO Kisumu Kenya' }],
+  creator: 'Selam CBO Kisumu Kenya',
+  publisher: 'Selam CBO Kisumu Kenya',
   formatDetection: {
     email: false,
     address: false,
@@ -37,8 +37,8 @@ export const metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://selam.co.ke',
-    siteName: 'Selam CBO Kenya',
-    title: 'Selam CBO Kenya | Community-Based Organization Empowering Vulnerable Communities',
+    siteName: 'Selam CBO Kisumu Kenya',
+    title: 'Selam CBO Kisumu Kenya | Community-Based Organization Empowering Vulnerable Communities',
     description: 'A community-based organization in Kisumu empowering vulnerable communities through education, vocational training, mentorship, and sustainable development programs.',
     images: [
       {
@@ -51,7 +51,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Selam CBO Kenya | Community-Based Organization in Kisumu',
+    title: 'Selam CBO Kisumu Kenya | Community-Based Organization in Kisumu',
     description: 'Empowering vulnerable communities in Kisumu through education, vocational training, and sustainable development.',
     images: ['/og-image.jpg'],
     creator: '@SelamCBO',
@@ -137,7 +137,7 @@ export default function RootLayout({ children }) {
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'NGO',
-              name: 'Selam CBO Kenya',
+              name: 'Selam CBO Kisumu Kenya',
               description: 'Community-Based Organization in Kisumu empowering vulnerable communities through education, vocational training, mentorship, and sustainable development for youth, women, and children.',
               url: 'https://selam.co.ke',
               logo: 'https://selam.co.ke/logo.png',
