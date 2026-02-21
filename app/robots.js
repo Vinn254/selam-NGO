@@ -1,5 +1,5 @@
 export default function robots() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://selam-ngo.org'
+  const baseUrl = 'https://selam.co.ke'
   
   return {
     rules: [

@@ -17,7 +17,7 @@ const poppins = Poppins({
 })
 
 export const metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://selam-ngo.org'),
+  metadataBase: new URL('https://selam.co.ke'),
   title: {
     default: 'Selam NGO - Empowering Communities Through Sustainable Development',
     template: '%s | Selam NGO'
@@ -35,7 +35,7 @@ export const metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://selam-ngo.org',
+    url: 'https://selam.co.ke',
     siteName: 'Selam NGO',
     title: 'Selam NGO - Empowering Communities Through Sustainable Development',
     description: 'Selam is a non-governmental organization dedicated to empowering communities through sustainable development, education, healthcare, and social impact initiatives.',
@@ -71,7 +71,7 @@ export const metadata = {
     yandex: 'your-yandex-verification-code',
   },
   alternates: {
-    canonical: '/',
+    canonical: 'https://selam.co.ke/',
   },
   manifest: '/manifest.json',
 }
@@ -91,6 +91,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <head>
+        {/* Canonical URL for SEO */}
+        <link rel="canonical" href="https://selam.co.ke/" />
+        
         {/* Preconnect to external domains for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -115,8 +118,8 @@ export default function RootLayout({ children }) {
               '@type': 'NGO',
               name: 'Selam NGO',
               description: 'Empowering communities through sustainable development and social impact initiatives',
-              url: process.env.NEXT_PUBLIC_SITE_URL || 'https://selam-ngo.org',
-              logo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://selam-ngo.org'}/logo.png`,
+              url: 'https://selam.co.ke',
+              logo: 'https://selam.co.ke/logo.png',
               sameAs: [
                 'https://facebook.com/SelamNGO',
                 'https://twitter.com/SelamNGO',
@@ -125,7 +128,7 @@ export default function RootLayout({ children }) {
               ],
               contactPoint: {
                 '@type': 'ContactPoint',
-                telephone: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+254712345678',
+                telephone: '+254712345678',
                 contactType: 'Customer Service',
                 availableLanguage: ['English', 'Amharic'],
               },
