@@ -77,7 +77,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
           {/* Brand Column */}
           <div className="lg:col-span-1">
-            <Logo size="large" />
+            <Logo size="large" scrolled={true} />
             <p className="text-gray-400 text-sm mt-4 mb-6">
               Empowering communities through sustainable development and social impact initiatives.
             </p>

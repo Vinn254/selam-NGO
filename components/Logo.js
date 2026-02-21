@@ -41,23 +41,10 @@ export default function Logo({ scrolled = false, size = 'default' }) {
         />
       </div>
 
-      <span className={`font-display font-bold ${textSizes[size]} transition-colors duration-300 ${
-        scrolled 
-          ? 'text-gray-900' 
-          : 'text-white'
-      }`}>
-        <span className={scrolled 
-          ? 'bg-gradient-to-r from-[#1f8a3a] via-[#3aa34a] to-[#10b981] bg-clip-text text-transparent' 
-          : 'bg-gradient-to-r from-white via-emerald-200 to-white bg-clip-text text-transparent'
-        }>se</span>
-        <span className={`${scrolled 
-          ? 'bg-gradient-to-r from-[#f6c043] via-[#ff9800] to-[#d6272f] bg-clip-text text-transparent' 
-          : 'bg-gradient-to-r from-amber-300 via-orange-300 to-red-300 bg-clip-text text-transparent'
-        }`}>la</span>
-        <span className={scrolled 
-          ? 'bg-gradient-to-r from-[#1f8a3a] via-[#3aa34a] to-[#10b981] bg-clip-text text-transparent' 
-          : 'bg-gradient-to-r from-white via-emerald-200 to-white bg-clip-text text-transparent'
-        }>m</span>
+      <span className={`font-display font-bold ${textSizes[size]} text-black transition-colors duration-300`}>
+        se</span>
+        <span className="text-black">la</span>
+        <span className="text-black">m</span>
       </span>
     </Link>
   )
