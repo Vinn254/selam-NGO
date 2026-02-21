@@ -151,13 +151,13 @@ function HeroSection() {
           <div className={`max-w-3xl transition-all duration-[1500ms] ease-out ${
             isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 leading-tight text-balance">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-4 leading-tight text-balance">
               Community-Based Organization
               <br />
               <span className="text-accent-300">Empowering Vulnerable Communities</span>
             </h1>
             
-            <p className="text-lg sm:text-xl md:text-2xl text-white/90 mb-8 max-w-2xl text-balance">
+            <p className="text-base sm:text-lg md:text-xl text-white/90 mb-6 max-w-2xl text-balance">
               Selam CBO Kenya is a community-based organization in Kisumu dedicated to sustainable community development through education, vocational training, mentorship, and economic empowerment for youth, women, and children.
             </p>
 
