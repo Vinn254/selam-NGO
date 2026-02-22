@@ -115,11 +115,11 @@ function HeroSection() {
           return (
             <div
               key={index}
-              className={`absolute inset-0 transition-all duration-[2000ms] ease-in-out ${
+              className={`absolute inset-0 transition-all duration-[3000ms] ease-in-out ${
                 isActive 
                   ? 'opacity-100 z-10 scale-100' 
                   : isNext
-                    ? 'opacity-0 z-0 scale-105'
+                    ? 'opacity-0 z-0 scale-102'
                     : 'opacity-0 z-0 scale-100'
               }`}
             >
@@ -133,7 +133,7 @@ function HeroSection() {
                   priority={image.priority}
                   quality={60}
                   sizes="100vw"
-                  className={`object-cover transition-opacity duration-700 ease-out ${
+                  className={`object-cover transition-opacity duration-1000 ease-in-out ${
                     imagesLoaded.has(index) ? 'opacity-100' : 'opacity-0'
                   }`}
                   onLoad={() => handleImageLoad(index)}
