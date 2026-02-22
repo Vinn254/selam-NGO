@@ -53,6 +53,13 @@ export async function GET(request) {
       _id: update._id?.toString()
     }))
 
+    // If MongoDB has no data, also include local updates as fallback
+    if (serializedUpdates.length === 0) {
+      console.log('MongoDB empty, including local updates as fallback')
+      const localFallback = localUpdates.updates || localUpdates || []
+      return NextResponse.json({ updates: localFallback, source: 'local' })
+    }
+
     return NextResponse.json({ updates: serializedUpdates })
   } catch (error) {
     console.error('Error fetching updates from MongoDB:', error.message)

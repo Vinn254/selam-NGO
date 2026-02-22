@@ -508,7 +508,7 @@
   
   /* Updates Slider */
   .updates-slider {
-    @apply flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4;
+    @apply flex gap-4 sm:gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4;
     scroll-behavior: smooth;
   }
   
@@ -517,7 +517,8 @@
   }
   
   .update-card {
-    @apply flex-shrink-0 w-80 snap-start;
+    @apply flex-shrink-0 w-[85vw] sm:w-72 md:w-80 snap-start;
+    max-width: 320px;
   }
   
   /* Section Animations */

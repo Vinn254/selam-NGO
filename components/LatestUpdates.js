@@ -80,13 +80,13 @@ function LatestUpdates({ initialUpdates = [] }) {
 
   const scrollLeft = () => {
     if (sliderRef.current) {
-      sliderRef.current.scrollBy({ left: -350, behavior: 'smooth' })
+      sliderRef.current.scrollBy({ left: -300, behavior: 'smooth' })
     }
   }
 
   const scrollRight = () => {
     if (sliderRef.current) {
-      sliderRef.current.scrollBy({ left: 350, behavior: 'smooth' })
+      sliderRef.current.scrollBy({ left: 300, behavior: 'smooth' })
     }
   }
 
