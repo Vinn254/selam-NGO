@@ -1,10 +1,6 @@
 import { NextResponse } from 'next/server'
-import { readFile, writeFile } from 'fs/promises'
-import { existsSync } from 'fs'
-import path from 'path'
-
-const dataDir = path.join(process.env.VERCEL ? '/tmp' : process.cwd(), 'data')
-const metadataFile = path.join(dataDir, 'applications.json')
+import dbConnect from '@/lib/mongodb'
+import { ObjectId } from 'mongodb'
 
 // This would typically verify JWT token
 function verifyAuth(request) {
@@ -21,17 +17,11 @@ export async function GET(request, { params }) {
   try {
     const { id } = params
     
-    if (!existsSync(metadataFile)) {
-      return NextResponse.json(
-        { message: 'Application not found' },
-        { status: 404 }
-      )
-    }
-
-    const data = await readFile(metadataFile, 'utf-8')
-    const applications = JSON.parse(data)
-
-    const application = applications.find(app => app._id === id)
+    const client = await dbConnect()
+    const db = client.db()
+    
+    const application = await db.collection('applications').findOne({ _id: new ObjectId(id) })
+    
     if (!application) {
       return NextResponse.json(
         { message: 'Application not found' },
@@ -39,7 +29,12 @@ export async function GET(request, { params }) {
       )
     }
 
-    return NextResponse.json({ application })
+    return NextResponse.json({ 
+      application: {
+        ...application,
+        _id: application._id?.toString()
+      }
+    })
   } catch (error) {
     console.error('Error fetching application:', error)
     return NextResponse.json(
@@ -64,37 +59,34 @@ export async function PUT(request, { params }) {
     const { id } = params
     const body = await request.json()
     
-    if (!existsSync(metadataFile)) {
+    const client = await dbConnect()
+    const db = client.db()
+    
+    // Update application in MongoDB
+    const result = await db.collection('applications').findOneAndUpdate(
+      { _id: new ObjectId(id) },
+      { 
+        $set: {
+          ...body,
+          updatedAt: new Date()
+        }
+      },
+      { returnDocument: 'after' }
+    )
+
+    if (!result) {
       return NextResponse.json(
         { message: 'Application not found' },
         { status: 404 }
       )
     }
-
-    const data = await readFile(metadataFile, 'utf-8')
-    let applications = JSON.parse(data)
-
-    const appIndex = applications.findIndex(app => app._id === id)
-    if (appIndex === -1) {
-      return NextResponse.json(
-        { message: 'Application not found' },
-        { status: 404 }
-      )
-    }
-
-    // Update application
-    applications[appIndex] = {
-      ...applications[appIndex],
-      ...body,
-      updatedAt: new Date().toISOString()
-    }
-
-    // Save to file
-    await writeFile(metadataFile, JSON.stringify(applications, null, 2))
 
     return NextResponse.json({
       message: 'Application updated successfully',
-      application: applications[appIndex]
+      application: {
+        ...result,
+        _id: result._id?.toString()
+      }
     })
   } catch (error) {
     console.error('Error updating application:', error)
@@ -119,29 +111,17 @@ export async function DELETE(request, { params }) {
 
     const { id } = params
     
-    if (!existsSync(metadataFile)) {
+    const client = await dbConnect()
+    const db = client.db()
+    
+    const result = await db.collection('applications').deleteOne({ _id: new ObjectId(id) })
+
+    if (result.deletedCount === 0) {
       return NextResponse.json(
         { message: 'Application not found' },
         { status: 404 }
       )
     }
-
-    const data = await readFile(metadataFile, 'utf-8')
-    let applications = JSON.parse(data)
-
-    const appIndex = applications.findIndex(app => app._id === id)
-    if (appIndex === -1) {
-      return NextResponse.json(
-        { message: 'Application not found' },
-        { status: 404 }
-      )
-    }
-
-    // Remove application
-    applications.splice(appIndex, 1)
-
-    // Save to file
-    await writeFile(metadataFile, JSON.stringify(applications, null, 2))
 
     return NextResponse.json({
       message: 'Application deleted successfully',

@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 async function getUpdates() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/api/updates`, {
+    const res = await fetch('/api/updates', {
       next: { revalidate: 10 },
     })
     

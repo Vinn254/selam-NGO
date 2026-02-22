@@ -1,9 +1,8 @@
 import { NextResponse } from 'next/server'
-import { readFile, writeFile, unlink } from 'fs/promises'
+import { unlink } from 'fs/promises'
 import { existsSync } from 'fs'
 import path from 'path'
-
-const dataDir = path.join(process.env.VERCEL ? '/tmp' : process.cwd(), 'data')
+import dbConnect from '@/lib/mongodb'
 
 // This would typically verify JWT token
 function verifyAuth(request) {
@@ -27,28 +26,19 @@ export async function DELETE(request, { params }) {
     }
 
     const { id } = params
-    const metadataFile = path.join(dataDir, 'documents.json')
-
-    if (!existsSync(metadataFile)) {
+    
+    const client = await dbConnect()
+    const db = client.db()
+    
+    // Find the document first
+    const document = await db.collection('documents').findOne({ _id: id })
+    
+    if (!document) {
       return NextResponse.json(
         { message: 'Document not found' },
         { status: 404 }
       )
     }
-
-    const data = await readFile(metadataFile, 'utf-8')
-    let documents = JSON.parse(data)
-
-    // Find the document
-    const documentIndex = documents.findIndex(doc => doc._id === id)
-    if (documentIndex === -1) {
-      return NextResponse.json(
-        { message: 'Document not found' },
-        { status: 404 }
-      )
-    }
-
-    const document = documents[documentIndex]
 
     // Delete the physical file
     const filePath = path.join(process.cwd(), 'public', document.fileUrl)
@@ -56,11 +46,8 @@ export async function DELETE(request, { params }) {
       await unlink(filePath)
     }
 
-    // Remove from documents array
-    documents.splice(documentIndex, 1)
-
-    // Save updated documents
-    await writeFile(metadataFile, JSON.stringify(documents, null, 2))
+    // Delete from MongoDB
+    await db.collection('documents').deleteOne({ _id: id })
 
     return NextResponse.json({
       message: 'Document deleted successfully',
@@ -77,19 +64,12 @@ export async function DELETE(request, { params }) {
 export async function GET(request, { params }) {
   try {
     const { id } = params
-    const metadataFile = path.join(dataDir, 'documents.json')
-
-    if (!existsSync(metadataFile)) {
-      return NextResponse.json(
-        { message: 'Document not found' },
-        { status: 404 }
-      )
-    }
-
-    const data = await readFile(metadataFile, 'utf-8')
-    const documents = JSON.parse(data)
-
-    const document = documents.find(doc => doc._id === id)
+    
+    const client = await dbConnect()
+    const db = client.db()
+    
+    const document = await db.collection('documents').findOne({ _id: id })
+    
     if (!document) {
       return NextResponse.json(
         { message: 'Document not found' },
@@ -97,7 +77,12 @@ export async function GET(request, { params }) {
       )
     }
 
-    return NextResponse.json({ document })
+    return NextResponse.json({ 
+      document: {
+        ...document,
+        _id: document._id?.toString()
+      }
+    })
   } catch (error) {
     console.error('Error fetching document:', error)
     return NextResponse.json(

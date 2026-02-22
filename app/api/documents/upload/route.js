@@ -3,6 +3,7 @@ import { writeFile, mkdir } from 'fs/promises'
 import { existsSync } from 'fs'
 import path from 'path'
 import { v4 as uuidv4 } from 'uuid'
+import dbConnect from '@/lib/mongodb'
 
 // This would typically verify JWT token
 function verifyAuth(request) {
@@ -85,7 +86,10 @@ export async function POST(request) {
     const buffer = Buffer.from(bytes)
     await writeFile(filePath, buffer)
 
-    // Create document metadata
+    // Save document metadata to MongoDB
+    const client = await dbConnect()
+    const db = client.db()
+    
     const documentData = {
       _id: uuidv4(),
       title,
@@ -95,33 +99,21 @@ export async function POST(request) {
       fileUrl: `/uploads/documents/${uniqueFilename}`,
       fileSize: file.size,
       fileType: file.type,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
     }
 
-    // In a real application, save this to a database
-    // For now, we'll save it to a JSON file
-    const metadataDir = path.join(process.env.VERCEL ? '/tmp' : process.cwd(), 'data')
-    if (!existsSync(metadataDir)) {
-      await mkdir(metadataDir, { recursive: true })
-    }
-
-    const metadataFile = path.join(metadataDir, 'documents.json')
-    let documents = []
+    const result = await db.collection('documents').insertOne(documentData)
     
-    if (existsSync(metadataFile)) {
-      const { readFile } = await import('fs/promises')
-      const data = await readFile(metadataFile, 'utf-8')
-      documents = JSON.parse(data)
+    const savedDocument = {
+      ...documentData,
+      _id: result.insertedId?.toString() || documentData._id
     }
-
-    documents.push(documentData)
-    await writeFile(metadataFile, JSON.stringify(documents, null, 2))
 
     return NextResponse.json(
       {
         message: 'Document uploaded successfully',
-        document: documentData,
+        document: savedDocument,
       },
       { status: 201 }
     )

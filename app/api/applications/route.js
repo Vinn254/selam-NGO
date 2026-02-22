@@ -1,14 +1,6 @@
 import { NextResponse } from 'next/server'
-import { readFile, writeFile } from 'fs/promises'
-import { existsSync, mkdirSync } from 'fs'
-import path from 'path'
+import dbConnect from '@/lib/mongodb'
 import nodemailer from 'nodemailer'
-
-// Ensure data directory exists
-const dataDir = path.join(process.env.VERCEL ? '/tmp' : process.cwd(), 'data')
-if (!existsSync(dataDir)) {
-  mkdirSync(dataDir, { recursive: true })
-}
 
 // Email transporter configuration
 function getTransporter() {
@@ -43,7 +35,7 @@ async function sendAdminEmailNotification(application) {
   const emailContent = `
 New ${typeLabels[application.type]} Received
 
-Date: ${new Date(application.createdAt).toLocaleString()}
+Date: new Date(application.createdAt).toLocaleString()
 
 Applicant Details:
 - Name: ${application.name}
@@ -82,24 +74,27 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url)
     const type = searchParams.get('type') // 'volunteer', 'partner', 'story', or null for all
     
-    const metadataFile = path.join(dataDir, 'applications.json')
+    const client = await dbConnect()
+    const db = client.db()
     
-    if (!existsSync(metadataFile)) {
-      return NextResponse.json({ applications: [] })
-    }
-
-    const data = await readFile(metadataFile, 'utf-8')
-    let applications = JSON.parse(data)
-
-    // Filter by type if specified
+    let query = {}
     if (type) {
-      applications = applications.filter(app => app.type === type)
+      query = { type }
     }
+    
+    const applications = await db
+      .collection('applications')
+      .find(query)
+      .sort({ createdAt: -1 })
+      .toArray()
 
-    // Sort by creation date (newest first)
-    applications.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    // Convert ObjectId to string for proper serialization
+    const serializedApplications = applications.map(app => ({
+      ...app,
+      _id: app._id?.toString()
+    }))
 
-    return NextResponse.json({ applications })
+    return NextResponse.json({ applications: serializedApplications })
   } catch (error) {
     console.error('Error fetching applications:', error)
     return NextResponse.json(
@@ -136,7 +131,6 @@ export async function POST(request) {
 
     // Create new application
     const newApplication = {
-      _id: Date.now().toString(36) + Math.random().toString(36).substring(2),
       name: body.name,
       email: body.email,
       phone: body.phone || '',
@@ -148,31 +142,30 @@ export async function POST(request) {
       message: body.message || '',
       // Metadata
       status: 'pending',
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
     }
 
-    // Read existing applications
-    const metadataFile = path.join(dataDir, 'applications.json')
-    let applications = []
+    // Connect to MongoDB and save
+    const client = await dbConnect()
+    const db = client.db()
     
-    if (existsSync(metadataFile)) {
-      const data = await readFile(metadataFile, 'utf-8')
-      applications = JSON.parse(data)
+    const result = await db.collection('applications').insertOne(newApplication)
+    
+    const saved = await db.collection('applications').findOne({ _id: result.insertedId })
+
+    // Convert ObjectId to string
+    const serializedApplication = {
+      ...saved,
+      _id: saved._id?.toString()
     }
-
-    // Add new application
-    applications.push(newApplication)
-
-    // Save to file
-    await writeFile(metadataFile, JSON.stringify(applications, null, 2))
 
     // Send email notification to admin
-    await sendAdminEmailNotification(newApplication)
+    await sendAdminEmailNotification(serializedApplication)
 
     return NextResponse.json({
       message: 'Application submitted successfully',
-      application: newApplication
+      application: serializedApplication
     }, { status: 201 })
   } catch (error) {
     console.error('Error submitting application:', error)

@@ -56,7 +56,7 @@ export default function AdminDashboard() {
 
   const fetchDocuments = async () => {
     try {
-      const response = await fetch(`${apiUrl}/api/documents`)
+      const response = await fetch('/api/documents')
       if (response.ok) {
         const data = await response.json()
         setDocuments(data.documents || [])
@@ -69,7 +69,7 @@ export default function AdminDashboard() {
   const fetchApplications = async () => {
     try {
       const token = localStorage.getItem('adminToken')
-      const response = await fetch(`${apiUrl}/api/applications`, {
+      const response = await fetch('/api/applications', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -159,7 +159,7 @@ export default function AdminDashboard() {
         setLoading(false)
       })
 
-      xhr.open('POST', `${apiUrl}/api/documents/upload`)
+      xhr.open('POST', '/api/documents/upload')
       xhr.setRequestHeader('Authorization', `Bearer ${token}`)
       xhr.send(data)
     } catch (error) {
@@ -173,7 +173,7 @@ export default function AdminDashboard() {
 
     try {
       const token = localStorage.getItem('adminToken')
-      const response = await fetch(`${apiUrl}/api/documents/${documentId}`, {
+      const response = await fetch(`/api/documents/${documentId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -261,7 +261,7 @@ export default function AdminDashboard() {
         const imageFormData = new FormData()
         imageFormData.append('image', updateImageFile)
 
-        const uploadResponse = await fetch(`${apiUrl}/api/updates/upload`, {
+        const uploadResponse = await fetch('/api/updates/upload', {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -288,7 +288,7 @@ export default function AdminDashboard() {
         const videoFormData = new FormData()
         videoFormData.append('video', updateVideoFile)
 
-        const uploadResponse = await fetch(`${apiUrl}/api/updates/video-upload`, {
+        const uploadResponse = await fetch('/api/updates/video-upload', {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -309,7 +309,7 @@ export default function AdminDashboard() {
         setVideoUploading(false)
       }
 
-      const response = await fetch(`${apiUrl}/api/updates`, {
+      const response = await fetch('/api/updates', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -405,7 +405,7 @@ export default function AdminDashboard() {
   const updateApplicationStatus = async (applicationId, newStatus) => {
     try {
       const token = localStorage.getItem('adminToken')
-      const response = await fetch(`${apiUrl}/api/applications/${applicationId}`, {
+      const response = await fetch(`/api/applications/${applicationId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -431,7 +431,7 @@ export default function AdminDashboard() {
 
     try {
       const token = localStorage.getItem('adminToken')
-      const response = await fetch(`${apiUrl}/api/applications/${applicationId}`, {
+      const response = await fetch(`/api/applications/${applicationId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,

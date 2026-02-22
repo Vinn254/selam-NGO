@@ -1,25 +1,24 @@
 import { NextResponse } from 'next/server'
-import { readFile } from 'fs/promises'
-import { existsSync } from 'fs'
-import path from 'path'
-
-const dataDir = path.join(process.env.VERCEL ? '/tmp' : process.cwd(), 'data')
+import dbConnect from '@/lib/mongodb'
 
 export async function GET() {
   try {
-    const metadataFile = path.join(dataDir, 'documents.json')
+    const client = await dbConnect()
+    const db = client.db()
     
-    if (!existsSync(metadataFile)) {
-      return NextResponse.json({ documents: [] })
-    }
+    const documents = await db
+      .collection('documents')
+      .find({})
+      .sort({ createdAt: -1 })
+      .toArray()
 
-    const data = await readFile(metadataFile, 'utf-8')
-    const documents = JSON.parse(data)
+    // Convert ObjectId to string for proper serialization
+    const serializedDocuments = documents.map(doc => ({
+      ...doc,
+      _id: doc._id?.toString()
+    }))
 
-    // Sort by creation date (newest first)
-    documents.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-
-    return NextResponse.json({ documents })
+    return NextResponse.json({ documents: serializedDocuments })
   } catch (error) {
     console.error('Error fetching documents:', error)
     return NextResponse.json(
