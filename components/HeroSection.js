@@ -123,7 +123,8 @@ function HeroSection() {
                     : 'opacity-0 z-0 scale-100'
               }`}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-800 to-teal-900" />
+              <div className="absolute inset-0 bg-emerald-900" />
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-800/80 to-teal-900/80" />
               
               <div className={`absolute inset-0 ${isActive ? 'hero-ken-burns' : ''}`}>
                 <Image

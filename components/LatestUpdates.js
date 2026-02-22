@@ -110,7 +110,7 @@ function LatestUpdates({ initialUpdates = [] }) {
     <section ref={sectionRef} className="py-16 green-pattern-bg" id="updates">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className={`flex items-center justify-between mb-12 transition-all duration-700 ease-out ${
+        <div className={`text-center mb-12 transition-all duration-700 ease-out ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
           <div>
