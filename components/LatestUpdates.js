@@ -244,12 +244,12 @@ function LatestUpdates({ initialUpdates = [] }) {
                     {update.description}
                   </p>
 
-                  {/* Read More / Watch Video Link */}
+                  {/* Learn more / Watch Video Link */}
                   <a
                     href={`/updates/${update._id || update.id}`}
                     className="inline-flex items-center space-x-1 text-emerald-600 font-semibold hover:text-emerald-700 transition-colors duration-200 group"
                   >
-                    <span>{update.mediaType === 'video' || update.mediaUrl?.includes('youtube') || update.mediaUrl?.includes('youtu.be') ? 'Watch Video' : 'Read more'}</span>
+                    <span>{update.mediaType === 'video' || update.mediaUrl?.includes('youtube') || update.mediaUrl?.includes('youtu.be') ? 'Watch Video' : 'Learn more'}</span>
                     <svg 
                       className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-200" 
                       fill="none" 
