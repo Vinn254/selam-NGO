@@ -2,8 +2,8 @@
   "updates": [
     {
       "_id": "new1",
-      "title": "Empowering Communities Through Education",
-      "description": "Join us in transforming lives by providing quality education to children in underserved areas. Every child deserves the chance to learn and thrive.",
+      "title": "Empowering Youth Through Education",
+      "description": "We believe education is the key to breaking the cycle of poverty. Our programs provide quality learning opportunities for children and youth in underserved communities, giving them the tools they need to build a brighter future.",
       "mediaType": "image",
       "mediaUrl": "/IM4.JPG",
       "createdAt": "2026-02-20T10:00:00Z",
@@ -11,8 +11,8 @@
     },
     {
       "_id": "new2",
-      "title": "Women's Empowerment: Building Stronger Communities",
-      "description": "Our women empowerment programs are creating lasting change. From entrepreneurship training to leadership development, we're helping women build brighter futures for themselves and their families.",
+      "title": "Women's Empowerment Programs",
+      "description": "Through our women's empowerment initiatives, we're helping women gain financial independence and leadership skills. Join us in supporting women as they transform their families and communities.",
       "mediaType": "image",
       "mediaUrl": "/IM3.JPG",
       "createdAt": "2026-02-18T10:00:00Z",
@@ -20,8 +20,8 @@
     },
     {
       "_id": "1",
-      "title": "Healthcare for All: Reaching Every Corner",
-      "description": "Our mobile health clinics are bringing essential medical services to remote communities. Quality healthcare is a right, not a privilege — and we're making it accessible to everyone.",
+      "title": "Community Health Initiatives",
+      "description": "Access to quality healthcare is a fundamental right. Our mobile health clinics bring essential medical services to remote areas, ensuring no one is left behind in receiving the care they deserve.",
       "mediaType": "image",
       "mediaUrl": "/IM6.JPG",
       "createdAt": "2026-01-15T10:00:00Z",

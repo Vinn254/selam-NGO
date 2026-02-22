@@ -19,9 +19,9 @@ export default function Logo({ scrolled = false, size = 'default' }) {
   }
 
   const textSizes = {
-    small: 'text-xs',
-    default: 'text-sm',
-    large: 'text-base',
+    small: 'text-sm',
+    default: 'text-base',
+    large: 'text-lg',
   }
 
   const iconSize = {

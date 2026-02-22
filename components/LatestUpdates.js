@@ -163,7 +163,7 @@ function LatestUpdates({ initialUpdates = [] }) {
             updates.map((update, index) => (
               <article
                 key={update._id || update.id}
-                className={`update-card bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 ease-out ${
+                className={`update-card bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl border border-gray-200 hover:border-emerald-500 hover:-translate-y-1 transition-all duration-500 ease-out ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
                 style={{ transitionDelay: `${300 + index * 100}ms` }}
