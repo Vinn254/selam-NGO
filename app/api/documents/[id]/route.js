@@ -3,6 +3,8 @@ import { readFile, writeFile, unlink } from 'fs/promises'
 import { existsSync } from 'fs'
 import path from 'path'
 
+const dataDir = path.join(process.env.VERCEL ? '/tmp' : process.cwd(), 'data')
+
 // This would typically verify JWT token
 function verifyAuth(request) {
   const authHeader = request.headers.get('authorization')
@@ -25,7 +27,7 @@ export async function DELETE(request, { params }) {
     }
 
     const { id } = params
-    const metadataFile = path.join(process.cwd(), 'data', 'documents.json')
+    const metadataFile = path.join(dataDir, 'documents.json')
 
     if (!existsSync(metadataFile)) {
       return NextResponse.json(
@@ -75,7 +77,7 @@ export async function DELETE(request, { params }) {
 export async function GET(request, { params }) {
   try {
     const { id } = params
-    const metadataFile = path.join(process.cwd(), 'data', 'documents.json')
+    const metadataFile = path.join(dataDir, 'documents.json')
 
     if (!existsSync(metadataFile)) {
       return NextResponse.json(

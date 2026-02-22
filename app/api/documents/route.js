@@ -3,9 +3,11 @@ import { readFile } from 'fs/promises'
 import { existsSync } from 'fs'
 import path from 'path'
 
+const dataDir = path.join(process.env.VERCEL ? '/tmp' : process.cwd(), 'data')
+
 export async function GET() {
   try {
-    const metadataFile = path.join(process.cwd(), 'data', 'documents.json')
+    const metadataFile = path.join(dataDir, 'documents.json')
     
     if (!existsSync(metadataFile)) {
       return NextResponse.json({ documents: [] })
