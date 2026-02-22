@@ -1,6 +1,17 @@
 import { NextResponse } from 'next/server'
 import dbConnect from '@/lib/mongodb'
+import { readFile, writeFile } from 'fs/promises'
+import { existsSync, mkdirSync } from 'fs'
+import path from 'path'
 import nodemailer from 'nodemailer'
+
+// Ensure data directory exists
+const dataDir = path.join(process.env.VERCEL ? '/tmp' : process.cwd(), 'data')
+if (!existsSync(dataDir)) {
+  mkdirSync(dataDir, { recursive: true })
+}
+
+const metadataFile = path.join(dataDir, 'applications.json')
 
 // Email transporter configuration
 function getTransporter() {
@@ -17,7 +28,6 @@ function getTransporter() {
 
 // Send email notification to admin
 async function sendAdminEmailNotification(application) {
-  // Check if SMTP is configured
   if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
     console.log('SMTP not configured, skipping email notification')
     return false
@@ -35,7 +45,7 @@ async function sendAdminEmailNotification(application) {
   const emailContent = `
 New ${typeLabels[application.type]} Received
 
-Date: new Date(application.createdAt).toLocaleString()
+Date: ${new Date(application.createdAt).toLocaleString()}
 
 Applicant Details:
 - Name: ${application.name}
@@ -68,12 +78,39 @@ Automated Notification
   }
 }
 
+// Get applications from local file
+function getLocalApplications() {
+  try {
+    if (!existsSync(metadataFile)) {
+      return []
+    }
+    const data = JSON.parse(require('fs').readFileSync(metadataFile, 'utf-8'))
+    return data || []
+  } catch (error) {
+    return []
+  }
+}
+
+// Save application to local file
+async function saveLocalApplication(application) {
+  try {
+    let applications = getLocalApplications()
+    applications.push(application)
+    await writeFile(metadataFile, JSON.stringify(applications, null, 2))
+    return true
+  } catch (error) {
+    console.error('Failed to save to local file:', error)
+    return false
+  }
+}
+
 // GET - Fetch all applications (for admin)
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url)
-    const type = searchParams.get('type') // 'volunteer', 'partner', 'story', or null for all
+    const type = searchParams.get('type')
     
+    // Try MongoDB first
     const client = await dbConnect()
     const db = client.db()
     
@@ -88,19 +125,24 @@ export async function GET(request) {
       .sort({ createdAt: -1 })
       .toArray()
 
-    // Convert ObjectId to string for proper serialization
     const serializedApplications = applications.map(app => ({
       ...app,
       _id: app._id?.toString()
     }))
 
+    // If MongoDB has no data, also include local applications as fallback
+    if (serializedApplications.length === 0) {
+      const localApps = getLocalApplications()
+      return NextResponse.json({ applications: localApps, source: 'local' })
+    }
+
     return NextResponse.json({ applications: serializedApplications })
   } catch (error) {
-    console.error('Error fetching applications:', error)
-    return NextResponse.json(
-      { message: 'Failed to fetch applications', error: error.message },
-      { status: 500 }
-    )
+    console.error('Error fetching applications:', error.message)
+    
+    // Fallback to local JSON file if MongoDB is not available
+    const localApps = getLocalApplications()
+    return NextResponse.json({ applications: localApps, source: 'local' })
   }
 }
 
@@ -120,7 +162,6 @@ export async function POST(request) {
       }
     }
 
-    // Validate application type
     const validTypes = ['volunteer', 'partner', 'story']
     if (!validTypes.includes(body.type)) {
       return NextResponse.json(
@@ -129,44 +170,64 @@ export async function POST(request) {
       )
     }
 
-    // Create new application
     const newApplication = {
+      _id: Date.now().toString(36) + Math.random().toString(36).substring(2),
       name: body.name,
       email: body.email,
       phone: body.phone || '',
       type: body.type,
-      // Type-specific fields
-      interest: body.interest || '', // For volunteer
-      organization: body.organization || '', // For partner
-      partnershipType: body.partnershipType || '', // For partner
+      interest: body.interest || '',
+      organization: body.organization || '',
+      partnershipType: body.partnershipType || '',
       message: body.message || '',
-      // Metadata
       status: 'pending',
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     }
 
-    // Connect to MongoDB and save
-    const client = await dbConnect()
-    const db = client.db()
-    
-    const result = await db.collection('applications').insertOne(newApplication)
-    
-    const saved = await db.collection('applications').findOne({ _id: result.insertedId })
+    // Try to save to MongoDB
+    try {
+      const client = await dbConnect()
+      const db = client.db()
+      
+      const result = await db.collection('applications').insertOne({
+        ...newApplication,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      })
+      
+      const saved = await db.collection('applications').findOne({ _id: result.insertedId })
 
-    // Convert ObjectId to string
-    const serializedApplication = {
-      ...saved,
-      _id: saved._id?.toString()
+      const serializedApplication = {
+        ...saved,
+        _id: saved._id?.toString()
+      }
+
+      await sendAdminEmailNotification(serializedApplication)
+
+      return NextResponse.json({
+        message: 'Application submitted successfully',
+        application: serializedApplication
+      }, { status: 201 })
+    } catch (dbError) {
+      console.error('MongoDB error, saving to local file:', dbError.message)
+      
+      // Fallback: Save to local JSON file
+      const saved = await saveLocalApplication(newApplication)
+      if (saved) {
+        await sendAdminEmailNotification(newApplication)
+        return NextResponse.json({ 
+          message: 'Application submitted successfully (saved locally)',
+          application: newApplication,
+          source: 'local'
+        }, { status: 201 })
+      }
+      
+      return NextResponse.json({ 
+        message: 'Database connection failed', 
+        error: dbError.message 
+      }, { status: 500 })
     }
-
-    // Send email notification to admin
-    await sendAdminEmailNotification(serializedApplication)
-
-    return NextResponse.json({
-      message: 'Application submitted successfully',
-      application: serializedApplication
-    }, { status: 201 })
   } catch (error) {
     console.error('Error submitting application:', error)
     return NextResponse.json(

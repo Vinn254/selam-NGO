@@ -5,20 +5,51 @@ import path from 'path'
 import { v4 as uuidv4 } from 'uuid'
 import dbConnect from '@/lib/mongodb'
 
+const dataDir = path.join(process.env.VERCEL ? '/tmp' : process.cwd(), 'data')
+const metadataFile = path.join(dataDir, 'documents.json')
+
 // This would typically verify JWT token
 function verifyAuth(request) {
   const authHeader = request.headers.get('authorization')
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return null
   }
-  // In production, verify the JWT token here
-  // For now, we'll just check if token exists
   return { authenticated: true }
+}
+
+// Get documents from local file
+function getLocalDocuments() {
+  try {
+    if (!existsSync(metadataFile)) {
+      return []
+    }
+    const fs = require('fs')
+    const data = fs.readFileSync(metadataFile, 'utf-8')
+    return JSON.parse(data) || []
+  } catch (error) {
+    return []
+  }
+}
+
+// Save document to local file
+async function saveLocalDocument(documentData) {
+  try {
+    if (!existsSync(dataDir)) {
+      await mkdir(dataDir, { recursive: true })
+    }
+    let documents = getLocalDocuments()
+    documents.push(documentData)
+    const fs = require('fs')
+    fs.writeFileSync(metadataFile, JSON.stringify(documents, null, 2))
+    return true
+  } catch (error) {
+    console.error('Failed to save to local file:', error)
+    return false
+  }
 }
 
 export async function POST(request) {
   try {
-    // Verify authentication
     const auth = verifyAuth(request)
     if (!auth) {
       return NextResponse.json(
@@ -47,7 +78,6 @@ export async function POST(request) {
       )
     }
 
-    // Validate file type
     const allowedTypes = [
       'application/pdf',
       'application/msword',
@@ -61,8 +91,7 @@ export async function POST(request) {
       )
     }
 
-    // Validate file size (10MB max)
-    const maxSize = 10 * 1024 * 1024 // 10MB
+    const maxSize = 10 * 1024 * 1024
     if (file.size > maxSize) {
       return NextResponse.json(
         { message: 'File size exceeds 10MB limit' },
@@ -70,26 +99,19 @@ export async function POST(request) {
       )
     }
 
-    // Create uploads directory if it doesn't exist
     const uploadsDir = path.join(process.cwd(), 'public', 'uploads', 'documents')
     if (!existsSync(uploadsDir)) {
       await mkdir(uploadsDir, { recursive: true })
     }
 
-    // Generate unique filename
     const fileExtension = path.extname(file.name)
     const uniqueFilename = `${uuidv4()}${fileExtension}`
     const filePath = path.join(uploadsDir, uniqueFilename)
 
-    // Convert file to buffer and save
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
     await writeFile(filePath, buffer)
 
-    // Save document metadata to MongoDB
-    const client = await dbConnect()
-    const db = client.db()
-    
     const documentData = {
       _id: uuidv4(),
       title,
@@ -99,24 +121,54 @@ export async function POST(request) {
       fileUrl: `/uploads/documents/${uniqueFilename}`,
       fileSize: file.size,
       fileType: file.type,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     }
 
-    const result = await db.collection('documents').insertOne(documentData)
-    
-    const savedDocument = {
-      ...documentData,
-      _id: result.insertedId?.toString() || documentData._id
-    }
+    // Try to save to MongoDB first
+    try {
+      const client = await dbConnect()
+      const db = client.db()
+      
+      const result = await db.collection('documents').insertOne({
+        ...documentData,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      })
+      
+      const savedDocument = {
+        ...documentData,
+        _id: result.insertedId?.toString() || documentData._id
+      }
 
-    return NextResponse.json(
-      {
-        message: 'Document uploaded successfully',
-        document: savedDocument,
-      },
-      { status: 201 }
-    )
+      return NextResponse.json(
+        {
+          message: 'Document uploaded successfully',
+          document: savedDocument,
+        },
+        { status: 201 }
+      )
+    } catch (dbError) {
+      console.error('MongoDB error, saving to local file:', dbError.message)
+      
+      // Fallback: Save to local JSON file
+      const saved = await saveLocalDocument(documentData)
+      if (saved) {
+        return NextResponse.json(
+          {
+            message: 'Document uploaded successfully (saved locally)',
+            document: documentData,
+            source: 'local'
+          },
+          { status: 201 }
+        )
+      }
+      
+      return NextResponse.json(
+        { message: 'Failed to save document', error: dbError.message },
+        { status: 500 }
+      )
+    }
   } catch (error) {
     console.error('Upload error:', error)
     return NextResponse.json(
