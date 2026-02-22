@@ -5,17 +5,17 @@ import Image from 'next/image'
 
 const heroImages = [
   {
-    src: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1200&q=60&fm=webp&fit=crop',
+    src: '/IM1.JPG',
     alt: 'Community empowerment through education',
     priority: true,
   },
   {
-    src: 'https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=1200&q=60&fm=webp&fit=crop',
+    src: '/IM2.JPG',
     alt: 'Healthcare initiatives in rural areas',
     priority: false,
   },
   {
-    src: 'https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=1200&q=60&fm=webp&fit=crop',
+    src: '/IM7.jpg',
     alt: 'Sustainable development projects',
     priority: false,
   },

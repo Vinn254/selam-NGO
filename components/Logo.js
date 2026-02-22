@@ -4,11 +4,12 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 /**
- * Modern logo design for SELAM NGO
+ * Logo design for SELAM NURU YA JAMII INITIATIVE
  * Features:
- * - Abstract hand/growth symbol representing community support
- * - Uses emerald/teal gradient to match website theme
- * - Clean, modern, and scalable SVG
+ * - SELAM in BLACK color
+ * - NURU YA JAMII in cool matching YELLOW color
+ * - INITIATIVE in cool GREEN color
+ * - Clean, modern, and scalable
  */
 export default function Logo({ scrolled = false, size = 'default' }) {
   const sizeClasses = {
@@ -18,9 +19,9 @@ export default function Logo({ scrolled = false, size = 'default' }) {
   }
 
   const textSizes = {
-    small: 'text-lg',
-    default: 'text-xl',
-    large: 'text-2xl',
+    small: 'text-xs',
+    default: 'text-sm',
+    large: 'text-base',
   }
 
   const iconSize = {
@@ -41,9 +42,17 @@ export default function Logo({ scrolled = false, size = 'default' }) {
         />
       </div>
 
-      <span className={`font-display font-bold ${textSizes[size]} text-black transition-colors duration-300`}>
-        SELAM
-      </span>
+      <div className="flex flex-col leading-tight">
+        <span className={`font-display font-bold ${textSizes[size]} text-black transition-colors duration-300`}>
+          SELAM
+        </span>
+        <span className={`font-display font-bold ${textSizes[size]} text-amber-400 transition-colors duration-300`}>
+          NURU YA JAMII
+        </span>
+        <span className={`font-display font-bold ${textSizes[size]} text-emerald-600 transition-colors duration-300`}>
+          INITIATIVE
+        </span>
+      </div>
     </Link>
   )
 }

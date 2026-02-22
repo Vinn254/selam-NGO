@@ -2,28 +2,28 @@
   "updates": [
     {
       "_id": "new1",
-      "title": "Education Program Expands to New Regions",
-      "description": "Selam NGO is proud to announce the expansion of our education program to three new counties. This initiative will provide learning materials and teacher training to over 50 schools.",
+      "title": "Empowering Communities Through Education",
+      "description": "Join us in transforming lives by providing quality education to children in underserved areas. Every child deserves the chance to learn and thrive.",
       "mediaType": "image",
-      "mediaUrl": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80",
+      "mediaUrl": "/IM4.JPG",
       "createdAt": "2026-02-20T10:00:00Z",
       "updatedAt": "2026-02-20T10:00:00Z"
     },
     {
       "_id": "new2",
-      "title": "Women's Empowerment Workshop Success",
-      "description": "Over 200 women participated in our recent entrepreneurship workshop in Nairobi. The training covered business skills, financial literacy, and leadership development.",
+      "title": "Women's Empowerment: Building Stronger Communities",
+      "description": "Our women empowerment programs are creating lasting change. From entrepreneurship training to leadership development, we're helping women build brighter futures for themselves and their families.",
       "mediaType": "image",
-      "mediaUrl": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&q=80",
+      "mediaUrl": "/IM3.JPG",
       "createdAt": "2026-02-18T10:00:00Z",
       "updatedAt": "2026-02-18T10:00:00Z"
     },
     {
       "_id": "1",
-      "title": "Community Health Initiative Launches in Rural Areas",
-      "description": "Selam NGO has launched a comprehensive health initiative bringing medical care to underserved rural communities. Our team of healthcare professionals is providing free checkups, medications, and health education to over 5,000 residents.",
+      "title": "Healthcare for All: Reaching Every Corner",
+      "description": "Our mobile health clinics are bringing essential medical services to remote communities. Quality healthcare is a right, not a privilege — and we're making it accessible to everyone.",
       "mediaType": "image",
-      "mediaUrl": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+      "mediaUrl": "/IM6.JPG",
       "createdAt": "2026-01-15T10:00:00Z",
       "updatedAt": "2026-01-15T10:00:00Z"
     },
@@ -32,7 +32,7 @@
       "title": "New School Building Completed in Nakuru County",
       "description": "After months of construction, our new primary school building is now complete. The facility includes 6 classrooms, a computer lab, and a library, providing education for over 300 students.",
       "mediaType": "image",
-      "mediaUrl": "https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=800&q=80",
+      "mediaUrl": "/IM4.JPG",
       "createdAt": "2026-01-10T10:00:00Z",
       "updatedAt": "2026-01-10T10:00:00Z"
     },
@@ -41,7 +41,7 @@
       "title": "Clean Water Project Reaches 10,000 Families",
       "description": "Our clean water initiative has successfully provided safe drinking water to 10,000 families across multiple counties. Solar-powered water pumps and filtration systems are now operational.",
       "mediaType": "image",
-      "mediaUrl": "https://images.unsplash.com/photo-1541544537156-7627a7a4aa1c?w=800&q=80",
+      "mediaUrl": "/IM3.JPG",
       "createdAt": "2026-01-05T10:00:00Z",
       "updatedAt": "2026-01-05T10:00:00Z"
     }
