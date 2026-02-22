@@ -94,7 +94,7 @@ function LatestUpdates({ initialUpdates = [] }) {
     }).format(date)
   }
 
-  if (updates.length === 0 && !isLoading) {
+  if (updates.length === 0 && !isLoading && !initialUpdates?.length) {
     return null
   }
 
