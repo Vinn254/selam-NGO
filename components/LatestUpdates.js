@@ -19,6 +19,7 @@ function LatestUpdates({ initialUpdates = [] }) {
   const [updates, setUpdates] = useState(initialUpdates.length > 0 ? initialUpdates : defaultUpdates)
   const [isLoading, setIsLoading] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
+  const [expandedId, setExpandedId] = useState(null)
   const sliderRef = useRef(null)
   const sectionRef = useRef(null)
   const apiUrl = getApiUrl()
@@ -240,18 +241,18 @@ function LatestUpdates({ initialUpdates = [] }) {
                   </h3>
 
                   {/* Description */}
-                  <p className="text-gray-600 line-clamp-3 mb-4">
+                  <p className={`text-gray-600 mb-4 ${expandedId === (update._id || update.id) ? '' : 'line-clamp-3'}`}>
                     {update.description}
                   </p>
 
                   {/* Learn more / Watch Video Link */}
-                  <a
-                    href="/updates"
+                  <button
+                    onClick={() => setExpandedId(expandedId === (update._id || update.id) ? null : (update._id || update.id))}
                     className="inline-flex items-center space-x-1 text-emerald-600 font-semibold hover:text-emerald-700 transition-colors duration-200 group"
                   >
-                    <span>{update.mediaType === 'video' || update.mediaUrl?.includes('youtube') || update.mediaUrl?.includes('youtu.be') ? 'Watch Video' : 'Learn more'}</span>
+                    <span>{expandedId === (update._id || update.id) ? 'Show less' : (update.mediaType === 'video' || update.mediaUrl?.includes('youtube') || update.mediaUrl?.includes('youtu.be') ? 'Watch Video' : 'Learn more')}</span>
                     <svg 
-                      className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-200" 
+                      className={`w-4 h-4 transform transition-transform duration-200 ${expandedId === (update._id || update.id) ? 'rotate-180' : 'group-hover:translate-x-1'}`} 
                       fill="none" 
                       strokeLinecap="round" 
                       strokeLinejoin="round" 
@@ -259,28 +260,14 @@ function LatestUpdates({ initialUpdates = [] }) {
                       viewBox="0 0 24 24" 
                       stroke="currentColor"
                     >
-                      <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                      <path d="M19 9l-7 7-7-7"></path>
                     </svg>
-                  </a>
+                  </button>
                 </div>
               </article>
             ))
           )}
         </div>
-
-        {/* View All Link */}
-        {updates.length > 0 && (
-          <div className={`text-center mt-12 transition-all duration-700 ease-out delay-500 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}>
-            <a
-              href="/updates"
-              className="btn-primary"
-            >
-              View All Updates
-            </a>
-          </div>
-        )}
       </div>
     </section>
   )
