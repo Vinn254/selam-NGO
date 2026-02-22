@@ -10,21 +10,13 @@ async function getUpdates() {
     })
     
     if (!res.ok) {
-      // Fallback to local data
-      const localData = await import('@/data/updates.json')
-      return localData.default?.updates || localData.default || []
+      return []
     }
     const data = await res.json()
     return data.updates || []
   } catch (error) {
     console.warn('Failed to fetch updates:', error.message)
-    // Fallback to local data
-    try {
-      const localData = await import('@/data/updates.json')
-      return localData.default?.updates || localData.default || []
-    } catch {
-      return []
-    }
+    return []
   }
 }
 

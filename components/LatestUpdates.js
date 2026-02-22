@@ -246,7 +246,7 @@ function LatestUpdates({ initialUpdates = [] }) {
 
                   {/* Learn more / Watch Video Link */}
                   <a
-                    href={`/updates/${update._id || update.id}`}
+                    href="/updates"
                     className="inline-flex items-center space-x-1 text-emerald-600 font-semibold hover:text-emerald-700 transition-colors duration-200 group"
                   >
                     <span>{update.mediaType === 'video' || update.mediaUrl?.includes('youtube') || update.mediaUrl?.includes('youtu.be') ? 'Watch Video' : 'Learn more'}</span>
