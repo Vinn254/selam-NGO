@@ -5,16 +5,26 @@ import Image from 'next/image'
 
 async function getUpdates() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/updates`, {
-      next: { revalidate: 60 },
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/api/updates`, {
+      next: { revalidate: 10 },
     })
     
-    if (!res.ok) return []
+    if (!res.ok) {
+      // Fallback to local data
+      const localData = await import('@/data/updates.json')
+      return localData.default?.updates || localData.default || []
+    }
     const data = await res.json()
     return data.updates || []
   } catch (error) {
     console.warn('Failed to fetch updates:', error.message)
-    return []
+    // Fallback to local data
+    try {
+      const localData = await import('@/data/updates.json')
+      return localData.default?.updates || localData.default || []
+    } catch {
+      return []
+    }
   }
 }
 
@@ -82,10 +92,10 @@ export default async function UpdatesPage() {
                     className={`modern-card ${cardColors[index % cardColors.length]} text-white overflow-hidden`}
                   >
                     {/* Image */}
-                    {update.image && (
+                    {(update.mediaUrl || update.image) && (
                       <div className="relative h-56 w-full bg-black/20">
                         <Image
-                          src={update.image}
+                          src={update.mediaUrl || update.image}
                           alt={update.title}
                           fill
                           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"

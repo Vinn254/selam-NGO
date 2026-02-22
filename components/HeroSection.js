@@ -115,7 +115,7 @@ function HeroSection() {
           return (
             <div
               key={index}
-              className={`absolute inset-0 transition-all duration-[3000ms] ease-in-out ${
+              className={`absolute inset-0 transition-all duration-[1500ms] ease-in-out ${
                 isActive 
                   ? 'opacity-100 z-10 scale-100' 
                   : isNext
