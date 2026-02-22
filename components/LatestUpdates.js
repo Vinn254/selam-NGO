@@ -3,6 +3,9 @@
 import { useState, useEffect, useRef, memo, useCallback } from 'react'
 import Image from 'next/image'
 
+// Import local updates as fallback
+import localUpdates from '@/data/updates.json'
+
 // Get API URL safely for client-side (falls back to relative path when not set)
 const getApiUrl = () => {
   return typeof process !== 'undefined' && process.env.NEXT_PUBLIC_API_URL
@@ -11,7 +14,9 @@ const getApiUrl = () => {
 }
 
 function LatestUpdates({ initialUpdates = [] }) {
-  const [updates, setUpdates] = useState(initialUpdates)
+  // Use local updates as fallback when no initial updates provided
+  const defaultUpdates = localUpdates?.updates || localUpdates || []
+  const [updates, setUpdates] = useState(initialUpdates.length > 0 ? initialUpdates : defaultUpdates)
   const [isLoading, setIsLoading] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const sliderRef = useRef(null)
@@ -94,7 +99,10 @@ function LatestUpdates({ initialUpdates = [] }) {
     }).format(date)
   }
 
-  if (updates.length === 0 && !isLoading && !initialUpdates?.length) {
+  // Always show the section if we have local updates
+  const showSection = updates.length > 0 || localUpdates?.updates?.length > 0 || localUpdates?.length > 0
+
+  if (!showSection) {
     return null
   }
 
