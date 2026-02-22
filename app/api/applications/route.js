@@ -2,11 +2,78 @@ import { NextResponse } from 'next/server'
 import { readFile, writeFile } from 'fs/promises'
 import { existsSync, mkdirSync } from 'fs'
 import path from 'path'
+import nodemailer from 'nodemailer'
 
 // Ensure data directory exists
 const dataDir = path.join(process.env.VERCEL ? '/tmp' : process.cwd(), 'data')
 if (!existsSync(dataDir)) {
   mkdirSync(dataDir, { recursive: true })
+}
+
+// Email transporter configuration
+function getTransporter() {
+  return nodemailer.createTransport({
+    host: process.env.SMTP_HOST || 'smtp.gmail.com',
+    port: parseInt(process.env.SMTP_PORT || '587'),
+    secure: false,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+  })
+}
+
+// Send email notification to admin
+async function sendAdminEmailNotification(application) {
+  // Check if SMTP is configured
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    console.log('SMTP not configured, skipping email notification')
+    return false
+  }
+
+  const transporter = getTransporter()
+  const adminEmail = process.env.ADMIN_EMAIL || process.env.SMTP_USER
+
+  const typeLabels = {
+    volunteer: 'Volunteer Application',
+    partner: 'Partnership Request',
+    story: 'Story Submission'
+  }
+
+  const emailContent = `
+New ${typeLabels[application.type]} Received
+
+Date: ${new Date(application.createdAt).toLocaleString()}
+
+Applicant Details:
+- Name: ${application.name}
+- Email: ${application.email}
+- Phone: ${application.phone || 'Not provided'}
+- Type: ${typeLabels[application.type]}
+
+${application.interest ? `- Interest: ${application.interest}` : ''}
+${application.organization ? `- Organization: ${application.organization}` : ''}
+${application.partnershipType ? `- Partnership Type: ${application.partnershipType}` : ''}
+${application.message ? `\nMessage:\n${application.message}` : ''}
+
+---
+SELAM NGO Website
+Automated Notification
+  `.trim()
+
+  try {
+    await transporter.sendMail({
+      from: process.env.SMTP_FROM || 'SELAM NGO <noreply@selam.co.ke>',
+      to: adminEmail,
+      subject: `New ${typeLabels[application.type]} - ${application.name}`,
+      text: emailContent,
+    })
+    console.log('Admin email notification sent successfully')
+    return true
+  } catch (error) {
+    console.error('Error sending admin email:', error)
+    return false
+  }
 }
 
 // GET - Fetch all applications (for admin)
@@ -99,6 +166,9 @@ export async function POST(request) {
 
     // Save to file
     await writeFile(metadataFile, JSON.stringify(applications, null, 2))
+
+    // Send email notification to admin
+    await sendAdminEmailNotification(newApplication)
 
     return NextResponse.json({
       message: 'Application submitted successfully',

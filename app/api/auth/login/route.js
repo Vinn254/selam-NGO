@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server'
 
 // Simple admin credentials (in production, use proper authentication)
 const ADMIN_USER = {
-  email: 'admin@selam.org',
-  password: 'selam2024',
+  email: 'admin@selam.co.ke',
+  password: 'Selam@2026',
   name: 'Admin User',
   role: 'admin',
 }
