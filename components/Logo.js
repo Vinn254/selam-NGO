@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 /**
- * Modern logo design for Selam NGO
+ * Modern logo design for SELAM NGO
  * Features:
  * - Abstract hand/growth symbol representing community support
  * - Uses emerald/teal gradient to match website theme
