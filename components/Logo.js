@@ -43,11 +43,11 @@ export default function Logo({ scrolled = false, size = 'default' }) {
       </div>
 
       <div className="flex flex-wrap items-baseline leading-tight">
-        <span className={`font-display font-bold ${textSizes[size]} text-black transition-colors duration-300`}>
-          selam
+        <span className={`font-display font-bold ${textSizes[size]} text-black transition-colors duration-300 mr-1 sm:mr-2`}>
+          SELAM
         </span>
         <span className={`font-display font-bold ${textSizes[size]} text-red-600 transition-colors duration-300`}>
-          {' '}NURU YA JAMIII
+          NURU YA JAMIII
         </span>
       </div>
     </Link>
