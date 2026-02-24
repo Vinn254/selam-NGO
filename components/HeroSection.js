@@ -15,7 +15,7 @@ const heroImages = [
     priority: false,
   },
   {
-    src: '/IM7.jpg',
+    src: '/IM3.JPG',
     alt: 'Sustainable development projects',
     priority: false,
   },
@@ -164,7 +164,7 @@ function HeroSection() {
 
             <div className="flex flex-col sm:flex-row gap-4">
               <a
-                href="#what-we-do"
+                href="#updates"
                 className="btn-primary text-center"
               >
                 Discover Our Work
