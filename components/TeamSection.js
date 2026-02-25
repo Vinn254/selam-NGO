@@ -8,19 +8,19 @@ const teamMembers = [
   {
     name: 'Robert Owino',
     role: 'Chief Executive Officer (CEO)',
-    image: '/PIC1 (2).jpeg',
+    image: '/PIC1.jpeg',
     description: 'Leading Selam CBO with vision and dedication to community empowerment.',
   },
   {
     name: 'Rosemary Awuor',
     role: 'Director',
-    image: '/PIC2 (2).jpeg',
+    image: '/PIC2.jpeg',
     description: 'Driving strategic initiatives and fostering partnerships for sustainable growth.',
   },
   {
     name: 'Vincent Mboya',
     role: 'Treasurer',
-    image: '/PIC3(2).jpeg',
+    image: '/PIC3.jpeg',
     description: 'Ensuring transparent financial management and resource allocation.',
   },
 ]
@@ -62,13 +62,13 @@ function TeamMemberCard({ member, index }) {
         transitionProperty: 'opacity, transform, box-shadow'
       }}
     >
-      <div className="relative h-64 sm:h-72 w-full overflow-hidden">
+      <div className="relative h-56 sm:h-64 w-full overflow-hidden rounded-t-2xl">
         <Image
           src={member.image}
           alt={member.name}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover object-top"
+          className="object-contain bg-gray-100"
           priority={index < 2}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
