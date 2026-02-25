@@ -1,10 +1,8 @@
-'use client'
-
-import { useState, useEffect, useRef } from 'react'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
-import Image from 'next/image'
+import TeamSection from '@/components/TeamSection'
+import AnimatedImpactStats from '@/components/AnimatedImpactStats'
 
 export const metadata = {
   title: 'About Us | Selam CBO Kenya - Community-Based Organization in Kisumu',
@@ -15,87 +13,6 @@ export const metadata = {
     description: 'Discover how Selam CBO Kenya addresses gender inequality, poverty, and limited access to education through community initiatives for youth, women, and children in Kisumu.',
     images: ['/og-about.jpg'],
   },
-}
-
-// Team members data
-const teamMembers = [
-  {
-    name: 'Robert Owino',
-    role: 'Chief Executive Officer (CEO)',
-    image: '/PIC1.jpeg',
-    description: 'Leading Selam CBO with vision and dedication to community empowerment.',
-  },
-  {
-    name: 'Vincent Mboya',
-    role: 'Director',
-    image: '/PIC2.jpeg',
-    description: 'Driving strategic initiatives and fostering partnerships for sustainable growth.',
-  },
-  {
-    name: 'Rosemary Awuor',
-    role: 'Treasurer',
-    image: '/PIC3.jpeg',
-    description: 'Ensuring transparent financial management and resource allocation.',
-  },
-]
-
-// Animated counter component
-function AnimatedCounter({ target, suffix = '', duration = 2000 }) {
-  const [count, setCount] = useState(0)
-  const [isVisible, setIsVisible] = useState(false)
-  const ref = useRef(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !isVisible) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.5 }
-    )
-
-    if (ref.current) {
-      observer.observe(ref.current)
-    }
-
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current)
-      }
-    }
-  }, [isVisible])
-
-  useEffect(() => {
-    if (!isVisible) return
-
-    let startTime = null
-    const targetNum = parseInt(target.replace(/[^0-9]/g, '')) || target
-
-    const animate = (timestamp) => {
-      if (!startTime) startTime = timestamp
-      const progress = Math.min((timestamp - startTime) / duration, 1)
-      
-      // Easing function for smooth animation
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4)
-      setCount(Math.floor(easeOutQuart * targetNum))
-
-      if (progress < 1) {
-        requestAnimationFrame(animate)
-      }
-    }
-
-    requestAnimationFrame(animate)
-  }, [isVisible, target, duration])
-
-  // Format the number with commas
-  const formattedCount = count.toLocaleString()
-
-  return (
-    <span ref={ref}>
-      {formattedCount}{suffix}
-    </span>
-  )
 }
 
 export default function AboutPage() {
@@ -117,52 +34,8 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Our Team Section */}
-        <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-display font-bold text-gray-900 mb-4">
-                Meet Our Team
-              </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                The dedicated individuals driving Selam CBO's mission forward
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 stagger-container">
-              {teamMembers.map((member, index) => (
-                <div 
-                  key={index}
-                  className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
-                  style={{
-                    animationDelay: `${index * 150}ms`,
-                  }}
-                >
-                  <div className="relative h-72 overflow-hidden">
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                      <p className="text-white/90 text-sm">{member.description}</p>
-                    </div>
-                  </div>
-                  <div className="p-6 text-center">
-                    <h3 className="text-xl font-display font-bold text-gray-900 mb-2">
-                      {member.name}
-                    </h3>
-                    <p className="text-emerald-600 font-semibold text-sm">
-                      {member.role}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* Our Team Section - Client Component */}
+        <TeamSection />
 
         {/* Organizational Core Values Section */}
         <section className="py-20">
@@ -198,36 +71,8 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Impact Stats */}
-        <section className="relative py-20 bg-[#059669]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-display font-bold text-white mb-4">
-                Our Impact
-              </h2>
-              <p className="text-lg text-white/90">
-                Making a difference, one community at a time
-              </p>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 stagger-container">
-              {[
-                { number: '10000', suffix: '+', label: 'Lives Transformed', color: 'modern-card-green-light' },
-                { number: '8', suffix: '', label: 'Regions Served', color: 'modern-card-green-teal' },
-                { number: '25', suffix: '+', label: 'Active Projects', color: 'modern-card-green-emerald' },
-                { number: '50', suffix: '+', label: 'Community Partners', color: 'modern-card-green-mint' },
-              ].map((stat, index) => (
-                <div key={index} className={`modern-card ${stat.color} text-white text-center`}>
-                  <div className="modern-card-content">
-                    <div className="text-4xl sm:text-5xl font-display font-bold mb-2">
-                      <AnimatedCounter target={stat.number} suffix={stat.suffix} />
-                    </div>
-                    <div className="text-lg text-white/90">{stat.label}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* Impact Stats - Client Component */}
+        <AnimatedImpactStats />
 
         {/* Call to Action */}
         <section className="py-20">
