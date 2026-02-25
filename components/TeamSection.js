@@ -12,13 +12,13 @@ const teamMembers = [
     description: 'Leading Selam CBO with vision and dedication to community empowerment.',
   },
   {
-    name: 'Vincent Mboya',
+    name: 'Rosemary Awuor',
     role: 'Director',
     image: '/PIC2 (2).jpeg',
     description: 'Driving strategic initiatives and fostering partnerships for sustainable growth.',
   },
   {
-    name: 'Rosemary Awuor',
+    name: 'Vincent Mboya',
     role: 'Treasurer',
     image: '/PIC3(2).jpeg',
     description: 'Ensuring transparent financial management and resource allocation.',
