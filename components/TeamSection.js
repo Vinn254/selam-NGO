@@ -12,13 +12,13 @@ const teamMembers = [
     description: 'Leading Selam CBO with vision and dedication to community empowerment.',
   },
   {
-    name: 'Rosemary Awuor',
+    name: 'Vincent Mboya',
     role: 'Director',
     image: '/PIC2.jpeg',
     description: 'Driving strategic initiatives and fostering partnerships for sustainable growth.',
   },
   {
-    name: 'Vincent Mboya',
+    name: 'Rosemary Awuor',
     role: 'Treasurer',
     image: '/PIC3.jpeg',
     description: 'Ensuring transparent financial management and resource allocation.',
@@ -62,7 +62,7 @@ function TeamMemberCard({ member, index }) {
         transitionProperty: 'opacity, transform, box-shadow'
       }}
     >
-      <div className="relative h-56 sm:h-64 w-full overflow-hidden rounded-t-2xl">
+      <div className="relative h-72 sm:h-80 w-full overflow-hidden rounded-t-2xl">
         <Image
           src={member.image}
           alt={member.name}
