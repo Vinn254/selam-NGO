@@ -59,7 +59,10 @@ export default function AdminDashboard() {
       const response = await fetch('/api/documents')
       if (response.ok) {
         const data = await response.json()
+        console.log('Documents fetched:', data)
         setDocuments(data.documents || [])
+      } else {
+        console.error('Failed to fetch documents, status:', response.status)
       }
     } catch (error) {
       console.error('Failed to fetch documents:', error)
@@ -117,6 +120,17 @@ export default function AdminDashboard() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    
+    if (!formData.file) {
+      setMessage({ type: 'error', text: 'Please select a file to upload' })
+      return
+    }
+    
+    if (!formData.title) {
+      setMessage({ type: 'error', text: 'Please enter a title for the document' })
+      return
+    }
+    
     setLoading(true)
     setMessage({ type: '', text: '' })
     setUploadProgress(0)
@@ -148,14 +162,19 @@ export default function AdminDashboard() {
           // Reset file input
           document.getElementById('file-input').value = ''
         } else {
-          const response = JSON.parse(xhr.responseText)
-          setMessage({ type: 'error', text: response.message || 'Upload failed' })
+          try {
+            const response = JSON.parse(xhr.responseText)
+            setMessage({ type: 'error', text: response.message || 'Upload failed. Status: ' + xhr.status })
+          } catch (e) {
+            setMessage({ type: 'error', text: 'Upload failed. Please try again. Status: ' + xhr.status })
+          }
         }
         setLoading(false)
       })
 
       xhr.addEventListener('error', () => {
-        setMessage({ type: 'error', text: 'Network error occurred' })
+        console.error('XHR network error occurred')
+        setMessage({ type: 'error', text: 'Network error occurred. Please check your connection.' })
         setLoading(false)
       })
 
@@ -163,7 +182,8 @@ export default function AdminDashboard() {
       xhr.setRequestHeader('Authorization', `Bearer ${token}`)
       xhr.send(data)
     } catch (error) {
-      setMessage({ type: 'error', text: 'Failed to upload document' })
+      console.error('Document upload error:', error)
+      setMessage({ type: 'error', text: 'Failed to upload document: ' + error.message })
       setLoading(false)
     }
   }

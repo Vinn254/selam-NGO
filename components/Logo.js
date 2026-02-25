@@ -34,7 +34,7 @@ export default function Logo({ scrolled = false, size = 'default' }) {
     <Link href="/" className="flex items-center space-x-2 sm:space-x-3 group">
       <div className={`${sizeClasses[size]} relative rounded-xl flex items-center justify-center overflow-hidden shadow-lg transition-all duration-300 group-hover:scale-105 bg-white/0`}> 
         <Image
-          src="/logo.jpeg"
+          src="/LOGO1.jpeg"
           alt="Selam logo"
           width={iconSize[size]}
           height={iconSize[size]}

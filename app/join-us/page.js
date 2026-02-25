@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
@@ -48,6 +48,7 @@ export default function JoinUsPage() {
   const [activeForm, setActiveForm] = useState('volunteer')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState(null)
+  const formSectionRef = useRef(null)
   
   // Form states for each type
   const [volunteerData, setVolunteerData] = useState({
@@ -233,8 +234,13 @@ export default function JoinUsPage() {
                         e.preventDefault()
                         setActiveForm(way.link.replace('#', ''))
                         setSubmitStatus(null)
+                        // Scroll to form section
+                        const formSection = document.getElementById('application-forms')
+                        if (formSection) {
+                          formSection.scrollIntoView({ behavior: 'smooth' })
+                        }
                       }}
-                      className="inline-block px-6 py-2 bg-white/20 backdrop-blur-sm text-white font-semibold rounded-lg hover:bg-white/30 transition-colors duration-200"
+                      className="inline-block px-6 py-2 bg-white/20 backdrop-blur-sm text-white font-semibold rounded-lg hover:bg-white/30 transition-colors duration-200 cursor-pointer"
                     >
                       {way.action}
                     </a>
@@ -246,7 +252,7 @@ export default function JoinUsPage() {
         </section>
 
         {/* Application Forms */}
-        <section id="volunteer" className="py-20 bg-gradient-to-br from-gray-50 to-white">
+        <section id="application-forms" className="py-20 bg-gradient-to-br from-gray-50 to-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Form Type Tabs */}
             <div className="flex flex-wrap justify-center gap-4 mb-12">
