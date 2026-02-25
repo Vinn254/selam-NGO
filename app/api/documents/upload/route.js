@@ -108,7 +108,12 @@ export async function POST(request) {
       )
     }
 
-    const uploadsDir = path.join(process.cwd(), 'public', 'uploads', 'documents')
+    // Use /tmp on Vercel (writable), use public folder locally
+    const isVercel = process.env.VERCEL === '1'
+    const uploadsDir = isVercel 
+      ? '/tmp/uploads/documents' 
+      : path.join(process.cwd(), 'public', 'uploads', 'documents')
+    
     if (!existsSync(uploadsDir)) {
       await mkdir(uploadsDir, { recursive: true })
     }
