@@ -21,15 +21,23 @@ export default function AboutPage() {
       <Navigation />
       <main className="min-h-screen page-background">
         {/* Hero Section */}
-        <section className="relative pt-32 pb-20 bg-[#059669]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <section className="relative pt-32 pb-24 bg-[#059669]">
+          <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
             <div className="text-center">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-white mb-6">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-white mb-8">
                 ABOUT US
               </h1>
-              <p className="text-xl text-white/90 max-w-3xl mx-auto text-left">
-                SELAM is a non-political, independent, and non-profit Community-Based Organization (CBO) founded in Kisumu, Kenya, that empowers vulnerable communities by fostering solidarity, creating opportunities, and promoting sustainable growth. Established to address gender inequality, poverty, and limited access to education and health services, as well as promote environmental sustainability. The name "Selam," meaning peace, reflects our commitment to inclusive development, human dignity, and community harmony. Selam CBO launches grassroots initiatives that support youth, women, and children. Through education, vocational training, mentorship, reproductive health advocacy, and economic empowerment, the organization addresses core social challenges, including early pregnancies, substance abuse, and food insecurity. Driven by integrity, inclusivity, and sustainability, Selam CBO cultivates lasting, community-led progress throughout Kisumu County.
-              </p>
+              <div className="space-y-6 text-lg sm:text-xl text-white/90 max-w-4xl mx-auto text-left leading-relaxed">
+                <p>
+                  SELAM is a non-political, independent, and non-profit Community-Based Organization (CBO) founded in Kisumu, Kenya, that empowers vulnerable communities by fostering solidarity, creating opportunities, and promoting sustainable growth.
+                </p>
+                <p>
+                  Established to address gender inequality, poverty, and limited access to education and health services, as well as promote environmental sustainability. The name "Selam," meaning peace, reflects our commitment to inclusive development, human dignity, and community harmony.
+                </p>
+                <p>
+                  Selam CBO launches grassroots initiatives that support youth, women, and children. Through education, vocational training, mentorship, reproductive health advocacy, and economic empowerment, the organization addresses core social challenges, including early pregnancies, substance abuse, and food insecurity. Driven by integrity, inclusivity, and sustainability, Selam CBO cultivates lasting, community-led progress throughout Kisumu County.
+                </p>
+              </div>
             </div>
           </div>
         </section>
