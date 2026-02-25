@@ -7,19 +7,19 @@ const teamMembers = [
   {
     name: 'Robert Owino',
     role: 'Chief Executive Officer (CEO)',
-    image: '/PIC1.jpeg',
+    image: '/PIC1 (2).jpeg',
     description: 'Leading Selam CBO with vision and dedication to community empowerment.',
   },
   {
     name: 'Vincent Mboya',
     role: 'Director',
-    image: '/PIC2.jpeg',
+    image: '/PIC2 (2).jpeg',
     description: 'Driving strategic initiatives and fostering partnerships for sustainable growth.',
   },
   {
     name: 'Rosemary Awuor',
     role: 'Treasurer',
-    image: '/PIC3.jpeg',
+    image: '/PIC3(2).jpeg',
     description: 'Ensuring transparent financial management and resource allocation.',
   },
 ]
