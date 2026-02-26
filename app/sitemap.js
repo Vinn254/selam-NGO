@@ -1,5 +1,5 @@
 export default function sitemap() {
-  const baseUrl = 'https://selam.co.ke'
+  const baseUrl = 'https://selam.company'
   
   const routes = [
     '',
