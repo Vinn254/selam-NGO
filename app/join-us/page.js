@@ -532,6 +532,7 @@ export default function JoinUsPage() {
                         <option value="foundation">Foundation/Grant</option>
                         <option value="government">Government Agency</option>
                         <option value="educational">Educational Institution</option>
+                        <option value="membership">Membership</option>
                         <option value="other">Other</option>
                       </select>
                     </div>
