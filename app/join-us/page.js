@@ -502,7 +502,7 @@ export default function JoinUsPage() {
                     </div>
                     <div>
                       <label htmlFor="part-org" className="block text-sm font-semibold text-gray-700 mb-2">
-                        Organization Name *
+                        Organization Name or Your Community
                       </label>
                       <input
                         type="text"
@@ -512,7 +512,7 @@ export default function JoinUsPage() {
                         onChange={handlePartnerChange}
                         required
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                        placeholder="Company Name"
+                        placeholder="Company Name or Community"
                       />
                     </div>
                   </div>
