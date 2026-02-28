@@ -33,6 +33,19 @@ export const metadata = {
     address: false,
     telephone: false,
   },
+  icons: {
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png', rel: 'icon' },
+      { url: '/icon-512.png', sizes: '512x512', type: 'image/png', rel: 'icon' },
+    ],
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -128,6 +141,8 @@ export default function RootLayout({ children }) {
         
         {/* Favicon */}
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
         
         {/* Structured Data for SEO */}
