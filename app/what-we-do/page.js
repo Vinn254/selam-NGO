@@ -153,6 +153,72 @@ export default function WhatWeDoPage() {
         ))}
 
         {/* Approach Section */}
+        <section className="py-20">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl font-display font-bold text-gray-900 mb-4">
+                Capacity-building Efforts
+              </h2>
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                The organisation shall undertake:
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="modern-card modern-card-green-light text-white p-6">
+                <div className="modern-card-content">
+                  <h3 className="text-xl font-display font-bold mb-2">
+                    Fostering unity through welfare and social support programs.
+                  </h3>
+                </div>
+              </div>
+              <div className="modern-card modern-card-green-teal text-white p-6">
+                <div className="modern-card-content">
+                  <h3 className="text-xl font-display font-bold mb-2">
+                    Women's and youth empowerment.
+                  </h3>
+                </div>
+              </div>
+              <div className="modern-card modern-card-green-emerald text-white p-6">
+                <div className="modern-card-content">
+                  <h3 className="text-xl font-display font-bold mb-2">
+                    Education and skills development
+                  </h3>
+                </div>
+              </div>
+              <div className="modern-card modern-card-green-mint text-white p-6">
+                <div className="modern-card-content">
+                  <h3 className="text-xl font-display font-bold mb-2">
+                    Health awareness and support.
+                  </h3>
+                </div>
+              </div>
+              <div className="modern-card modern-card-green-light text-white p-6">
+                <div className="modern-card-content">
+                  <h3 className="text-xl font-display font-bold mb-2">
+                    Economic strengthening initiatives.
+                  </h3>
+                </div>
+              </div>
+              <div className="modern-card modern-card-green-teal text-white p-6">
+                <div className="modern-card-content">
+                  <h3 className="text-xl font-display font-bold mb-2">
+                    Environmental responsibility.
+                  </h3>
+                </div>
+              </div>
+              <div className="modern-card modern-card-green-emerald text-white p-6 md:col-span-2">
+                <div className="modern-card-content">
+                  <h3 className="text-xl font-display font-bold mb-2">
+                    Promotion of sexual and reproductive health.
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Our Approach Section */}
         <section className="py-20 bg-[#059669]">
           <div className="absolute inset-0 opacity-50" style={{ backgroundImage: `url("${patternSvg}")` }}></div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

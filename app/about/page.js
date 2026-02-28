@@ -29,15 +29,85 @@ export default function AboutPage() {
               </h1>
               <div className="space-y-6 text-lg sm:text-xl text-white/90 max-w-4xl mx-auto text-left leading-relaxed">
                 <p>
-                  SELAM is a non-political, independent, and non-profit Community-Based Organization (CBO) founded in Kisumu, Kenya, that empowers vulnerable communities by fostering solidarity, creating opportunities, and promoting sustainable growth.
+                  SELAM – Nuru ya Jamii Initiative CBO is a registered community-based organization in Kisumu, Kenya. Founded by committed local members, we address urgent social and economic challenges affecting vulnerable families in Kisumu County. Our organization is rooted in grassroots action, and our mission is to foster unity, expand opportunities, and promote sustainable, inclusive development.
                 </p>
                 <p>
-                  Established to address gender inequality, poverty, and limited access to education and health services, as well as promote environmental sustainability. The name "Selam," meaning peace, reflects our commitment to inclusive development, human dignity, and community harmony.
+                  Kisumu, located on the shores of Lake Victoria, is rich in culture and potential. However, communities continue to face significant barriers to progress and well-being. Gender inequality, poverty, and limited access to quality education and healthcare persist. Early pregnancies, substance abuse, crime, illiteracy, and food insecurity further undermine families and restrict opportunities for youth and women. We established SELAM – Nuru ya Jamii Initiative to address these urgent challenges through lasting, community-driven solutions.
                 </p>
                 <p>
-                  Selam CBO launches grassroots initiatives that support youth, women, and children. Through education, vocational training, mentorship, reproductive health advocacy, and economic empowerment, the organization addresses core social challenges, including early pregnancies, substance abuse, and food insecurity. Driven by integrity, inclusivity, and sustainability, Selam CBO cultivates lasting, community-led progress throughout Kisumu County.
+                  The names "Selam," meaning peace, and "Nuru ya Jamii," meaning light of the community, embody our vision and guiding philosophy. For us, peace signifies not only the absence of conflict but also the presence of justice, opportunity, equality, and shared prosperity. As the light of the community, we aim to inspire resilience, self-reliance, and collective responsibility among those we serve.
                 </p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Vision, Mission, and Objectives Section */}
+        <section className="py-20">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Vision */}
+            <div className="mb-12">
+              <h2 className="text-3xl sm:text-4xl font-display font-bold text-gray-900 mb-4">
+                Vision
+              </h2>
+              <p className="text-lg text-gray-600 max-w-3xl">
+                To create a peaceful, empowered, and self-reliant community where everyone has equal opportunity to achieve socio-economic well-being and live with dignity.
+              </p>
+            </div>
+
+            {/* Mission */}
+            <div className="mb-12">
+              <h2 className="text-3xl sm:text-4xl font-display font-bold text-gray-900 mb-4">
+                Mission
+              </h2>
+              <p className="text-lg text-gray-600 max-w-3xl">
+                To collaborate with community members and partners to enhance financial capability, promote social justice, and empower youth, women, and vulnerable families through education, skills development, economic initiatives, health awareness, and environmental sustainability programs.
+              </p>
+            </div>
+
+            {/* Objectives */}
+            <div>
+              <h2 className="text-3xl sm:text-4xl font-display font-bold text-gray-900 mb-6">
+                Objectives
+              </h2>
+              <ul className="grid md:grid-cols-2 gap-4">
+                <li className="flex items-start gap-3 text-gray-700">
+                  <span className="text-emerald-600 text-xl">•</span>
+                  <span>To promote access to essential social services.</span>
+                </li>
+                <li className="flex items-start gap-3 text-gray-700">
+                  <span className="text-emerald-600 text-xl">•</span>
+                  <span>To collaborate to ensure the community remains safe, clean, and healthy for all.</span>
+                </li>
+                <li className="flex items-start gap-3 text-gray-700">
+                  <span className="text-emerald-600 text-xl">•</span>
+                  <span>To support initiatives that address poverty, hunger, illiteracy, and disease.</span>
+                </li>
+                <li className="flex items-start gap-3 text-gray-700">
+                  <span className="text-emerald-600 text-xl">•</span>
+                  <span>To provide skills training and income opportunities for youth and women.</span>
+                </li>
+                <li className="flex items-start gap-3 text-gray-700">
+                  <span className="text-emerald-600 text-xl">•</span>
+                  <span>To promote sexual and reproductive health awareness and support social well-being.</span>
+                </li>
+                <li className="flex items-start gap-3 text-gray-700">
+                  <span className="text-emerald-600 text-xl">•</span>
+                  <span>To leverage resources and build partnerships for community growth.</span>
+                </li>
+                <li className="flex items-start gap-3 text-gray-700">
+                  <span className="text-emerald-600 text-xl">•</span>
+                  <span>To develop sustainable economic projects, such as revolving funds and small businesses.</span>
+                </li>
+                <li className="flex items-start gap-3 text-gray-700">
+                  <span className="text-emerald-600 text-xl">•</span>
+                  <span>To promote unity, mutual support, and active participation.</span>
+                </li>
+                <li className="flex items-start gap-3 text-gray-700">
+                  <span className="text-emerald-600 text-xl">•</span>
+                  <span>To encourage responsible environmental stewardship and informed climate action.</span>
+                </li>
+              </ul>
             </div>
           </div>
         </section>

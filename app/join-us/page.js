@@ -675,6 +675,36 @@ export default function JoinUsPage() {
             )}
           </div>
         </section>
+
+        {/* Membership Section */}
+        <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl font-display font-bold text-gray-900 mb-4">
+                Membership
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Become a member of SELAM – Nuru ya Jamii Initiative CBO and be part of creating lasting change in our community.
+              </p>
+            </div>
+
+            <div className="modern-card modern-card-green-extra-light text-gray-900 p-8 rounded-2xl">
+              <div className="modern-card-content">
+                <h3 className="text-2xl font-display font-bold mb-6">
+                  3.1 Eligibility and Registration
+                </h3>
+                <p className="text-gray-700 mb-6">
+                  Membership shall be open to any community member aged 18 or older.
+                </p>
+                <div className="flex items-center gap-4">
+                  <span className="text-lg font-semibold text-gray-900">Registration Fee:</span>
+                  <span className="text-2xl font-bold text-emerald-600">Kshs. 100</span>
+                  <span className="text-sm text-gray-500">(non-refundable)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
       <Footer />
       <WhatsAppButton />
