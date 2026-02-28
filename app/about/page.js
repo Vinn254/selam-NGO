@@ -27,7 +27,7 @@ export default function AboutPage() {
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-white mb-8">
                 ABOUT US
               </h1>
-              <div className="space-y-6 text-lg sm:text-xl text-white/90 max-w-4xl mx-auto text-left leading-relaxed">
+              <div className="space-y-6 text-lg sm:text-xl text-white/90 max-w-6xl mx-auto text-left leading-relaxed">
                 <p>
                   SELAM – Nuru ya Jamii Initiative CBO is a registered community-based organization in Kisumu, Kenya. Founded by committed local members, we address urgent social and economic challenges affecting vulnerable families in Kisumu County. Our organization is rooted in grassroots action, and our mission is to foster unity, expand opportunities, and promote sustainable, inclusive development.
                 </p>

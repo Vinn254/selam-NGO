@@ -691,7 +691,7 @@ export default function JoinUsPage() {
             <div className="modern-card modern-card-green-extra-light text-gray-900 p-8 rounded-2xl">
               <div className="modern-card-content">
                 <h3 className="text-2xl font-display font-bold mb-6">
-                  3.1 Eligibility and Registration
+                  Eligibility and Registration
                 </h3>
                 <p className="text-gray-700 mb-6">
                   Membership shall be open to any community member aged 18 or older.
