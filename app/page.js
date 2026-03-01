@@ -5,12 +5,12 @@ import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 
 export const metadata = {
-  title: 'Selam CBO Kenya | Community-Based Organization in Kisumu Empowering Vulnerable Communities',
-  description: 'Selam CBO Kenya is a community-based organization in Kisumu dedicated to empowering vulnerable communities through education, vocational training, mentorship, and sustainable development programs for youth, women, and children.',
-  keywords: ['Community-Based Organization in Kisumu', 'Selam CBO Kenya', 'community empowerment Kenya', 'non-profit organization Kisumu', 'youth and women empowerment', 'poverty and education programs', 'sustainable community development', 'vocational training programs Kenya'],
+  title: 'SELAM Nuru ya Jamii CBO Kisumu Kenya | Community-Based Organization Empowering Vulnerable Communities',
+  description: 'SELAM Nuru ya Jamii CBO Kisumu Kenya - A registered community-based organization addressing urgent social and economic challenges affecting vulnerable families in Kisumu County through education, vocational training, mentorship, and sustainable development programs.',
+  keywords: ['SELAM Nuru ya Jamii CBO', 'Community-Based Organization in Kisumu', 'Selam CBO Kenya', 'community empowerment Kenya', 'non-profit organization Kisumu', 'youth and women empowerment', 'poverty and education programs', 'sustainable community development', 'vocational training programs Kenya'],
   openGraph: {
-    title: 'Selam CBO Kenya | Community-Based Organization Empowering Communities in Kisumu',
-    description: 'Discover how Selam CBO supports vulnerable communities in Kisumu through education, vocational training, mentorship, and sustainable development initiatives for youth, women, and children.',
+    title: 'SELAM Nuru ya Jamii CBO Kisumu Kenya | Community-Based Organization Empowering Communities',
+    'description': 'Discover how SELAM Nuru ya Jamii CBO supports vulnerable communities in Kisumu through education, vocational training, mentorship, and sustainable development initiatives for youth, women, and children.',
     images: ['/og-image.jpg'],
   },
 }

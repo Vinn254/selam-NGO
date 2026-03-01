@@ -159,7 +159,7 @@ function HeroSection() {
             </h1>
             
             <p className="text-base sm:text-lg md:text-xl text-white/90 mb-6 max-w-2xl text-balance">
-              Selam CBO Kenya is a community-based organization in Kisumu dedicated to sustainable community development through education, vocational training, mentorship, and economic empowerment for youth, women, and children.
+              SELAM – Nuru ya Jamii Initiative CBO is a registered community-based organization in Kisumu, Kenya. Founded by committed local members, we address urgent social and economic challenges affecting vulnerable families in Kisumu County.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">

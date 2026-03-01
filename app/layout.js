@@ -20,14 +20,14 @@ const poppins = Poppins({
 export const metadata = {
   metadataBase: new URL('https://selam.co.ke'),
   title: {
-    default: 'Selam CBO Kisumu Kenya | Community-Based Organization in Kisumu - Empowering Vulnerable Communities',
-    template: '%s | Selam CBO Kisumu Kenya'
+    default: 'SELAM Nuru ya Jamii CBO Kisumu Kenya | Community-Based Organization Empowering Vulnerable Communities',
+    template: '%s | SELAM Nuru ya Jamii CBO Kisumu Kenya'
   },
-  description: 'Selam CBO Kisumu Kenya is a community-based organization in Kisumu dedicated to empowering vulnerable communities through sustainable development, education, healthcare, and social impact initiatives for youth, women, and children.',
-  keywords: ['Community-Based Organization in Kisumu', 'Selam CBO Kisumu Kenya', 'CBO Kenya', 'community empowerment Kenya', 'non-profit organization Kisumu', 'youth and women empowerment', 'poverty and education programs', 'sustainable community development', 'vocational training Kenya', 'community development Kisumu', 'NGO Kenya', 'charity Kisumu'],
-  authors: [{ name: 'Selam CBO Kisumu Kenya' }],
-  creator: 'Selam CBO Kisumu Kenya',
-  publisher: 'Selam CBO Kisumu Kenya',
+  description: 'SELAM Nuru ya Jamii CBO Kisumu Kenya - A registered community-based organization addressing urgent social and economic challenges affecting vulnerable families in Kisumu County through sustainable development, education, healthcare, and social impact initiatives.',
+  keywords: ['SELAM Nuru ya Jamii CBO', 'Community-Based Organization in Kisumu', 'Selam CBO Kisumu Kenya', 'CBO Kenya', 'community empowerment Kenya', 'non-profit organization Kisumu', 'youth and women empowerment', 'poverty and education programs', 'sustainable community development', 'vocational training Kenya', 'community development Kisumu', 'NGO Kenya', 'charity Kisumu'],
+  authors: [{ name: 'SELAM Nuru ya Jamii CBO Kisumu Kenya' }],
+  creator: 'SELAM Nuru ya Jamii CBO Kisumu Kenya',
+  publisher: 'SELAM Nuru ya Jamii CBO Kisumu Kenya',
   formatDetection: {
     email: false,
     address: false,
@@ -50,22 +50,22 @@ export const metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://selam.co.ke',
-    siteName: 'Selam CBO Kisumu Kenya',
-    title: 'Selam CBO Kisumu Kenya | Community-Based Organization Empowering Vulnerable Communities',
-    description: 'A community-based organization in Kisumu empowering vulnerable communities through education, vocational training, mentorship, and sustainable development programs.',
+    siteName: 'SELAM Nuru ya Jamii CBO Kisumu Kenya',
+    title: 'SELAM Nuru ya Jamii CBO Kisumu Kenya | Community-Based Organization Empowering Vulnerable Communities',
+    description: 'A registered community-based organization in Kisumu addressing urgent social and economic challenges affecting vulnerable families in Kisumu County through education, vocational training, and sustainable development programs.',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Selam CBO Kenya - Community-Based Organization in Kisumu',
+        alt: 'SELAM Nuru ya Jamii CBO Kisumu Kenya - Community-Based Organization in Kisumu',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Selam CBO Kisumu Kenya | Community-Based Organization in Kisumu',
-    description: 'Empowering vulnerable communities in Kisumu through education, vocational training, and sustainable development.',
+    title: 'SELAM Nuru ya Jamii CBO Kisumu Kenya | Community-Based Organization in Kisumu',
+    description: 'Addressing urgent social and economic challenges affecting vulnerable families in Kisumu County through education, vocational training, and sustainable development.',
     images: ['/og-image.jpg'],
     creator: '@SelamCBO',
   },
