@@ -11,7 +11,7 @@ const getApiUrl = () => {
 }
 
 function LatestUpdates({ initialUpdates = [] }) {
-  // Only use admin-provided updates, no local fallback
+  // Use local updates as fallback while loading
   const [updates, setUpdates] = useState(initialUpdates)
   const [isLoading, setIsLoading] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
@@ -96,8 +96,8 @@ function LatestUpdates({ initialUpdates = [] }) {
     }).format(date)
   }
 
-  // Only show the section if admin has uploaded updates
-  const showSection = updates.length > 0
+  // Show section while loading or if there are updates
+  const showSection = isLoading || updates.length > 0
 
   if (!showSection) {
     return null
