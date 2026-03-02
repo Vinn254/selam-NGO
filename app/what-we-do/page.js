@@ -250,6 +250,148 @@ export default function WhatWeDoPage() {
           </div>
         </section>
 
+        {/* Youth Empowerment Section */}
+        <section className="py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
+                <Image
+                  src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&h=600&fit=crop"
+                  alt="Youth empowerment programs in Kenya"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+              <div>
+                <div className="modern-card modern-card-green-light text-white p-8 mb-6">
+                  <div className="modern-card-content">
+                    <h2 className="text-3xl sm:text-4xl font-display font-bold mb-4">
+                      Youth Empowerment
+                    </h2>
+                    <p className="text-lg text-white/90 mb-6">
+                      We invest in the next generation of Kenyan leaders through comprehensive youth programs designed to unlock their potential and create pathways to sustainable livelihoods.
+                    </p>
+                    
+                    <div className="mb-6">
+                      <h3 className="text-xl font-display font-bold mb-4">
+                        Our Youth Programs:
+                      </h3>
+                      <ul className="space-y-3">
+                        <li>Vocational skills training in demand trades</li>
+                        <li>Mentorship programs connecting youth with industry professionals</li>
+                        <li>Entrepreneurship workshops and business development support</li>
+                        <li>Digital literacy and computer training</li>
+                        <li>Sports and cultural development activities</li>
+                        <li>Life skills education and career guidance</li>
+                      </ul>
+                    </div>
+
+                    <div className="inline-flex items-center px-4 py-2 rounded-lg bg-white/20 backdrop-blur-sm text-white font-semibold">
+                      5,000+ youth empowered since 2019
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Women Empowerment Section */}
+        <section className="py-20 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid md:grid-cols-2 gap-12 items-center md:flex-row-reverse">
+              <div className="md:order-2">
+                <div className="modern-card modern-card-green-teal text-white p-8 mb-6">
+                  <div className="modern-card-content">
+                    <h2 className="text-3xl sm:text-4xl font-display font-bold mb-4">
+                      Women Empowerment
+                    </h2>
+                    <p className="text-lg text-white/90 mb-6">
+                      We champion gender equality and empower women to become economic agents of change in their communities through education, skills training, and access to financial resources.
+                    </p>
+                    
+                    <div className="mb-6">
+                      <h3 className="text-xl font-display font-bold mb-4">
+                        Our Women's Programs:
+                      </h3>
+                      <ul className="space-y-3">
+                        <li>Women's microfinance and savings groups</li>
+                        <li>Business skills and financial literacy training</li>
+                        <li>Literacy and education programs for women</li>
+                        <li>Leadership development and civic engagement</li>
+                        <li>Gender-based violence prevention and support</li>
+                        <li>Maternal health and childcare support</li>
+                      </ul>
+                    </div>
+
+                    <div className="inline-flex items-center px-4 py-2 rounded-lg bg-white/20 backdrop-blur-sm text-white font-semibold">
+                      3,500+ women economically empowered
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl md:order-1">
+                <Image
+                  src="https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=800&h=600&fit=crop"
+                  alt="Women empowerment in Kenya"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Health Awareness Section */}
+        <section className="py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
+                <Image
+                  src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=600&fit=crop"
+                  alt="Healthcare and health awareness programs in Kenya"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+              <div>
+                <div className="modern-card modern-card-green-emerald text-white p-8 mb-6">
+                  <div className="modern-card-content">
+                    <h2 className="text-3xl sm:text-4xl font-display font-bold mb-4">
+                      Health Awareness
+                    </h2>
+                    <p className="text-lg text-white/90 mb-6">
+                      We promote community health through education, preventive care, and access to essential health services, focusing on the most vulnerable populations in Kisumu County.
+                    </p>
+                    
+                    <div className="mb-6">
+                      <h3 className="text-xl font-display font-bold mb-4">
+                        Our Health Programs:
+                      </h3>
+                      <ul className="space-y-3">
+                        <li>Reproductive health education and family planning</li>
+                        <li>HIV/AIDS awareness and prevention programs</li>
+                        <li>Malaria prevention and treatment education</li>
+                        <li>Nutrition and food security education</li>
+                        <li>Community health worker training</li>
+                        <li>Mental health awareness and counseling</li>
+                      </ul>
+                    </div>
+
+                    <div className="inline-flex items-center px-4 py-2 rounded-lg bg-white/20 backdrop-blur-sm text-white font-semibold">
+                      25,000+ reached with health education
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Call to Action */}
         <section className="py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
