@@ -17,6 +17,15 @@
       "mediaUrl": "/IM3.JPG",
       "createdAt": "2026-01-02T10:00:00Z",
       "updatedAt": "2026-01-02T10:00:00Z"
+    },
+    {
+      "_id": "sample3",
+      "title": "Healthcare Outreach",
+      "description": "Providing essential healthcare services to underserved communities in Kisumu County through our mobile clinics and health awareness programs.",
+      "mediaType": "image",
+      "mediaUrl": "/IM6.JPG",
+      "createdAt": "2026-01-03T10:00:00Z",
+      "updatedAt": "2026-01-03T10:00:00Z"
     }
   ]
 }
