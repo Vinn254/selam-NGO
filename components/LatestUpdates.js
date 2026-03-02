@@ -53,7 +53,12 @@ function LatestUpdates({ initialUpdates = [] }) {
       
       if (response.ok) {
           const data = await response.json()
-          setUpdates(data.updates || [])
+          // Only show admin-uploaded updates (from MongoDB), not local fallback
+          if (data.source === 'local') {
+            setUpdates([])
+          } else {
+            setUpdates(data.updates || [])
+          }
         }
       } catch (error) {
       console.error('Failed to fetch updates:', error)

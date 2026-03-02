@@ -1,3 +1,22 @@
 {
-  "updates": []
+  "updates": [
+    {
+      "_id": "sample1",
+      "title": "Community Development Programs",
+      "description": "Our community development initiatives continue to transform lives in Kisumu County through sustainable programs focused on education, healthcare, and economic empowerment.",
+      "mediaType": "image",
+      "mediaUrl": "/IM4.JPG",
+      "createdAt": "2026-01-01T10:00:00Z",
+      "updatedAt": "2026-01-01T10:00:00Z"
+    },
+    {
+      "_id": "sample2",
+      "title": "Youth Empowerment Initiative",
+      "description": "Empowering youth through vocational training and mentorship programs to build a brighter future for our community.",
+      "mediaType": "image",
+      "mediaUrl": "/IM3.JPG",
+      "createdAt": "2026-01-02T10:00:00Z",
+      "updatedAt": "2026-01-02T10:00:00Z"
+    }
+  ]
 }
