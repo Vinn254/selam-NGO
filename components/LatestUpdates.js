@@ -3,9 +3,6 @@
 import { useState, useEffect, useRef, memo, useCallback } from 'react'
 import Image from 'next/image'
 
-// Import local updates as fallback
-import localUpdates from '@/data/updates.json'
-
 // Get API URL safely for client-side (falls back to relative path when not set)
 const getApiUrl = () => {
   return typeof process !== 'undefined' && process.env.NEXT_PUBLIC_API_URL
@@ -14,9 +11,8 @@ const getApiUrl = () => {
 }
 
 function LatestUpdates({ initialUpdates = [] }) {
-  // Use local updates as fallback when no initial updates provided
-  const defaultUpdates = localUpdates?.updates || localUpdates || []
-  const [updates, setUpdates] = useState(initialUpdates.length > 0 ? initialUpdates : defaultUpdates)
+  // Only use admin-provided updates, no local fallback
+  const [updates, setUpdates] = useState(initialUpdates)
   const [isLoading, setIsLoading] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const [expandedId, setExpandedId] = useState(null)
