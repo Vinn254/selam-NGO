@@ -96,8 +96,8 @@ function LatestUpdates({ initialUpdates = [] }) {
     }).format(date)
   }
 
-  // Always show the section if we have local updates
-  const showSection = updates.length > 0 || localUpdates?.updates?.length > 0 || localUpdates?.length > 0
+  // Only show the section if admin has uploaded updates
+  const showSection = updates.length > 0
 
   if (!showSection) {
     return null
