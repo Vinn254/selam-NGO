@@ -83,7 +83,7 @@ export default function AboutPage() {
         <AnimatedImpactStats />
 
         {/* FAQ Section */}
-        <section className="py-20 bg-gray-50">
+        <section className="py-20 bg-gradient-to-br from-green-50 to-blue-50">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-display font-bold text-gray-900 mb-4">
@@ -96,43 +96,26 @@ export default function AboutPage() {
 
             <div className="space-y-4">
               {[
-                {
-                  question: "What is Selam CBO Kenya?",
-                  answer: "SELAM – Nuru ya Jamii Initiative CBO is a registered community-based organization in Kisumu, Kenya. Founded by committed local members, we address urgent social and economic challenges affecting vulnerable families in Kisumu County. Our organization is rooted in grassroots action, and our mission is to foster unity, expand opportunities, and promote sustainable, inclusive development."
-                },
-                {
-                  question: "What areas does Selam serve in Kenya?",
-                  answer: "We primarily serve Kisumu County, located on the shores of Lake Victoria. Our programs reach vulnerable communities throughout the region, focusing on youth, women, and children who face barriers to education, healthcare, and economic opportunities."
-                },
-                {
-                  question: "How is Selam CBO funded?",
-                  answer: "Selam CBO operates through a combination of grants from international donors, partnerships with NGOs, community contributions, and fundraising efforts. We are committed to transparency and accountability in all our financial operations."
-                },
-                {
-                  question: "How can I volunteer with Selam?",
-                  answer: "We welcome volunteers who are passionate about community development. You can get involved by visiting our Join Us page to fill out a volunteer application. We offer opportunities for both local and international volunteers in areas such as education, healthcare, and community empowerment."
-                },
-                {
-                  question: "What makes Selam different from other NGOs in Kenya?",
-                  answer: "As a community-based organization rooted in Kisumu, we have deep local knowledge and strong relationships with the communities we serve. Our approach focuses on sustainable, community-driven solutions rather than short-term aid. We address the root causes of poverty and inequality through education, vocational training, mentorship, and economic empowerment."
-                },
-                {
-                  question: "How can I donate or support Selam's work?",
-                  answer: "There are several ways to support our work: you can make a financial donation through our website, partner with us as a corporate or organization, or donate materials such as books, school supplies, or medical equipment. Visit our Join Us page to learn more about supporting our mission."
-                },
-                {
-                  question: "What are the main programs offered by Selam CBO?",
-                  answer: "Our key programs include Education (school support, scholarships, adult literacy), Healthcare (mobile clinics, maternal health, disease prevention), Community Development (vocational training, microfinance, youth employment), and Water & Sanitation (clean water access, hygiene education). We also focus on women's empowerment and youth mentorship."
-                },
-                {
-                  question: "Is Selam CBO a registered nonprofit organization?",
-                  answer: "Yes, Selam – Nuru ya Jamii Initiative is a registered community-based organization (CBO) in Kenya. We operate in compliance with Kenyan law and maintain proper governance structures to ensure accountability and sustainability."
-                }
+                { question: "What is Selam CBO Kenya?", answer: "SELAM – Nuru ya Jamii Initiative CBO is a registered community-based organization in Kisumu, Kenya. Founded by committed local members, we address urgent social and economic challenges affecting vulnerable families in Kisumu County. Our organization is rooted in grassroots action, and our mission is to foster unity, expand opportunities, and promote sustainable, inclusive development.", color: "bg-emerald-600" },
+                { question: "What areas does Selam serve in Kenya?", answer: "We primarily serve Kisumu County, located on the shores of Lake Victoria. Our programs reach vulnerable communities throughout the region, focusing on youth, women, and children who face barriers to education, healthcare, and economic opportunities.", color: "bg-teal-600" },
+                { question: "How is Selam CBO funded?", answer: "Selam CBO operates through a combination of grants from international donors, partnerships with NGOs, community contributions, and fundraising efforts. We are committed to transparency and accountability in all our financial operations.", color: "bg-green-600" },
+                { question: "How can I volunteer with Selam?", answer: "We welcome volunteers who are passionate about community development. You can get involved by visiting our Join Us page to fill out a volunteer application. We offer opportunities for both local and international volunteers in areas such as education, healthcare, and community empowerment.", color: "bg-cyan-600" },
+                { question: "What makes Selam different from other NGOs in Kenya?", answer: "As a community-based organization rooted in Kisumu, we have deep local knowledge and strong relationships with the communities we serve. Our approach focuses on sustainable, community-driven solutions rather than short-term aid. We address the root causes of poverty and inequality through education, vocational training, mentorship, and economic empowerment.", color: "bg-lime-600" },
+                { question: "How can I donate or support Selam's work?", answer: "There are several ways to support our work: you can make a financial donation through our website, partner with us as a corporate or organization, or donate materials such as books, school supplies, or medical equipment. Visit our Join Us page to learn more about supporting our mission.", color: "bg-emerald-700" },
+                { question: "What are the main programs offered by Selam CBO?", answer: "Our key programs include Education (school support, scholarships, adult literacy), Healthcare (mobile clinics, maternal health, disease prevention), Community Development (vocational training, microfinance, youth employment), and Water & Sanitation (clean water access, hygiene education). We also focus on women's empowerment and youth mentorship.", color: "bg-teal-700" },
+                { question: "Is Selam CBO a registered nonprofit organization?", answer: "Yes, Selam – Nuru ya Jamii Initiative is a registered community-based organization (CBO) in Kenya. We operate in compliance with Kenyan law and maintain proper governance structures to ensure accountability and sustainability.", color: "bg-green-700" }
               ].map((faq, index) => (
-                <div key={index} className="modern-card modern-card-green-light text-white">
-                  <div className="modern-card-content">
-                    <h3 className="text-lg font-bold mb-3">{faq.question}</h3>
-                    <p className="text-white/90 leading-relaxed">{faq.answer}</p>
+                <div key={index} className={`${faq.color} rounded-xl shadow-lg overflow-hidden`}>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-white mb-3 flex items-start">
+                      <span className="bg-white/20 rounded-full p-1 mr-3 mt-0.5">
+                        <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+                        </svg>
+                      </span>
+                      {faq.question}
+                    </h3>
+                    <p className="text-white/95 leading-relaxed pl-12">{faq.answer}</p>
                   </div>
                 </div>
               ))}
