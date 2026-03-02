@@ -3,6 +3,8 @@ import BentoGrid from '@/components/BentoGrid'
 import LatestUpdates from '@/components/LatestUpdates'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
+import dbConnect from '@/lib/mongodb'
+import localUpdates from '@/data/updates.json'
 
 export const metadata = {
   title: 'SELAM Nuru ya Jamii CBO Kisumu Kenya | Community-Based Organization Empowering Vulnerable Communities',
@@ -15,14 +17,47 @@ export const metadata = {
   },
 }
 
+// Server-side function to fetch updates
+async function getUpdates() {
+  try {
+    const client = await dbConnect()
+    const db = client.db()
+    const updates = await db
+      .collection('updates')
+      .find({})
+      .sort({ createdAt: -1 })
+      .toArray()
+
+    // Convert ObjectId to string
+    const serializedUpdates = updates.map(update => ({
+      ...update,
+      _id: update._id?.toString()
+    }))
+
+    // If MongoDB has data, return it; otherwise return local fallback
+    if (serializedUpdates.length > 0) {
+      return serializedUpdates
+    }
+    
+    return localUpdates.updates || localUpdates || []
+  } catch (error) {
+    console.error('Error fetching updates:', error.message)
+    // Fallback to local updates if MongoDB fails
+    return localUpdates.updates || localUpdates || []
+  }
+}
+
 export default async function HomePage() {
+  // Fetch updates server-side
+  const initialUpdates = await getUpdates()
+
   return (
     <>
       <Navigation />
       <main>
         <HeroSection />
         <BentoGrid />
-        <LatestUpdates />
+        <LatestUpdates initialUpdates={initialUpdates} />
       </main>
       <Footer />
     </>
