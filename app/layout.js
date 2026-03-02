@@ -160,7 +160,7 @@ export default function RootLayout({ children }) {
                 'https://facebook.com/SelamCBO',
                 'https://twitter.com/SelamCBO',
                 'https://instagram.com/SelamCBO',
-                'https://linkedin.com/company/selam-cbo',
+                'https://www.linkedin.com/company/selam-nuru-ya-jamii-initiative/?viewAsMember=true',
               ],
               contactPoint: {
                 '@type': 'ContactPoint',
