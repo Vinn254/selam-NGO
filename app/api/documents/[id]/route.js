@@ -5,7 +5,9 @@ import path from 'path'
 import dbConnect from '@/lib/mongodb'
 import { ObjectId } from 'mongodb'
 
-const dataDir = path.join(process.env.VERCEL ? '/tmp' : process.cwd(), 'data')
+// Determine the data directory based on environment
+const isVercel = process.env.VERCEL === '1'
+const dataDir = path.join(isVercel ? '/tmp' : process.cwd(), 'data')
 const metadataFile = path.join(dataDir, 'documents.json')
 
 // This would typically verify JWT token
@@ -68,33 +70,28 @@ export async function DELETE(request, { params }) {
     let deletedFromLocal = false
     let documentToDelete = null
     
-    // Try MongoDB first
-    try {
-      const client = await dbConnect()
-      const db = client.db()
-      
-      let query
-      if (isValidObjectId(id)) {
-        query = { _id: new ObjectId(id) }
-      } else {
-        query = { _id: id }
-      }
-      
-      const document = await db.collection('documents').findOne(query)
-      
-      if (document) {
-        documentToDelete = document
-        // Delete the physical file
-        const filePath = path.join(process.cwd(), 'public', document.fileUrl)
-        if (existsSync(filePath)) {
-          await unlink(filePath)
-        }
+    // Only try MongoDB if it's a valid ObjectId
+    if (isValidObjectId(id)) {
+      try {
+        const client = await dbConnect()
+        const db = client.db()
+        
+        const document = await db.collection('documents').findOne({ _id: new ObjectId(id) })
+        
+        if (document) {
+          documentToDelete = document
+          // Delete the physical file
+          const filePath = path.join(process.cwd(), 'public', document.fileUrl)
+          if (existsSync(filePath)) {
+            await unlink(filePath)
+          }
 
-        await db.collection('documents').deleteOne(query)
-        deletedFromMongo = true
+          await db.collection('documents').deleteOne({ _id: new ObjectId(id) })
+          deletedFromMongo = true
+        }
+      } catch (dbError) {
+        // MongoDB might not have this record
       }
-    } catch (dbError) {
-      // MongoDB might not have this record
     }
     
     // Also try local file if not deleted from MongoDB
@@ -141,48 +138,43 @@ export async function DELETE(request, { params }) {
 export async function GET(request, { params }) {
   try {
     const { id } = params
+    let document = null
+    let foundInMongo = false
     
-    // Try MongoDB first
-    try {
-      const client = await dbConnect()
-      const db = client.db()
-      
-      let query
-      if (isValidObjectId(id)) {
-        query = { _id: new ObjectId(id) }
-      } else {
-        query = { _id: id }
-      }
-      
-      const document = await db.collection('documents').findOne(query)
-      
-      if (!document) {
-        return NextResponse.json(
-          { message: 'Document not found' },
-          { status: 404 }
-        )
-      }
-
-      return NextResponse.json({ 
-        document: {
-          ...document,
-          _id: document._id?.toString()
+    // Only try MongoDB if it's a valid ObjectId
+    if (isValidObjectId(id)) {
+      try {
+        const client = await dbConnect()
+        const db = client.db()
+        
+        const mongoDoc = await db.collection('documents').findOne({ _id: new ObjectId(id) })
+        
+        if (mongoDoc) {
+          document = {
+            ...mongoDoc,
+            _id: mongoDoc._id?.toString()
+          }
+          foundInMongo = true
         }
-      })
-    } catch (dbError) {
-      // Fallback: Get from local file
-      const documents = getLocalDocuments()
-      const document = findDocumentById(documents, id)
-      
-      if (!document) {
-        return NextResponse.json(
-          { message: 'Document not found' },
-          { status: 404 }
-        )
+      } catch (dbError) {
+        // MongoDB might not have this record
       }
-
-      return NextResponse.json({ document })
     }
+    
+    // Also try local file if not found in MongoDB
+    if (!document) {
+      const documents = getLocalDocuments()
+      document = findDocumentById(documents, id)
+    }
+    
+    if (!document) {
+      return NextResponse.json(
+        { message: 'Document not found' },
+        { status: 404 }
+      )
+    }
+
+    return NextResponse.json({ document })
   } catch (error) {
     console.error('Error fetching document:', error)
     return NextResponse.json(

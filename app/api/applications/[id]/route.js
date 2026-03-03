@@ -5,10 +5,19 @@ import { readFile, writeFile } from 'fs/promises'
 import path from 'path'
 import { ObjectId } from 'mongodb'
 
-const dataDir = path.join(process.env.VERCEL ? '/tmp' : process.cwd(), 'data')
-if (!existsSync(dataDir)) {
-  mkdirSync(dataDir, { recursive: true })
+// Determine the data directory based on environment
+const isVercel = process.env.VERCEL === '1'
+const dataDir = path.join(isVercel ? '/tmp' : process.cwd(), 'data')
+
+// Ensure data directory exists
+try {
+  if (!existsSync(dataDir)) {
+    mkdirSync(dataDir, { recursive: true })
+  }
+} catch (e) {
+  console.log('Could not create data directory:', e.message)
 }
+
 const metadataFile = path.join(dataDir, 'applications.json')
 
 // This would typically verify JWT token
@@ -30,11 +39,14 @@ function isValidObjectId(id) {
 function getLocalApplications() {
   try {
     if (!existsSync(metadataFile)) {
+      console.log('Applications file does not exist:', metadataFile)
       return []
     }
     const data = JSON.parse(require('fs').readFileSync(metadataFile, 'utf-8'))
+    console.log('Loaded local applications:', data.length)
     return data || []
   } catch (error) {
+    console.error('Error reading local applications:', error)
     return []
   }
 }
@@ -135,38 +147,33 @@ export async function PUT(request, { params }) {
     let updatedInMongo = false
     let updatedInLocal = false
     
-    // Try MongoDB first
-    try {
-      const client = await dbConnect()
-      const db = client.db()
-      
-      let query
-      if (isValidObjectId(id)) {
-        query = { _id: new ObjectId(id) }
-      } else {
-        query = { _id: id }
-      }
-      
-      const result = await db.collection('applications').findOneAndUpdate(
-        query,
-        { 
-          $set: {
-            ...body,
-            updatedAt: new Date()
-          }
-        },
-        { returnDocument: 'after' }
-      )
+    // Only try MongoDB if it's a valid ObjectId
+    if (isValidObjectId(id)) {
+      try {
+        const client = await dbConnect()
+        const db = client.db()
+        
+        const result = await db.collection('applications').findOneAndUpdate(
+          { _id: new ObjectId(id) },
+          { 
+            $set: {
+              ...body,
+              updatedAt: new Date()
+            }
+          },
+          { returnDocument: 'after' }
+        )
 
-      if (result) {
-        updatedApp = {
-          ...result,
-          _id: result._id?.toString()
+        if (result) {
+          updatedApp = {
+            ...result,
+            _id: result._id?.toString()
+          }
+          updatedInMongo = true
         }
-        updatedInMongo = true
+      } catch (dbError) {
+        // MongoDB might not have this record
       }
-    } catch (dbError) {
-      // MongoDB might not have this record
     }
     
     // Also try local file
@@ -223,25 +230,20 @@ export async function DELETE(request, { params }) {
     let deletedFromMongo = false
     let deletedFromLocal = false
     
-    // Try MongoDB first
-    try {
-      const client = await dbConnect()
-      const db = client.db()
-      
-      let query
-      if (isValidObjectId(id)) {
-        query = { _id: new ObjectId(id) }
-      } else {
-        query = { _id: id }
-      }
-      
-      const result = await db.collection('applications').deleteOne(query)
+    // Only try MongoDB if it's a valid ObjectId
+    if (isValidObjectId(id)) {
+      try {
+        const client = await dbConnect()
+        const db = client.db()
+        
+        const result = await db.collection('applications').deleteOne({ _id: new ObjectId(id) })
 
-      if (result.deletedCount > 0) {
-        deletedFromMongo = true
+        if (result.deletedCount > 0) {
+          deletedFromMongo = true
+        }
+      } catch (dbError) {
+        // MongoDB might not be available, that's okay
       }
-    } catch (dbError) {
-      // MongoDB might not be available, that's okay
     }
     
     // Also try local file
