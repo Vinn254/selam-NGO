@@ -273,9 +273,18 @@ export async function DELETE(request, { params }) {
       })
     }
     
-    // Not found anywhere
+    // Not found anywhere - return more details for debugging
     return NextResponse.json(
-      { message: 'Application not found' },
+      { 
+        message: 'Application not found',
+        debug: {
+          id,
+          idLength: id?.length,
+          isValidObjectId: isValidObjectId(id),
+          mongoDeleted: deletedFromMongo,
+          localDeleted: deletedFromLocal
+        }
+      },
       { status: 404 }
     )
   } catch (error) {
