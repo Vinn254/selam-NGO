@@ -3,6 +3,7 @@ import { unlink } from 'fs/promises'
 import { existsSync } from 'fs'
 import path from 'path'
 import dbConnect from '@/lib/mongodb'
+import { ObjectId } from 'mongodb'
 
 const dataDir = path.join(process.env.VERCEL ? '/tmp' : process.cwd(), 'data')
 const metadataFile = path.join(dataDir, 'documents.json')
@@ -14,6 +15,11 @@ function verifyAuth(request) {
     return null
   }
   return { authenticated: true }
+}
+
+// Check if string is a valid MongoDB ObjectId
+function isValidObjectId(id) {
+  return ObjectId.isValid(id) && new ObjectId(id).toString() === id
 }
 
 // Get documents from local file
@@ -41,6 +47,11 @@ function saveLocalDocuments(documents) {
   }
 }
 
+// Find document by ID (handles both ObjectId and string ID)
+function findDocumentById(documents, id) {
+  return documents.find(doc => doc._id === id)
+}
+
 export async function DELETE(request, { params }) {
   try {
     const auth = verifyAuth(request)
@@ -58,7 +69,14 @@ export async function DELETE(request, { params }) {
       const client = await dbConnect()
       const db = client.db()
       
-      const document = await db.collection('documents').findOne({ _id: id })
+      let query
+      if (isValidObjectId(id)) {
+        query = { _id: new ObjectId(id) }
+      } else {
+        query = { _id: id }
+      }
+      
+      const document = await db.collection('documents').findOne(query)
       
       if (!document) {
         return NextResponse.json(
@@ -73,7 +91,7 @@ export async function DELETE(request, { params }) {
         await unlink(filePath)
       }
 
-      await db.collection('documents').deleteOne({ _id: id })
+      await db.collection('documents').deleteOne(query)
 
       return NextResponse.json({
         message: 'Document deleted successfully',
@@ -125,7 +143,14 @@ export async function GET(request, { params }) {
       const client = await dbConnect()
       const db = client.db()
       
-      const document = await db.collection('documents').findOne({ _id: id })
+      let query
+      if (isValidObjectId(id)) {
+        query = { _id: new ObjectId(id) }
+      } else {
+        query = { _id: id }
+      }
+      
+      const document = await db.collection('documents').findOne(query)
       
       if (!document) {
         return NextResponse.json(
@@ -143,7 +168,7 @@ export async function GET(request, { params }) {
     } catch (dbError) {
       // Fallback: Get from local file
       const documents = getLocalDocuments()
-      const document = documents.find(doc => doc._id === id)
+      const document = findDocumentById(documents, id)
       
       if (!document) {
         return NextResponse.json(

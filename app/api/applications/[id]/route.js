@@ -20,6 +20,11 @@ function verifyAuth(request) {
   return { authenticated: true }
 }
 
+// Check if string is a valid MongoDB ObjectId
+function isValidObjectId(id) {
+  return ObjectId.isValid(id) && new ObjectId(id).toString() === id
+}
+
 // Get applications from local file
 function getLocalApplications() {
   try {
@@ -43,6 +48,20 @@ function saveLocalApplications(applications) {
   }
 }
 
+// Find application by ID (handles both ObjectId and string ID)
+function findApplicationById(applications, id) {
+  // First try to find by _id (string comparison)
+  let app = applications.find(app => app._id === id)
+  if (app) return app
+  
+  // If not found and id looks like ObjectId, try MongoDB query
+  if (isValidObjectId(id)) {
+    return null // Will be handled by MongoDB
+  }
+  
+  return null
+}
+
 // GET - Fetch a single application
 export async function GET(request, { params }) {
   try {
@@ -53,7 +72,14 @@ export async function GET(request, { params }) {
       const client = await dbConnect()
       const db = client.db()
       
-      const application = await db.collection('applications').findOne({ _id: new ObjectId(id) })
+      let query
+      if (isValidObjectId(id)) {
+        query = { _id: new ObjectId(id) }
+      } else {
+        query = { _id: id }
+      }
+      
+      const application = await db.collection('applications').findOne(query)
       
       if (!application) {
         return NextResponse.json(
@@ -71,7 +97,7 @@ export async function GET(request, { params }) {
     } catch (dbError) {
       // Fallback: Get from local file
       const applications = getLocalApplications()
-      const application = applications.find(app => app._id === id)
+      const application = findApplicationById(applications, id)
       
       if (!application) {
         return NextResponse.json(
@@ -110,8 +136,15 @@ export async function PUT(request, { params }) {
       const client = await dbConnect()
       const db = client.db()
       
+      let query
+      if (isValidObjectId(id)) {
+        query = { _id: new ObjectId(id) }
+      } else {
+        query = { _id: id }
+      }
+      
       const result = await db.collection('applications').findOneAndUpdate(
-        { _id: new ObjectId(id) },
+        query,
         { 
           $set: {
             ...body,
@@ -187,7 +220,14 @@ export async function DELETE(request, { params }) {
       const client = await dbConnect()
       const db = client.db()
       
-      const result = await db.collection('applications').deleteOne({ _id: new ObjectId(id) })
+      let query
+      if (isValidObjectId(id)) {
+        query = { _id: new ObjectId(id) }
+      } else {
+        query = { _id: id }
+      }
+      
+      const result = await db.collection('applications').deleteOne(query)
 
       if (result.deletedCount === 0) {
         return NextResponse.json(

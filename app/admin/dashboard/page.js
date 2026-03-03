@@ -8,6 +8,7 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('applications')
   const [documents, setDocuments] = useState([])
   const [applications, setApplications] = useState([])
+  const [selectedApplications, setSelectedApplications] = useState([])
   const [updates, setUpdates] = useState([])
   const [loading, setLoading] = useState(false)
   const [uploadProgress, setUploadProgress] = useState(0)
@@ -470,6 +471,128 @@ export default function AdminDashboard() {
     }
   }
 
+  // Toggle selection for an application
+  const toggleApplicationSelection = (applicationId) => {
+    setSelectedApplications(prev => {
+      if (prev.includes(applicationId)) {
+        return prev.filter(id => id !== applicationId)
+      } else {
+        return [...prev, applicationId]
+      }
+    })
+  }
+
+  // Toggle select all applications
+  const toggleSelectAll = () => {
+    if (selectedApplications.length === applications.length) {
+      setSelectedApplications([])
+    } else {
+      setSelectedApplications(applications.map(app => app._id))
+    }
+  }
+
+  // Bulk delete selected applications
+  const bulkDeleteApplications = async () => {
+    if (selectedApplications.length === 0) {
+      setMessage({ type: 'error', text: 'Please select at least one application to delete' })
+      return
+    }
+
+    if (!confirm(`Are you sure you want to delete ${selectedApplications.length} application(s)?`)) return
+
+    setLoading(true)
+    try {
+      const token = localStorage.getItem('adminToken')
+      let deletedCount = 0
+      let failedCount = 0
+
+      for (const applicationId of selectedApplications) {
+        try {
+          const response = await fetch(`/api/applications/${applicationId}`, {
+            method: 'DELETE',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+            },
+          })
+
+          if (response.ok) {
+            deletedCount++
+          } else {
+            failedCount++
+          }
+        } catch (error) {
+          failedCount++
+        }
+      }
+
+      if (deletedCount > 0) {
+        setMessage({ type: 'success', text: `${deletedCount} application(s) deleted successfully!` })
+      }
+      if (failedCount > 0) {
+        setMessage({ type: 'error', text: `${failedCount} application(s) failed to delete` })
+      }
+
+      setSelectedApplications([])
+      fetchApplications()
+    } catch (error) {
+      setMessage({ type: 'error', text: 'Failed to delete applications' })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Bulk update status for selected applications
+  const bulkUpdateStatus = async (newStatus) => {
+    if (selectedApplications.length === 0) {
+      setMessage({ type: 'error', text: 'Please select at least one application to update' })
+      return
+    }
+
+    if (!confirm(`Update status for ${selectedApplications.length} application(s) to "${newStatus}"?`)) return
+
+    setLoading(true)
+    try {
+      const token = localStorage.getItem('adminToken')
+      let updatedCount = 0
+      let failedCount = 0
+
+      for (const applicationId of selectedApplications) {
+        try {
+          const response = await fetch(`/api/applications/${applicationId}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify({ status: newStatus }),
+          })
+
+          if (response.ok) {
+            updatedCount++
+          } else {
+            failedCount++
+          }
+        } catch (error) {
+          failedCount++
+        }
+      }
+
+      if (updatedCount > 0) {
+        setMessage({ type: 'success', text: `${updatedCount} application(s) marked as ${newStatus}!` })
+      }
+      if (failedCount > 0) {
+        setMessage({ type: 'error', text: `${failedCount} application(s) failed to update` })
+      }
+
+      setSelectedApplications([])
+      fetchApplications()
+    } catch (error) {
+      setMessage({ type: 'error', text: 'Failed to update applications' })
+    } finally {
+      setLoading(false)
+    }
+  }
+
   const getTypeColor = (type) => {
     switch (type) {
       case 'volunteer': return 'bg-emerald-100 text-emerald-800'
@@ -624,9 +747,60 @@ export default function AdminDashboard() {
         {/* Applications Tab */}
         {activeTab === 'applications' && (
           <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-200">
-              <h2 className="text-2xl font-bold text-gray-900">Applications</h2>
-              <p className="text-sm text-gray-600 mt-1">{applications.length} total applications</p>
+            <div className="px-6 py-4 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900">Applications</h2>
+                <p className="text-sm text-gray-600 mt-1">{applications.length} total applications</p>
+              </div>
+              
+              {/* Bulk Actions */}
+              {applications.length > 0 && (
+                <div className="flex flex-wrap gap-2 items-center">
+                  {selectedApplications.length > 0 ? (
+                    <>
+                      <button
+                        onClick={() => bulkUpdateStatus('approved')}
+                        disabled={loading}
+                        className="px-3 py-1.5 bg-green-100 text-green-700 rounded-lg text-sm font-medium hover:bg-green-200 disabled:opacity-50"
+                      >
+                        Approve ({selectedApplications.length})
+                      </button>
+                      <button
+                        onClick={() => bulkUpdateStatus('rejected')}
+                        disabled={loading}
+                        className="px-3 py-1.5 bg-red-100 text-red-700 rounded-lg text-sm font-medium hover:bg-red-200 disabled:opacity-50"
+                      >
+                        Reject ({selectedApplications.length})
+                      </button>
+                      <button
+                        onClick={() => bulkUpdateStatus('reviewed')}
+                        disabled={loading}
+                        className="px-3 py-1.5 bg-blue-100 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-200 disabled:opacity-50"
+                      >
+                        Mark Reviewed ({selectedApplications.length})
+                      </button>
+                      <button
+                        onClick={bulkDeleteApplications}
+                        disabled={loading}
+                        className="px-3 py-1.5 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 disabled:opacity-50"
+                      >
+                        Delete ({selectedApplications.length})
+                      </button>
+                      <button
+                        onClick={() => setSelectedApplications([])}
+                        disabled={loading}
+                        className="px-3 py-1.5 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 disabled:opacity-50"
+                      >
+                        Clear Selection
+                      </button>
+                    </>
+                  ) : (
+                    <span className="text-sm text-gray-500">
+                      Select applications to perform bulk actions
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
             
             {applications.length === 0 ? (
@@ -652,6 +826,14 @@ export default function AdminDashboard() {
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-10">
+                        <input
+                          type="checkbox"
+                          checked={selectedApplications.length === applications.length && applications.length > 0}
+                          onChange={toggleSelectAll}
+                          className="h-4 w-4 text-primary-600 border-gray-300 rounded cursor-pointer"
+                        />
+                      </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Applicant
                       </th>
@@ -674,7 +856,15 @@ export default function AdminDashboard() {
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {applications.map((app) => (
-                      <tr key={app._id} className="hover:bg-gray-50">
+                      <tr key={app._id} className={`hover:bg-gray-50 ${selectedApplications.includes(app._id) ? 'bg-blue-50' : ''}`}>
+                        <td className="px-4 py-4 whitespace-nowrap">
+                          <input
+                            type="checkbox"
+                            checked={selectedApplications.includes(app._id)}
+                            onChange={() => toggleApplicationSelection(app._id)}
+                            className="h-4 w-4 text-primary-600 border-gray-300 rounded cursor-pointer"
+                          />
+                        </td>
                         <td className="px-6 py-4">
                           <div className="flex items-center">
                             <div className="flex-shrink-0 h-10 w-10 bg-primary-100 rounded-full flex items-center justify-center">
