@@ -110,33 +110,44 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url)
     const type = searchParams.get('type')
     
-    // Try MongoDB first
-    const client = await dbConnect()
-    const db = client.db()
-    
     let query = {}
     if (type) {
       query = { type }
     }
     
-    const applications = await db
-      .collection('applications')
-      .find(query)
-      .sort({ createdAt: -1 })
-      .toArray()
+    // Try MongoDB first
+    let mongoApps = []
+    try {
+      const client = await dbConnect()
+      const db = client.db()
+      
+      mongoApps = await db
+        .collection('applications')
+        .find(query)
+        .sort({ createdAt: -1 })
+        .toArray()
 
-    const serializedApplications = applications.map(app => ({
-      ...app,
-      _id: app._id?.toString()
-    }))
-
-    // If MongoDB has no data, also include local applications as fallback
-    if (serializedApplications.length === 0) {
-      const localApps = getLocalApplications()
-      return NextResponse.json({ applications: localApps, source: 'local' })
+      mongoApps = mongoApps.map(app => ({
+        ...app,
+        _id: app._id?.toString()
+      }))
+    } catch (dbError) {
+      console.log('MongoDB not available, using local data')
     }
+    
+    // Always get local applications as well
+    const localApps = getLocalApplications()
+    
+    // Merge MongoDB and local data, avoiding duplicates (prefer MongoDB)
+    const mongoIds = new Set(mongoApps.map(app => app._id))
+    const localOnlyApps = localApps.filter(app => !mongoIds.has(app._id))
+    
+    // Combine and sort by date
+    const allApplications = [...mongoApps, ...localOnlyApps].sort((a, b) => 
+      new Date(b.createdAt) - new Date(a.createdAt)
+    )
 
-    return NextResponse.json({ applications: serializedApplications })
+    return NextResponse.json({ applications: allApplications })
   } catch (error) {
     console.error('Error fetching applications:', error.message)
     

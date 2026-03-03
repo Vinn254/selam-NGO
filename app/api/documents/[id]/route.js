@@ -63,6 +63,9 @@ export async function DELETE(request, { params }) {
     }
 
     const { id } = params
+    let deletedFromMongo = false
+    let deletedFromLocal = false
+    let documentToDelete = null
     
     // Try MongoDB first
     try {
@@ -78,53 +81,53 @@ export async function DELETE(request, { params }) {
       
       const document = await db.collection('documents').findOne(query)
       
-      if (!document) {
-        return NextResponse.json(
-          { message: 'Document not found' },
-          { status: 404 }
-        )
+      if (document) {
+        documentToDelete = document
+        // Delete the physical file
+        const filePath = path.join(process.cwd(), 'public', document.fileUrl)
+        if (existsSync(filePath)) {
+          await unlink(filePath)
+        }
+
+        await db.collection('documents').deleteOne(query)
+        deletedFromMongo = true
       }
-
-      // Delete the physical file
-      const filePath = path.join(process.cwd(), 'public', document.fileUrl)
-      if (existsSync(filePath)) {
-        await unlink(filePath)
-      }
-
-      await db.collection('documents').deleteOne(query)
-
-      return NextResponse.json({
-        message: 'Document deleted successfully',
-      })
     } catch (dbError) {
-      console.error('MongoDB error, trying local file:', dbError.message)
-      
-      // Fallback: Delete from local file
+      // MongoDB might not have this record
+    }
+    
+    // Also try local file if not deleted from MongoDB
+    if (!deletedFromMongo) {
       const documents = getLocalDocuments()
       const documentIndex = documents.findIndex(doc => doc._id === id)
       
-      if (documentIndex === -1) {
-        return NextResponse.json(
-          { message: 'Document not found' },
-          { status: 404 }
-        )
+      if (documentIndex !== -1) {
+        documentToDelete = documents[documentIndex]
+        
+        // Delete the physical file
+        const filePath = path.join(process.cwd(), 'public', documentToDelete.fileUrl)
+        if (existsSync(filePath)) {
+          await unlink(filePath)
+        }
+
+        documents.splice(documentIndex, 1)
+        saveLocalDocuments(documents)
+        deletedFromLocal = true
       }
-
-      const document = documents[documentIndex]
-
-      // Delete the physical file
-      const filePath = path.join(process.cwd(), 'public', document.fileUrl)
-      if (existsSync(filePath)) {
-        await unlink(filePath)
-      }
-
-      documents.splice(documentIndex, 1)
-      saveLocalDocuments(documents)
-
+    }
+    
+    // If we deleted from either source, return success
+    if (deletedFromMongo || deletedFromLocal) {
       return NextResponse.json({
         message: 'Document deleted successfully',
       })
     }
+    
+    // Not found anywhere
+    return NextResponse.json(
+      { message: 'Document not found' },
+      { status: 404 }
+    )
   } catch (error) {
     console.error('Delete error:', error)
     return NextResponse.json(

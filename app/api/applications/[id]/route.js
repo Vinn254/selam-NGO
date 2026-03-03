@@ -130,6 +130,9 @@ export async function PUT(request, { params }) {
 
     const { id } = params
     const body = await request.json()
+    let updatedApp = null
+    let updatedInMongo = false
+    let updatedInLocal = false
     
     // Try MongoDB first
     try {
@@ -154,45 +157,47 @@ export async function PUT(request, { params }) {
         { returnDocument: 'after' }
       )
 
-      if (!result) {
-        return NextResponse.json(
-          { message: 'Application not found' },
-          { status: 404 }
-        )
-      }
-
-      return NextResponse.json({
-        message: 'Application updated successfully',
-        application: {
+      if (result) {
+        updatedApp = {
           ...result,
           _id: result._id?.toString()
         }
-      })
+        updatedInMongo = true
+      }
     } catch (dbError) {
-      // Fallback: Update in local file
+      // MongoDB might not have this record
+    }
+    
+    // Also try local file
+    if (!updatedApp) {
       const applications = getLocalApplications()
       const appIndex = applications.findIndex(app => app._id === id)
       
-      if (appIndex === -1) {
-        return NextResponse.json(
-          { message: 'Application not found' },
-          { status: 404 }
-        )
+      if (appIndex !== -1) {
+        applications[appIndex] = {
+          ...applications[appIndex],
+          ...body,
+          updatedAt: new Date().toISOString()
+        }
+        saveLocalApplications(applications)
+        updatedApp = applications[appIndex]
+        updatedInLocal = true
       }
-
-      applications[appIndex] = {
-        ...applications[appIndex],
-        ...body,
-        updatedAt: new Date().toISOString()
-      }
-
-      saveLocalApplications(applications)
-
+    }
+    
+    // If we updated in either source, return success
+    if (updatedApp) {
       return NextResponse.json({
         message: 'Application updated successfully',
-        application: applications[appIndex]
+        application: updatedApp
       })
     }
+    
+    // Not found anywhere
+    return NextResponse.json(
+      { message: 'Application not found' },
+      { status: 404 }
+    )
   } catch (error) {
     console.error('Error updating application:', error)
     return NextResponse.json(
@@ -214,6 +219,8 @@ export async function DELETE(request, { params }) {
     }
 
     const { id } = params
+    let deletedFromMongo = false
+    let deletedFromLocal = false
     
     // Try MongoDB first
     try {
@@ -229,35 +236,35 @@ export async function DELETE(request, { params }) {
       
       const result = await db.collection('applications').deleteOne(query)
 
-      if (result.deletedCount === 0) {
-        return NextResponse.json(
-          { message: 'Application not found' },
-          { status: 404 }
-        )
+      if (result.deletedCount > 0) {
+        deletedFromMongo = true
       }
-
-      return NextResponse.json({
-        message: 'Application deleted successfully',
-      })
     } catch (dbError) {
-      // Fallback: Delete from local file
-      const applications = getLocalApplications()
-      const appIndex = applications.findIndex(app => app._id === id)
-      
-      if (appIndex === -1) {
-        return NextResponse.json(
-          { message: 'Application not found' },
-          { status: 404 }
-        )
-      }
-
+      // MongoDB might not be available, that's okay
+    }
+    
+    // Also try local file
+    const applications = getLocalApplications()
+    const appIndex = applications.findIndex(app => app._id === id)
+    
+    if (appIndex !== -1) {
       applications.splice(appIndex, 1)
       saveLocalApplications(applications)
-
+      deletedFromLocal = true
+    }
+    
+    // If we deleted from either source, return success
+    if (deletedFromMongo || deletedFromLocal) {
       return NextResponse.json({
         message: 'Application deleted successfully',
       })
     }
+    
+    // Not found anywhere
+    return NextResponse.json(
+      { message: 'Application not found' },
+      { status: 404 }
+    )
   } catch (error) {
     console.error('Error deleting application:', error)
     return NextResponse.json(
