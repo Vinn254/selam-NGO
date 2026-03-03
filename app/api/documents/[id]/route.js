@@ -70,28 +70,26 @@ export async function DELETE(request, { params }) {
     let deletedFromLocal = false
     let documentToDelete = null
     
-    // Only try MongoDB if it's a valid ObjectId
-    if (isValidObjectId(id)) {
-      try {
-        const client = await dbConnect()
-        const db = client.db()
-        
-        const document = await db.collection('documents').findOne({ _id: new ObjectId(id) })
-        
-        if (document) {
-          documentToDelete = document
-          // Delete the physical file
-          const filePath = path.join(process.cwd(), 'public', document.fileUrl)
-          if (existsSync(filePath)) {
-            await unlink(filePath)
-          }
-
-          await db.collection('documents').deleteOne({ _id: new ObjectId(id) })
-          deletedFromMongo = true
+    // Try MongoDB with string ID directly
+    try {
+      const client = await dbConnect()
+      const db = client.db()
+      
+      const document = await db.collection('documents').findOne({ _id: id })
+      
+      if (document) {
+        documentToDelete = document
+        // Delete the physical file
+        const filePath = path.join(process.cwd(), 'public', document.fileUrl)
+        if (existsSync(filePath)) {
+          await unlink(filePath)
         }
-      } catch (dbError) {
-        // MongoDB might not have this record
+
+        await db.collection('documents').deleteOne({ _id: id })
+        deletedFromMongo = true
       }
+    } catch (dbError) {
+      console.error('MongoDB delete error:', dbError.message)
     }
     
     // Also try local file if not deleted from MongoDB
@@ -139,26 +137,22 @@ export async function GET(request, { params }) {
   try {
     const { id } = params
     let document = null
-    let foundInMongo = false
     
-    // Only try MongoDB if it's a valid ObjectId
-    if (isValidObjectId(id)) {
-      try {
-        const client = await dbConnect()
-        const db = client.db()
-        
-        const mongoDoc = await db.collection('documents').findOne({ _id: new ObjectId(id) })
-        
-        if (mongoDoc) {
-          document = {
-            ...mongoDoc,
-            _id: mongoDoc._id?.toString()
-          }
-          foundInMongo = true
+    // Try MongoDB with string ID directly
+    try {
+      const client = await dbConnect()
+      const db = client.db()
+      
+      const mongoDoc = await db.collection('documents').findOne({ _id: id })
+      
+      if (mongoDoc) {
+        document = {
+          ...mongoDoc,
+          _id: mongoDoc._id?.toString()
         }
-      } catch (dbError) {
-        // MongoDB might not have this record
       }
+    } catch (dbError) {
+      console.error('MongoDB error:', dbError.message)
     }
     
     // Also try local file if not found in MongoDB
