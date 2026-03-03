@@ -237,15 +237,19 @@ export async function DELETE(request, { params }) {
     let deletedFromLocal = false
     
     // Try MongoDB with string ID (since data was migrated with string IDs)
-    console.log('Trying MongoDB with string ID:', id)
+    console.log('Trying MongoDB with string ID:', id, 'type:', typeof id)
     try {
       const client = await dbConnect()
       const db = client.db()
       console.log('MongoDB connected, db name:', db.databaseName)
       
-      // First, let's check if the document exists
+      // First, let's check all IDs in the collection
+      const allDocs = await db.collection('applications').find({}).limit(10).toArray()
+      console.log('All doc IDs:', allDocs.map(d => ({ id: d._id?.toString(), type: typeof d._id })))
+      
+      // Check with exact ID
       const checkDoc = await db.collection('applications').findOne({ _id: id })
-      console.log('Check result for ID', id, ':', checkDoc ? 'FOUND' : 'NOT FOUND')
+      console.log('Direct findOne result:', checkDoc ? 'FOUND: ' + checkDoc.name : 'NOT FOUND')
       
       const result = await db.collection('applications').deleteOne({ _id: id })
       console.log('MongoDB delete result:', result)
