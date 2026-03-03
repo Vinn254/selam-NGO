@@ -753,54 +753,7 @@ export default function AdminDashboard() {
                 <p className="text-sm text-gray-600 mt-1">{applications.length} total applications</p>
               </div>
               
-              {/* Bulk Actions */}
-              {applications.length > 0 && (
-                <div className="flex flex-wrap gap-2 items-center">
-                  {selectedApplications.length > 0 ? (
-                    <>
-                      <button
-                        onClick={() => bulkUpdateStatus('approved')}
-                        disabled={loading}
-                        className="px-3 py-1.5 bg-green-100 text-green-700 rounded-lg text-sm font-medium hover:bg-green-200 disabled:opacity-50"
-                      >
-                        Approve ({selectedApplications.length})
-                      </button>
-                      <button
-                        onClick={() => bulkUpdateStatus('rejected')}
-                        disabled={loading}
-                        className="px-3 py-1.5 bg-red-100 text-red-700 rounded-lg text-sm font-medium hover:bg-red-200 disabled:opacity-50"
-                      >
-                        Reject ({selectedApplications.length})
-                      </button>
-                      <button
-                        onClick={() => bulkUpdateStatus('reviewed')}
-                        disabled={loading}
-                        className="px-3 py-1.5 bg-blue-100 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-200 disabled:opacity-50"
-                      >
-                        Mark Reviewed ({selectedApplications.length})
-                      </button>
-                      <button
-                        onClick={bulkDeleteApplications}
-                        disabled={loading}
-                        className="px-3 py-1.5 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 disabled:opacity-50"
-                      >
-                        Delete ({selectedApplications.length})
-                      </button>
-                      <button
-                        onClick={() => setSelectedApplications([])}
-                        disabled={loading}
-                        className="px-3 py-1.5 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 disabled:opacity-50"
-                      >
-                        Clear Selection
-                      </button>
-                    </>
-                  ) : (
-                    <span className="text-sm text-gray-500">
-                      Select applications to perform bulk actions
-                    </span>
-                  )}
-                </div>
-              )}
+              {/* Applications List */}
             </div>
             
             {applications.length === 0 ? (
@@ -826,14 +779,6 @@ export default function AdminDashboard() {
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-10">
-                        <input
-                          type="checkbox"
-                          checked={selectedApplications.length === applications.length && applications.length > 0}
-                          onChange={toggleSelectAll}
-                          className="h-4 w-4 text-primary-600 border-gray-300 rounded cursor-pointer"
-                        />
-                      </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Applicant
                       </th>
@@ -849,22 +794,11 @@ export default function AdminDashboard() {
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Date
                       </th>
-                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Actions
-                      </th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {applications.map((app) => (
-                      <tr key={app._id} className={`hover:bg-gray-50 ${selectedApplications.includes(app._id) ? 'bg-blue-50' : ''}`}>
-                        <td className="px-4 py-4 whitespace-nowrap">
-                          <input
-                            type="checkbox"
-                            checked={selectedApplications.includes(app._id)}
-                            onChange={() => toggleApplicationSelection(app._id)}
-                            className="h-4 w-4 text-primary-600 border-gray-300 rounded cursor-pointer"
-                          />
-                        </td>
+                      <tr key={app._id} className="hover:bg-gray-50">
                         <td className="px-6 py-4">
                           <div className="flex items-center">
                             <div className="flex-shrink-0 h-10 w-10 bg-primary-100 rounded-full flex items-center justify-center">
@@ -913,27 +847,12 @@ export default function AdminDashboard() {
                           )}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <select
-                            value={app.status}
-                            onChange={(e) => updateApplicationStatus(app._id, e.target.value)}
-                            className={`text-sm rounded-full px-3 py-1 font-semibold border-0 cursor-pointer ${getStatusColor(app.status)}`}
-                          >
-                            <option value="pending">Pending</option>
-                            <option value="reviewed">Reviewed</option>
-                            <option value="approved">Approved</option>
-                            <option value="rejected">Rejected</option>
-                          </select>
+                          <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusColor(app.status)}`}>
+                            {app.status.charAt(0).toUpperCase() + app.status.slice(1)}
+                          </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {formatDate(app.createdAt)}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <button
-                            onClick={() => deleteApplication(app._id)}
-                            className="text-red-600 hover:text-red-900"
-                          >
-                            Delete
-                          </button>
                         </td>
                       </tr>
                     ))}
@@ -1393,7 +1312,7 @@ export default function AdminDashboard() {
                         Uploaded
                       </th>
                       <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Actions
+                        View
                       </th>
                     </tr>
                   </thead>
@@ -1441,16 +1360,10 @@ export default function AdminDashboard() {
                             href={doc.fileUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-primary-600 hover:text-primary-900 mr-4"
+                            className="text-primary-600 hover:text-primary-900"
                           >
                             View
                           </a>
-                          <button
-                            onClick={() => handleDelete(doc._id)}
-                            className="text-red-600 hover:text-red-900"
-                          >
-                            Delete
-                          </button>
                         </td>
                       </tr>
                     ))}
