@@ -243,16 +243,22 @@ export async function DELETE(request, { params }) {
       const db = client.db()
       console.log('MongoDB connected, db name:', db.databaseName)
       
-      // First, let's check all IDs in the collection
-      const allDocs = await db.collection('applications').find({}).limit(10).toArray()
-      console.log('All doc IDs:', allDocs.map(d => ({ id: d._id?.toString(), type: typeof d._id })))
+      // Try direct string ID match
+      let result = await db.collection('applications').deleteOne({ _id: id })
+      console.log('Delete by string ID result:', result)
       
-      // Check with exact ID
-      const checkDoc = await db.collection('applications').findOne({ _id: id })
-      console.log('Direct findOne result:', checkDoc ? 'FOUND: ' + checkDoc.name : 'NOT FOUND')
-      
-      const result = await db.collection('applications').deleteOne({ _id: id })
-      console.log('MongoDB delete result:', result)
+      if (result.deletedCount === 0) {
+        // Try searching by regex to find the document
+        console.log('Trying regex search for:', id)
+        const docs = await db.collection('applications').find({ _id: { $regex: id } }).toArray()
+        console.log('Regex search found:', docs.length, 'docs')
+        
+        if (docs.length > 0) {
+          // Delete by the found document's _id
+          result = await db.collection('applications').deleteOne({ _id: docs[0]._id })
+          console.log('Delete after regex result:', result)
+        }
+      }
 
       if (result.deletedCount > 0) {
         deletedFromMongo = true
