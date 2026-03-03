@@ -1,15 +1,24 @@
 import { NextResponse } from 'next/server'
-import { readFile, unlink } from 'fs/promises'
+import { readFile } from 'fs/promises'
 import { existsSync } from 'fs'
 import path from 'path'
 import dbConnect from '@/lib/mongodb'
 
 export async function GET(request, { params }) {
   try {
-    const { path: filePath } = params
+    // Get the fileId from the URL directly
+    const url = new URL(request.url)
+    const pathname = url.pathname
+    // Extract filename from path like /api/documents/file/filename.docx
+    const pathParts = pathname.split('/api/documents/file/')
+    const fileName = pathParts[1]
     
-    // Extract filename from path
-    const fileName = filePath[0]
+    if (!fileName) {
+      return NextResponse.json(
+        { error: 'No filename provided', pathname },
+        { status: 400 }
+      )
+    }
     
     // First, try to find the file in MongoDB by matching the fileUrl
     try {
@@ -69,7 +78,7 @@ export async function GET(request, { params }) {
     
     if (!fileBuffer) {
       return NextResponse.json(
-        { error: 'File not found', path: fileName },
+        { error: 'File not found', path: fileName, searched: possiblePaths },
         { status: 404 }
       )
     }
