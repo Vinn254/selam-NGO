@@ -1349,7 +1349,7 @@ export default function AdminDashboard() {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                           <a
-                            href={doc.fileUrl}
+                            href={`/api/documents/file${doc.fileUrl.replace('/uploads/documents', '')}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-primary-600 hover:text-primary-900"
