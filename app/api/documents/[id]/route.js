@@ -17,9 +17,10 @@ function verifyAuth(request) {
   return { authenticated: true }
 }
 
-// Check if string is a valid MongoDB ObjectId
+// Check if string is a valid MongoDB ObjectId (24 hex characters)
 function isValidObjectId(id) {
-  return ObjectId.isValid(id) && new ObjectId(id).toString() === id
+  // Strict check: must be exactly 24 hex characters
+  return /^[a-fA-F0-9]{24}$/.test(id)
 }
 
 // Get documents from local file
