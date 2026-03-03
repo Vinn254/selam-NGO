@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { writeFile, mkdir } from 'fs/promises'
+import { writeFile, mkdir, readFile } from 'fs/promises'
 import { existsSync } from 'fs'
 import path from 'path'
 import { v4 as uuidv4 } from 'uuid'
@@ -14,8 +14,6 @@ function verifyAuth(request) {
   
   // For development, allow requests without auth or with any bearer token
   if (!authHeader) {
-    // In production, you would return null here
-    // For now, we'll allow it for easier testing
     return { authenticated: true }
   }
   
@@ -108,23 +106,15 @@ export async function POST(request) {
       )
     }
 
-    // Use /tmp on Vercel (writable), use public folder locally
-    const isVercel = process.env.VERCEL === '1'
-    const uploadsDir = isVercel 
-      ? '/tmp/uploads/documents' 
-      : path.join(process.cwd(), 'public', 'uploads', 'documents')
-    
-    if (!existsSync(uploadsDir)) {
-      await mkdir(uploadsDir, { recursive: true })
-    }
-
     const fileExtension = path.extname(file.name)
     const uniqueFilename = `${uuidv4()}${fileExtension}`
-    const filePath = path.join(uploadsDir, uniqueFilename)
-
+    
+    // Read file content as buffer
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
-    await writeFile(filePath, buffer)
+    
+    // Convert to base64 for MongoDB storage
+    const base64Content = buffer.toString('base64')
 
     const documentData = {
       _id: uuidv4(),
@@ -135,11 +125,12 @@ export async function POST(request) {
       fileUrl: `/uploads/documents/${uniqueFilename}`,
       fileSize: file.size,
       fileType: file.type,
+      fileContent: base64Content, // Store content in MongoDB
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     }
 
-    // Try to save to MongoDB first
+    // Try to save to MongoDB
     try {
       const client = await dbConnect()
       const db = client.db()
@@ -154,18 +145,33 @@ export async function POST(request) {
         ...documentData,
         _id: result.insertedId?.toString() || documentData._id
       }
+      
+      // Don't return fileContent in response
+      const { fileContent, ...responseDoc } = savedDocument
 
       return NextResponse.json(
         {
           message: 'Document uploaded successfully',
-          document: savedDocument,
+          document: responseDoc,
         },
         { status: 201 }
       )
     } catch (dbError) {
       console.error('MongoDB error, saving to local file:', dbError.message)
       
-      // Fallback: Save to local JSON file
+      // Fallback: Save to local filesystem and JSON
+      const isVercel = process.env.VERCEL === '1'
+      const uploadsDir = isVercel 
+        ? '/tmp/uploads/documents' 
+        : path.join(process.cwd(), 'public', 'uploads', 'documents')
+      
+      if (!existsSync(uploadsDir)) {
+        await mkdir(uploadsDir, { recursive: true })
+      }
+      
+      const filePath = path.join(uploadsDir, uniqueFilename)
+      await writeFile(filePath, buffer)
+      
       const saved = await saveLocalDocument(documentData)
       if (saved) {
         return NextResponse.json(
@@ -183,7 +189,7 @@ export async function POST(request) {
         { status: 500 }
       )
     }
-    } catch (error) {
+  } catch (error) {
     console.error('Upload error:', error)
     return NextResponse.json(
       { message: 'Failed to upload document: ' + error.message, error: error.message },
