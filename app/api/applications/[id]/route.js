@@ -147,33 +147,31 @@ export async function PUT(request, { params }) {
     let updatedInMongo = false
     let updatedInLocal = false
     
-    // Only try MongoDB if it's a valid ObjectId
-    if (isValidObjectId(id)) {
-      try {
-        const client = await dbConnect()
-        const db = client.db()
-        
-        const result = await db.collection('applications').findOneAndUpdate(
-          { _id: new ObjectId(id) },
-          { 
-            $set: {
-              ...body,
-              updatedAt: new Date()
-            }
-          },
-          { returnDocument: 'after' }
-        )
-
-        if (result) {
-          updatedApp = {
-            ...result,
-            _id: result._id?.toString()
+    // Try MongoDB with string ID (since data was migrated with string IDs)
+    try {
+      const client = await dbConnect()
+      const db = client.db()
+      
+      const result = await db.collection('applications').findOneAndUpdate(
+        { _id: id },
+        { 
+          $set: {
+            ...body,
+            updatedAt: new Date()
           }
-          updatedInMongo = true
+        },
+        { returnDocument: 'after' }
+      )
+
+      if (result) {
+        updatedApp = {
+          ...result,
+          _id: result._id?.toString()
         }
-      } catch (dbError) {
-        // MongoDB might not have this record
+        updatedInMongo = true
       }
+    } catch (dbError) {
+      console.log('MongoDB update error:', dbError.message)
     }
     
     // Also try local file
@@ -232,38 +230,36 @@ export async function DELETE(request, { params }) {
     let deletedFromMongo = false
     let deletedFromLocal = false
     
-    // Only try MongoDB if it's a valid ObjectId
-    if (isValidObjectId(id)) {
-      console.log('Valid ObjectId, trying MongoDB...')
-      try {
-        const client = await dbConnect()
-        const db = client.db()
-        
-        const result = await db.collection('applications').deleteOne({ _id: new ObjectId(id) })
-        console.log('MongoDB delete result:', result)
+    // Try MongoDB with string ID (since data was migrated with string IDs)
+    console.log('Trying MongoDB with string ID...')
+    try {
+      const client = await dbConnect()
+      const db = client.db()
+      
+      const result = await db.collection('applications').deleteOne({ _id: id })
+      console.log('MongoDB delete result:', result)
 
-        if (result.deletedCount > 0) {
-          deletedFromMongo = true
-        }
-      } catch (dbError) {
-        console.error('MongoDB delete error:', dbError.message)
+      if (result.deletedCount > 0) {
+        deletedFromMongo = true
       }
-    } else {
-      console.log('Not a valid ObjectId, skipping MongoDB')
+    } catch (dbError) {
+      console.error('MongoDB delete error:', dbError.message)
     }
     
-    // Also try local file
-    console.log('Checking local file for ID:', id)
-    const applications = getLocalApplications()
-    console.log('Total applications in local file:', applications.length)
-    const appIndex = applications.findIndex(app => app._id === id)
-    console.log('Found at index:', appIndex)
-    
-    if (appIndex !== -1) {
-      console.log('Deleting from local file:', applications[appIndex].name)
-      applications.splice(appIndex, 1)
-      saveLocalApplications(applications)
-      deletedFromLocal = true
+    // Also try local file (for development/backup)
+    if (!deletedFromMongo) {
+      console.log('Checking local file for ID:', id)
+      const applications = getLocalApplications()
+      console.log('Total applications in local file:', applications.length)
+      const appIndex = applications.findIndex(app => app._id === id)
+      console.log('Found at index:', appIndex)
+      
+      if (appIndex !== -1) {
+        console.log('Deleting from local file:', applications[appIndex].name)
+        applications.splice(appIndex, 1)
+        saveLocalApplications(applications)
+        deletedFromLocal = true
+      }
     }
     
     // If we deleted from either source, return success
