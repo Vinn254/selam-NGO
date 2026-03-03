@@ -148,9 +148,14 @@ export async function PUT(request, { params }) {
     let updatedInLocal = false
     
     // Try MongoDB with string ID (since data was migrated with string IDs)
+    console.log('PUT - Trying MongoDB with string ID:', id)
     try {
       const client = await dbConnect()
       const db = client.db()
+      
+      // First check if document exists
+      const checkDoc = await db.collection('applications').findOne({ _id: id })
+      console.log('Check result for PUT:', checkDoc ? 'FOUND' : 'NOT FOUND')
       
       const result = await db.collection('applications').findOneAndUpdate(
         { _id: id },
@@ -169,6 +174,7 @@ export async function PUT(request, { params }) {
           _id: result._id?.toString()
         }
         updatedInMongo = true
+        console.log('Updated in MongoDB!')
       }
     } catch (dbError) {
       console.log('MongoDB update error:', dbError.message)
@@ -231,16 +237,22 @@ export async function DELETE(request, { params }) {
     let deletedFromLocal = false
     
     // Try MongoDB with string ID (since data was migrated with string IDs)
-    console.log('Trying MongoDB with string ID...')
+    console.log('Trying MongoDB with string ID:', id)
     try {
       const client = await dbConnect()
       const db = client.db()
+      console.log('MongoDB connected, db name:', db.databaseName)
+      
+      // First, let's check if the document exists
+      const checkDoc = await db.collection('applications').findOne({ _id: id })
+      console.log('Check result for ID', id, ':', checkDoc ? 'FOUND' : 'NOT FOUND')
       
       const result = await db.collection('applications').deleteOne({ _id: id })
       console.log('MongoDB delete result:', result)
 
       if (result.deletedCount > 0) {
         deletedFromMongo = true
+        console.log('Deleted from MongoDB!')
       }
     } catch (dbError) {
       console.error('MongoDB delete error:', dbError.message)
