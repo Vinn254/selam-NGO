@@ -227,30 +227,40 @@ export async function DELETE(request, { params }) {
     }
 
     const { id } = params
+    console.log('DELETE request for application ID:', id, 'Length:', id?.length)
+    
     let deletedFromMongo = false
     let deletedFromLocal = false
     
     // Only try MongoDB if it's a valid ObjectId
     if (isValidObjectId(id)) {
+      console.log('Valid ObjectId, trying MongoDB...')
       try {
         const client = await dbConnect()
         const db = client.db()
         
         const result = await db.collection('applications').deleteOne({ _id: new ObjectId(id) })
+        console.log('MongoDB delete result:', result)
 
         if (result.deletedCount > 0) {
           deletedFromMongo = true
         }
       } catch (dbError) {
-        // MongoDB might not be available, that's okay
+        console.error('MongoDB delete error:', dbError.message)
       }
+    } else {
+      console.log('Not a valid ObjectId, skipping MongoDB')
     }
     
     // Also try local file
+    console.log('Checking local file for ID:', id)
     const applications = getLocalApplications()
+    console.log('Total applications in local file:', applications.length)
     const appIndex = applications.findIndex(app => app._id === id)
+    console.log('Found at index:', appIndex)
     
     if (appIndex !== -1) {
+      console.log('Deleting from local file:', applications[appIndex].name)
       applications.splice(appIndex, 1)
       saveLocalApplications(applications)
       deletedFromLocal = true
