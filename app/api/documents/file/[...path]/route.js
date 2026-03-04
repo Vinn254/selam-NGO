@@ -30,30 +30,39 @@ export async function GET(request, { params }) {
         fileUrl: { $regex: fileName }
       })
       
-      if (doc && doc.fileContent) {
-        // Decode base64 content
-        const buffer = Buffer.from(doc.fileContent, 'base64')
-        
-        // Determine content type
-        const ext = path.extname(doc.fileName || fileName).toLowerCase()
-        const contentTypes = {
-          '.pdf': 'application/pdf',
-          '.doc': 'application/msword',
-          '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-          '.jpg': 'image/jpeg',
-          '.jpeg': 'image/jpeg',
-          '.png': 'image/png',
-          '.gif': 'image/gif',
+      if (doc) {
+        // Check if it's a Cloudinary URL
+        if (doc.fileUrl && doc.fileUrl.includes('cloudinary.com')) {
+          // Redirect to Cloudinary URL directly
+          return NextResponse.redirect(doc.fileUrl)
         }
         
-        const contentType = contentTypes[ext] || 'application/octet-stream'
-        
-        return new NextResponse(buffer, {
-          headers: {
-            'Content-Type': contentType,
-            'Content-Disposition': `inline; filename="${doc.fileName || fileName}"`,
-          },
-        })
+        // Check if it has file content stored in MongoDB (Base64)
+        if (doc.fileContent) {
+          // Decode base64 content
+          const buffer = Buffer.from(doc.fileContent, 'base64')
+          
+          // Determine content type
+          const ext = path.extname(doc.fileName || fileName).toLowerCase()
+          const contentTypes = {
+            '.pdf': 'application/pdf',
+            '.doc': 'application/msword',
+            '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            '.jpg': 'image/jpeg',
+            '.jpeg': 'image/jpeg',
+            '.png': 'image/png',
+            '.gif': 'image/gif',
+          }
+          
+          const contentType = contentTypes[ext] || 'application/octet-stream'
+          
+          return new NextResponse(buffer, {
+            headers: {
+              'Content-Type': contentType,
+              'Content-Disposition': `inline; filename="${doc.fileName || fileName}"`,
+            },
+          })
+        }
       }
     } catch (dbError) {
       console.log('MongoDB lookup failed:', dbError.message)
@@ -66,19 +75,17 @@ export async function GET(request, { params }) {
     ]
     
     let fileBuffer = null
-    let foundPath = null
     
     for (const p of possiblePaths) {
       if (existsSync(p)) {
         fileBuffer = await readFile(p)
-        foundPath = p
         break
       }
     }
     
     if (!fileBuffer) {
       return NextResponse.json(
-        { error: 'File not found', path: fileName, searched: possiblePaths },
+        { error: 'File not found', path: fileName },
         { status: 404 }
       )
     }

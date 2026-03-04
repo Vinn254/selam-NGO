@@ -4,6 +4,7 @@ import { existsSync } from 'fs'
 import path from 'path'
 import { v4 as uuidv4 } from 'uuid'
 import dbConnect from '@/lib/mongodb'
+import cloudinary from '@/lib/cloudinary'
 
 const dataDir = path.join(process.env.VERCEL ? '/tmp' : process.cwd(), 'data')
 const metadataFile = path.join(dataDir, 'documents.json')
@@ -112,9 +113,50 @@ export async function POST(request) {
     // Read file content as buffer
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
+
+    // Try to upload to Cloudinary
+    let cloudinaryResult = null
+    let fileUrl = ''
     
-    // Convert to base64 for MongoDB storage
-    const base64Content = buffer.toString('base64')
+    try {
+      // Upload to Cloudinary
+      const uploadResult = await new Promise((resolve, reject) => {
+        cloudinary.uploader.upload_stream(
+          {
+            folder: 'selam-documents',
+            public_id: uniqueFilename.replace(fileExtension, ''),
+            resource_type: 'raw', // For documents
+          },
+          (error, result) => {
+            if (error) reject(error)
+            else resolve(result)
+          }
+        ).end(buffer)
+      })
+      
+      cloudinaryResult = uploadResult
+      fileUrl = uploadResult.secure_url
+      console.log('Cloudinary upload successful:', fileUrl)
+    } catch (cloudError) {
+      console.error('Cloudinary upload failed:', cloudError.message)
+      // Fall back to local storage if Cloudinary fails
+    }
+
+    // If Cloudinary upload failed, save locally
+    if (!fileUrl) {
+      const isVercel = process.env.VERCEL === '1'
+      const uploadsDir = isVercel 
+        ? '/tmp/uploads/documents' 
+        : path.join(process.cwd(), 'public', 'uploads', 'documents')
+      
+      if (!existsSync(uploadsDir)) {
+        await mkdir(uploadsDir, { recursive: true })
+      }
+      
+      const filePath = path.join(uploadsDir, uniqueFilename)
+      await writeFile(filePath, buffer)
+      fileUrl = `/uploads/documents/${uniqueFilename}`
+    }
 
     const documentData = {
       _id: uuidv4(),
@@ -122,15 +164,15 @@ export async function POST(request) {
       description: description || '',
       category: category || 'other',
       fileName: file.name,
-      fileUrl: `/uploads/documents/${uniqueFilename}`,
+      fileUrl: fileUrl,
       fileSize: file.size,
       fileType: file.type,
-      fileContent: base64Content, // Store content in MongoDB
+      cloudinaryId: cloudinaryResult?.public_id || null,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     }
 
-    // Try to save to MongoDB
+    // Save to MongoDB
     try {
       const client = await dbConnect()
       const db = client.db()
@@ -145,33 +187,18 @@ export async function POST(request) {
         ...documentData,
         _id: result.insertedId?.toString() || documentData._id
       }
-      
-      // Don't return fileContent in response
-      const { fileContent, ...responseDoc } = savedDocument
 
       return NextResponse.json(
         {
           message: 'Document uploaded successfully',
-          document: responseDoc,
+          document: savedDocument,
         },
         { status: 201 }
       )
     } catch (dbError) {
       console.error('MongoDB error, saving to local file:', dbError.message)
       
-      // Fallback: Save to local filesystem and JSON
-      const isVercel = process.env.VERCEL === '1'
-      const uploadsDir = isVercel 
-        ? '/tmp/uploads/documents' 
-        : path.join(process.cwd(), 'public', 'uploads', 'documents')
-      
-      if (!existsSync(uploadsDir)) {
-        await mkdir(uploadsDir, { recursive: true })
-      }
-      
-      const filePath = path.join(uploadsDir, uniqueFilename)
-      await writeFile(filePath, buffer)
-      
+      // Fallback: Save to local JSON file
       const saved = await saveLocalDocument(documentData)
       if (saved) {
         return NextResponse.json(
