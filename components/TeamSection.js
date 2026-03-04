@@ -6,22 +6,28 @@ import Image from 'next/image'
 // Team members data
 const teamMembers = [
   {
-    name: 'Robert Owino',
-    role: 'Chief Executive Officer (CEO)',
-    image: '/PIC1.jpeg',
-    description: 'Leading Selam CBO with vision and dedication to community empowerment.',
-  },
-  {
-    name: 'Vincent Mboya',
+    name: 'Amos Owen Onyango',
     role: 'Director',
-    image: '/PIC2.jpeg',
-    description: 'Driving strategic initiatives and fostering partnerships for sustainable growth.',
+    image: '/Director.jpeg',
+    description: 'Leading strategic initiatives and fostering partnerships for sustainable growth.',
   },
   {
-    name: 'Rosemary Awuor',
-    role: 'Treasurer',
-    image: '/PIC3.jpeg',
-    description: 'Ensuring transparent financial management and resource allocation.',
+    name: 'Seline Akello Okotta',
+    role: 'Assistant Director',
+    image: '/Assistan director.jpeg',
+    description: 'Supporting director operations and ensuring efficient workflow.',
+  },
+  {
+    name: 'Joseph James Ochieng',
+    role: 'Protocol Officer',
+    image: '/Protocol Officer.jpeg',
+    description: 'Managing official communications and protocol matters.',
+  },
+  {
+    name: 'Higgin Awuor Joseph',
+    role: 'Facilitator',
+    image: '/Facilitator.jpeg',
+    description: 'Facilitating programs and community engagement activities.',
   },
 ]
 
