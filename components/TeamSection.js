@@ -12,7 +12,7 @@ const teamMembers = [
     description: 'Leading strategic initiatives and fostering partnerships for sustainable growth.',
   },
   {
-    name: 'Seline Akello Okotta',
+    name: 'Selina Akello Okotta',
     role: 'Assistant Director',
     image: '/Assistan director.jpeg',
     description: 'Supporting director operations and ensuring efficient workflow.',
