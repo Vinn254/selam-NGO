@@ -24,9 +24,15 @@ const teamMembers = [
     description: 'Managing official communications and protocol matters.',
   },
   {
+    name: 'Jane Doe',
+    role: 'Secretary',
+    image: '/secretary.jpeg',
+    description: 'Managing administrative tasks and supporting team operations.',
+  },
+  {
     name: 'Higgin Awuor Joseph',
     role: 'Facilitator',
-    image: '/Facilitator.jpeg',
+    image: '/facilitator.jpeg',
     description: 'Facilitating programs and community engagement activities.',
   },
 ]
