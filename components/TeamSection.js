@@ -24,7 +24,7 @@ const teamMembers = [
     description: 'Managing official communications and protocol matters.',
   },
   {
-    name: 'Jane Doe',
+    name: 'Rose Moraa Nyakundi',
     role: 'Secretary',
     image: '/secretary.jpeg',
     description: 'Managing administrative tasks and supporting team operations.',
