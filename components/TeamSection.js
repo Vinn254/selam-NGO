@@ -41,12 +41,6 @@ const teamMembers = [
     image: '/fidel.jpeg',
     description: 'Facilitating programs and community engagement activities.',
   },
-  {
-    name: 'Fidel Ouma',
-    role: 'CEO',
-    image: '/higan.jpeg',
-    description: 'Providing visionary leadership and strategic direction to drive organizational mission and impact.',
-  },
 ]
 
 // Individual team member card with scroll animation
