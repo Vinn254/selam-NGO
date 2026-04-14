@@ -12,8 +12,8 @@ const teamMembers = [
     description: 'Leading strategic initiatives and fostering partnerships for sustainable growth.',
   },
   {
-    name: 'Fidel Ouma',
-    role: 'CEO',
+    name: 'Fidel Castro Ouma',
+    role: 'Chief Executive Officer',
     image: '/higan.jpeg',
     description: 'Providing visionary leadership and strategic direction to drive organizational mission and impact.',
   },
