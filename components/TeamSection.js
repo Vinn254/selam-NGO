@@ -12,6 +12,12 @@ const teamMembers = [
     description: 'Leading strategic initiatives and fostering partnerships for sustainable growth.',
   },
   {
+    name: 'Fidel Ouma',
+    role: 'CEO',
+    image: '/higan.jpeg',
+    description: 'Providing visionary leadership and strategic direction to drive organizational mission and impact.',
+  },
+  {
     name: 'Selina Akello Okotta',
     role: 'Assistant Director',
     image: '/Assistan director.jpeg',
@@ -36,10 +42,10 @@ const teamMembers = [
     description: 'Facilitating programs and community engagement activities.',
   },
   {
-    name: 'CEO',
+    name: 'Fidel Ouma',
     role: 'CEO',
     image: '/higan.jpeg',
-    description: 'Chief Executive Officer.',
+    description: 'Providing visionary leadership and strategic direction to drive organizational mission and impact.',
   },
 ]
 
