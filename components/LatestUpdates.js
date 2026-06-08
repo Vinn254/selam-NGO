@@ -62,18 +62,13 @@ function LatestUpdates({ initialUpdates = [] }) {
     }
   }, [])
 
-  // Fetch updates on mount
-  useEffect(() => {
-    // Always fetch fresh updates on mount
-    fetchUpdates()
-
-    // Fetch fresh updates every 30 seconds
-    const interval = setInterval(fetchUpdates, 30000)
-
-    return () => {
-      clearInterval(interval)
-    }
-  }, [fetchUpdates])
+// Fetch updates on mount - but don't overwrite if already have updates
+   useEffect(() => {
+     // Only fetch if we don't already have updates from SSR
+     if (updates.length === 0) {
+       fetchUpdates()
+     }
+   }, [fetchUpdates])
 
   const scrollLeft = () => {
     if (sliderRef.current) {
@@ -178,15 +173,19 @@ function LatestUpdates({ initialUpdates = [] }) {
                   // Video Thumbnail with Play Button
                   <div className="relative h-48 w-full bg-gray-900">
                     {update.mediaUrl ? (
-                      <Image
-                        src={update.mediaUrl}
-                        alt={update.title}
-                        fill
-                        sizes="320px"
-                        className="object-cover"
-                        loading="lazy"
-                        unoptimized
-                      />
+                      update.mediaUrl.startsWith('/') ? (
+                        <img src={update.mediaUrl} alt={update.title} className="h-48 w-full object-cover" loading="lazy" />
+                      ) : (
+                        <Image
+                          src={update.mediaUrl}
+                          alt={update.title}
+                          fill
+                          sizes="320px"
+                          className="object-cover"
+                          loading="lazy"
+                          unoptimized
+                        />
+                      )
                     ) : (
                       <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 to-teal-700" />
                     )}
@@ -209,15 +208,24 @@ function LatestUpdates({ initialUpdates = [] }) {
                   // Image
                   update.mediaUrl ? (
                     <div className="relative h-48 w-full bg-gray-200 overflow-hidden">
-                      <Image
-                        src={update.mediaUrl}
-                        alt={update.title}
-                        fill
-                        sizes="320px"
-                        className="object-cover hover:scale-105 transition-transform duration-500"
-                        loading="lazy"
-                        unoptimized
-                      />
+                      {update.mediaUrl.startsWith('/') ? (
+                        <img
+                          src={update.mediaUrl}
+                          alt={update.title}
+                          className="h-48 w-full object-cover hover:scale-105 transition-transform duration-500"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <Image
+                          src={update.mediaUrl}
+                          alt={update.title}
+                          fill
+                          sizes="320px"
+                          className="object-cover hover:scale-105 transition-transform duration-500"
+                          loading="lazy"
+                          unoptimized
+                        />
+                      )}
                     </div>
                   ) : (
                     <div className="relative h-48 w-full bg-gradient-to-br from-emerald-600 to-teal-700" />

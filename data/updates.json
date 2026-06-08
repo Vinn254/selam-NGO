@@ -1,31 +1,49 @@
 {
   "updates": [
     {
-      "_id": "sample1",
-      "title": "Community Development Programs",
-      "description": "Our community development initiatives continue to transform lives in Kisumu County through sustainable programs focused on education, healthcare, and economic empowerment.",
+      "_id": "home-pic-1",
+      "title": "Mama and Baby Care Support",
+      "description": "Young mothers receiving mentorship and nutrition education with essential baby supplies during weekly health sessions.",
       "mediaType": "image",
-      "mediaUrl": "/IM4.JPG",
-      "createdAt": "2026-01-01T10:00:00Z",
-      "updatedAt": "2026-01-01T10:00:00Z"
+      "mediaUrl": "/photo1.jpeg",
+      "createdAt": "2026-06-08T10:00:00Z",
+      "updatedAt": "2026-06-08T10:00:00Z"
     },
     {
-      "_id": "sample2",
-      "title": "Youth Empowerment Initiative",
-      "description": "Empowering youth through vocational training and mentorship programs to build a brighter future for our community.",
+      "_id": "home-pic-2",
+      "title": "EmpowerHer School Initiative",
+      "description": "Adolescent girls in Grade 6 and 7 learn menstrual health and personal development with support from mentors.",
       "mediaType": "image",
-      "mediaUrl": "/IM3.JPG",
-      "createdAt": "2026-01-02T10:00:00Z",
-      "updatedAt": "2026-01-02T10:00:00Z"
+      "mediaUrl": "/photo2.jpeg",
+      "createdAt": "2026-06-08T10:00:00Z",
+      "updatedAt": "2026-06-08T10:00:00Z"
     },
     {
-      "_id": "sample3",
-      "title": "Healthcare Outreach",
-      "description": "Providing essential healthcare services to underserved communities in Kisumu County through our mobile clinics and health awareness programs.",
+      "_id": "home-pic-3",
+      "title": "Marginalized Aid Program",
+      "description": "Weekly visits bringing hope and essential support to vulnerable families and abandoned elderly in the community.",
       "mediaType": "image",
-      "mediaUrl": "/IM6.JPG",
-      "createdAt": "2026-01-03T10:00:00Z",
-      "updatedAt": "2026-01-03T10:00:00Z"
+      "mediaUrl": "/photo3.jpeg",
+      "createdAt": "2026-06-08T10:00:00Z",
+      "updatedAt": "2026-06-08T10:00:00Z"
+    },
+    {
+      "_id": "home-pic-4",
+      "title": "Kids Fun Time Program",
+      "description": "Children engage in dance, games, and learning activities in a safe weekend environment for talent development.",
+      "mediaType": "image",
+      "mediaUrl": "/photo4.jpeg",
+      "createdAt": "2026-06-08T10:00:00Z",
+      "updatedAt": "2026-06-08T10:00:00Z"
+    },
+    {
+      "_id": "home-pic-5",
+      "title": "Community Outreach Activities",
+      "description": "Ongoing community engagement showcasing our commitment to empowering vulnerable families through various programs.",
+      "mediaType": "image",
+      "mediaUrl": "/photo5.jpeg",
+      "createdAt": "2026-06-08T10:00:00Z",
+      "updatedAt": "2026-06-08T10:00:00Z"
     }
   ]
 }

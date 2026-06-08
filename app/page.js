@@ -51,13 +51,57 @@ export default async function HomePage() {
   // Fetch updates server-side
   const initialUpdates = await getUpdates()
 
+  // Replace LatestUpdates on the homepage with a curated set of recent program photos
+  const curatedUpdates = [
+    {
+      id: 'home-pic-1',
+      title: 'Mama and Baby Care Support',
+      description: 'Young mothers receiving mentorship and nutrition education with essential baby supplies during weekly health sessions.',
+      mediaUrl: '/photo1.jpeg',
+      createdAt: new Date().toISOString(),
+      mediaType: 'image',
+    },
+    {
+      id: 'home-pic-2',
+      title: 'EmpowerHer School Initiative',
+      description: 'Adolescent girls in Grade 6 and 7 learn menstrual health and personal development with support from mentors.',
+      mediaUrl: '/photo2.jpeg',
+      createdAt: new Date().toISOString(),
+      mediaType: 'image',
+    },
+    {
+      id: 'home-pic-3',
+      title: 'Marginalized Aid Program',
+      description: 'Weekly visits bringing hope and essential support to vulnerable families and abandoned elderly in the community.',
+      mediaUrl: '/photo3.jpeg',
+      createdAt: new Date().toISOString(),
+      mediaType: 'image',
+    },
+    {
+      id: 'home-pic-4',
+      title: 'Kids Fun Time Program',
+      description: 'Children engage in dance, games, and learning activities in a safe weekend environment for talent development.',
+      mediaUrl: '/photo4.jpeg',
+      createdAt: new Date().toISOString(),
+      mediaType: 'image',
+    },
+    {
+      id: 'home-pic-5',
+      title: 'Community Outreach Activities',
+      description: 'Ongoing community engagement showcasing our commitment to empowering vulnerable families through various programs.',
+      mediaUrl: '/photo5.jpeg',
+      createdAt: new Date().toISOString(),
+      mediaType: 'image',
+    },
+  ]
+
   return (
     <>
       <Navigation />
       <main>
         <HeroSection />
         <BentoGrid />
-        <LatestUpdates initialUpdates={initialUpdates} />
+        <LatestUpdates initialUpdates={curatedUpdates} />
       </main>
       <Footer />
     </>

@@ -1,7 +1,6 @@
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
-import Image from 'next/image'
 
 export const metadata = {
   title: 'Our Programs | Selam CBO Kenya - Education, Healthcare & Community Development Programs',
@@ -17,68 +16,72 @@ export const metadata = {
 const programs = [
   {
     id: 1,
-    title: 'Education Programs',
-    description: 'Building a foundation for lifelong learning and opportunity',
+    title: 'MAMA AND BABY CARE SUPPORT',
+    description: 'The Mama and Baby Care Support Program focuses on supporting young and marginalized mothers within the community. The aim of the program is to improve maternal and child wellbeing by providing essential baby supplies and educational support.',
     initiatives: [
-      'School construction and renovation',
-      'Scholarship programs for underprivileged students',
-      'Teacher training and capacity building',
-      'Adult literacy programs',
-      'Educational material distribution',
-      'Digital learning initiatives',
+      'Proper child care',
+      'Nutrition and feeding',
+      'Maternal health',
+      'Baby hygiene and development',
     ],
-    image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=600&fit=crop',
-    impact: '15,000+ students supported annually',
-    color: 'modern-card-green-light',
+    schedule: 'Every Monday',
+    impact: 'Consistent support and follow-up for registered mothers and babies',
   },
   {
     id: 2,
-    title: 'Healthcare Services',
-    description: 'Delivering essential medical care to underserved communities',
+    title: 'EMPOWERHER SCHOOL INITIATIVE',
+    description: 'The EmpowerHer School Initiative is designed to empower adolescent girls in Grade 6 and Grade 7, particularly in marginalized village schools.',
     initiatives: [
-      'Mobile health clinics',
-      'Maternal and child health programs',
-      'Disease prevention and vaccination campaigns',
-      'Health education workshops',
-      'Medical equipment provision',
-      'Community health worker training',
+      'Menstrual health education',
+      'Personal development',
+      'Self-esteem and confidence building',
+      'Guidance on adolescence and health',
     ],
-    image: 'https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=800&h=600&fit=crop',
-    impact: '25,000+ patients treated annually',
-    color: 'modern-card-green-teal',
+    schedule: 'First Friday of every month, Last Friday of every month',
+    impact: 'Improving menstrual hygiene awareness and school attendance for young girls',
   },
   {
     id: 3,
-    title: 'Community Development',
-    description: 'Empowering communities through sustainable livelihoods',
+    title: 'MARGINALIZED AID PROGRAM',
+    description: 'The Marginalized Aid Program aims to support vulnerable individuals in the community, including abandoned elderly persons, extremely poor families, children lacking clothes or school uniforms, and individuals facing difficult living conditions.',
     initiatives: [
-      'Vocational skills training',
-      'Microfinance and savings groups',
-      'Agricultural development programs',
-      'Women empowerment initiatives',
-      'Youth employment programs',
-      'Infrastructure development',
+      'Support for abandoned elderly persons',
+      'Assistance for extremely poor families',
+      'Clothes and school uniforms for children',
+      'Basic shopping and essential support to improve living conditions',
+      'Restoration of hope through regular contact',
     ],
-    image: 'https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=800&h=600&fit=crop',
-    impact: '10,000+ individuals economically empowered',
-    color: 'modern-card-green-emerald',
+    schedule: 'Every Wednesday',
+    impact: 'Strengthening support for the community\'s most vulnerable members',
   },
   {
     id: 4,
-    title: 'Water & Sanitation',
-    description: 'Providing access to clean water and proper sanitation',
+    title: 'KIDS FUN TIME PROGRAM',
+    description: 'The Kids Fun Time Program focuses on nurturing children through fun, learning, and talent development activities. The Saturday program creates a safe and engaging environment where children can participate in various activities.',
     initiatives: [
-      'Well drilling and water point construction',
-      'Rainwater harvesting systems',
-      'Latrine construction',
-      'Hygiene education programs',
-      'Water committee training',
-      'Maintenance and sustainability programs',
+      'Dance and talent activities',
+      'Educational games',
+      'Motivational and entertaining movies',
+      'Occasional learning sessions',
+      'Socialization and confidence building',
     ],
-    image: 'https://images.unsplash.com/photo-1541844053589-346841d0b34c?w=800&h=600&fit=crop',
-    impact: '30+ communities with clean water access',
-    color: 'modern-card-green-mint',
+    schedule: 'Every Saturday',
+    impact: 'Nurturing and mentoring children through positive activities',
   },
+]
+
+const galleryImages = [
+  '/photo1.jpeg',
+  '/photo2.jpeg',
+  '/photo3.jpeg',
+  '/photo4.jpeg',
+  '/photo5.jpeg',
+  '/photo6.jpeg',
+  '/photo7.jpeg',
+  '/photo8.jpeg',
+  '/photo9.jpeg',
+  '/photo10.jpeg',
+  '/photo11.jpeg',
 ]
 
 const patternSvg = "data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"
@@ -104,53 +107,97 @@ export default function WhatWeDoPage() {
         </section>
 
         {/* Programs */}
-        {programs.map((program, index) => (
-          <section key={program.id} className="py-20">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className={`grid md:grid-cols-2 gap-12 items-center ${
-                index % 2 === 1 ? 'md:flex-row-reverse' : ''
-              }`}>
-                <div className={index % 2 === 1 ? 'md:order-2' : ''}>
-                  <div className={`modern-card ${program.color} text-white p-8 mb-6`}>
-                    <div className="modern-card-content">
-                      <h2 className="text-3xl sm:text-4xl font-display font-bold mb-4">
-                        {program.title}
-                      </h2>
-                      <p className="text-lg text-white/90 mb-6">
-                        {program.description}
-                      </p>
-                      
-                      <div className="mb-6">
-                        <h3 className="text-xl font-display font-bold mb-4">
-                          Key Initiatives:
-                        </h3>
-                        <ul className="space-y-3">
-                          {program.initiatives.map((initiative, idx) => (
-                            <li key={idx} className="text-white/90">{initiative}</li>
-                          ))}
-                        </ul>
+        <section className="py-24 bg-slate-50">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid md:grid-cols-2 gap-8">
+              {programs.map((program, index) => (
+                <article key={program.id} className="bg-white rounded-3xl border border-slate-200 shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                  <div className="p-6 h-full flex flex-col">
+                    <h2 className="text-2xl font-display font-bold text-slate-900 mb-3">
+                      {program.title}
+                    </h2>
+                    <p className="text-slate-600 mb-4 text-sm leading-relaxed">
+                      {program.description}
+                    </p>
+                    <div className="space-y-2 mb-4">
+                      {program.initiatives.map((initiative, idx) => (
+                        <div key={idx} className="flex items-center gap-2 text-sm text-slate-700">
+                          <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full flex-shrink-0"></span>
+                          <span>{initiative}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-auto pt-4">
+                      <div className="rounded-xl bg-emerald-50 p-4 mb-4">
+                        <div className="text-xs uppercase text-emerald-600 mb-1 font-medium">Schedule</div>
+                        <div className="font-semibold text-emerald-800">{program.schedule}</div>
                       </div>
-
-                      <div className={`inline-flex items-center px-4 py-2 rounded-lg bg-white/20 backdrop-blur-sm text-white font-semibold`}>
-                        {program.impact}
+                      <div className="rounded-xl bg-cyan-50 p-4">
+                        <div className="text-xs uppercase text-cyan-600 mb-1 font-medium">Impact</div>
+                        <div className="text-sm text-cyan-800">{program.impact}</div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
 
-                <div className={`relative h-96 rounded-2xl overflow-hidden shadow-2xl ${index % 2 === 1 ? 'md:order-1' : ''}`}>
-                  <Image
-                    src={program.image}
-                    alt={program.title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
+        {/* Program Photo Gallery */}
+        <section className="py-20 bg-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl font-display font-bold text-gray-900 mb-4">
+                Program Gallery
+              </h2>
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                Visual highlights from our recent program activities and community impact
+              </p>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+              {galleryImages.map((src, idx) => (
+                <div key={src} className="overflow-hidden rounded-xl border border-slate-200 shadow-sm bg-white">
+                  <img
+                    src={src}
+                    alt={`Program photo ${idx + 1}`}
+                    width={400}
+                    height={300}
+                    className="h-40 w-full object-cover block hover:opacity-90 transition-opacity"
                   />
                 </div>
-              </div>
+              ))}
             </div>
-          </section>
-        ))}
+          </div>
+        </section>
+
+        {/* Overall Program Impact */}
+        <section className="py-20 bg-slate-50">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl font-display font-bold text-gray-900 mb-4">
+                Overall Program Impact
+              </h2>
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                These programs are designed to create sustainable community impact through continuous outreach, mentorship, and support.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[
+                'Support vulnerable mothers and children',
+                'Improve menstrual health awareness among school girls',
+                'Assist marginalized members of society',
+                'Nurture and mentor children through positive activities',
+                'Build a stronger, healthier, and more empowered community',
+              ].map((item, idx) => (
+                <div key={idx} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+                  <p className="text-gray-700 text-sm">{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* Approach Section */}
         <section className="py-20">
