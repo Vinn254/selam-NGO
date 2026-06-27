@@ -32,7 +32,7 @@ const teamMembers = [
   {
     name: 'Higgin Awuor Joseph',
     role: 'Facilitator',
-    image: '/higans.PNG',
+    image: '/higgins.PNG',
     description: 'Facilitating programs and community engagement activities.',
   },
   {
