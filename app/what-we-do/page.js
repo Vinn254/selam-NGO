@@ -17,21 +17,21 @@ const programs = [
   {
     id: 5,
     title: 'ORAL HEALTH CHILD EDUCATION',
-    description: 'Teaching children essential oral hygiene practices for lifelong healthy smiles. In partnership with Smiles Community Health Initiative, we provide interactive sessions with fun demonstrations on proper brushing techniques and dental care habits. This collaborative program has reached over 500 children in local schools, creating a foundation for healthy oral habits that will benefit them throughout their lives.',
+    description: 'Teaching children essential oral hygiene practices for lifelong healthy smiles. In partnership with Smiles Dental Clinic, we provide interactive sessions with fun demonstrations on proper brushing techniques and dental care habits. This collaborative program has reached over 500 children in local schools, creating a foundation for healthy oral habits that will benefit them throughout their lives.',
     initiatives: [
-      'Tooth brushing demonstrations with Smiles partnership',
+      'Tooth brushing demonstrations with Smiles Dental Clinic partnership',
       'Dental health education and prevention',
       'Healthy snack alternatives and nutrition guidance',
       'Role model activities and school visits',
     ],
     schedule: 'Monthly health sessions',
-    impact: 'Improved oral hygiene awareness and healthier habits for over 500 children through Smiles partnership',
+    impact: 'Improved oral hygiene awareness and healthier habits for over 500 children through Smiles Dental Clinic partnership',
     image: '/selam1.jpeg',
   },
   {
     id: 6,
     title: 'DETERGENT MAKING SKILLS TRAINING',
-    description: 'Empowering community members with practical vocational skills through hands-on detergent making workshops. Generously sponsored by Shofco (Shining Hope for Communities), this program provides training in chemical mixing, quality control, packaging, and business skills development. Participants gain valuable income-generating skills while contributing to community hygiene programs.',
+    description: 'Empowering community members with practical vocational skills through hands-on detergent making workshops. Generously sponsored by Shofco, this program provides training in chemical mixing, quality control, packaging, and business skills development. Participants gain valuable income-generating skills while contributing to community hygiene programs.',
     initiatives: [
       'Chemical mixing training sponsored by Shofco',
       'Quality control and safety skills',
