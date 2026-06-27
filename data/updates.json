@@ -1,0 +1,49 @@
+{
+  "updates": [
+    {
+      "_id": "home-pic-1",
+      "title": "Mama and Baby Care Support",
+      "description": "Young mothers receiving mentorship and nutrition education with essential baby supplies during weekly health sessions.",
+      "mediaType": "image",
+      "mediaUrl": "/photo1.jpeg",
+      "createdAt": "2026-06-08T10:00:00Z",
+      "updatedAt": "2026-06-08T10:00:00Z"
+    },
+    {
+      "_id": "home-pic-2",
+      "title": "EmpowerHer School Initiative",
+      "description": "Adolescent girls in Grade 6 and 7 learn menstrual health and personal development with support from mentors.",
+      "mediaType": "image",
+      "mediaUrl": "/photo2.jpeg",
+      "createdAt": "2026-06-08T10:00:00Z",
+      "updatedAt": "2026-06-08T10:00:00Z"
+    },
+    {
+      "_id": "home-pic-3",
+      "title": "Marginalized Aid Program",
+      "description": "Weekly visits bringing hope and essential support to vulnerable families and abandoned elderly in the community.",
+      "mediaType": "image",
+      "mediaUrl": "/photo3.jpeg",
+      "createdAt": "2026-06-08T10:00:00Z",
+      "updatedAt": "2026-06-08T10:00:00Z"
+    },
+    {
+      "_id": "home-pic-4",
+      "title": "Kids Fun Time Program",
+      "description": "Children engage in dance, games, and learning activities in a safe weekend environment for talent development.",
+      "mediaType": "image",
+      "mediaUrl": "/photo4.jpeg",
+      "createdAt": "2026-06-08T10:00:00Z",
+      "updatedAt": "2026-06-08T10:00:00Z"
+    },
+    {
+      "_id": "home-pic-5",
+      "title": "Community Outreach Activities",
+      "description": "Ongoing community engagement showcasing our commitment to empowering vulnerable families through various programs.",
+      "mediaType": "image",
+      "mediaUrl": "/photo5.jpeg",
+      "createdAt": "2026-06-08T10:00:00Z",
+      "updatedAt": "2026-06-08T10:00:00Z"
+    }
+  ]
+}
