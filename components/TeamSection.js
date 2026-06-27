@@ -80,15 +80,24 @@ function TeamMemberCard({ member, index }) {
         transitionProperty: 'opacity, transform, box-shadow'
       }}
     >
-      <div className="relative h-72 sm:h-80 w-full overflow-hidden rounded-t-2xl">
-        <Image
-          src={member.image}
-          alt={member.name}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-contain bg-gray-100"
-          priority={index < 2}
-        />
+<div className="relative h-72 sm:h-80 w-full overflow-hidden rounded-t-2xl">
+          {member.image.endsWith('.PNG') ? (
+            <img
+              src={member.image}
+              alt={member.name}
+              className="w-full h-full object-contain bg-gray-100"
+              loading={index < 2 ? "eager" : "lazy"}
+            />
+          ) : (
+            <Image
+              src={member.image}
+              alt={member.name}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-contain bg-gray-100"
+              priority={index < 2}
+            />
+          )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
         <div className="absolute bottom-0 left-0 right-0 p-4 opacity-0 hover:opacity-100 transition-opacity duration-300 bg-gradient-to-t from-black/80 to-transparent">
           <p className="text-white/90 text-sm text-center">{member.description}</p>
