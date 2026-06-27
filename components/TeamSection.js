@@ -30,16 +30,16 @@ const teamMembers = [
     description: 'Managing official communications and protocol matters.',
   },
   {
-    name: 'Rose Moraa Nyakundi',
-    role: 'Secretary',
-    image: '/secretary.jpeg',
-    description: 'Managing administrative tasks and supporting team operations.',
-  },
-  {
     name: 'Higgin Awuor Joseph',
     role: 'Facilitator',
-    image: '/fidel.jpeg',
+    image: '/higan.jpeg',
     description: 'Facilitating programs and community engagement activities.',
+  },
+  {
+    name: 'Rose Moraa Nyakundi',
+    role: 'Secretary',
+    image: '/fidel.jpeg',
+    description: 'Managing administrative tasks and supporting team operations.',
   },
 ]
 
