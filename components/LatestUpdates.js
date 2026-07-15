@@ -101,17 +101,17 @@ return (
            </div>
          </div>
 
-         {/* Updates Grid */}
-         <div
-           className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-700 ease-out delay-200 ${
-             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-           }`}
-         >
+          {/* Updates Grid */}
+          <div
+            className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center transition-all duration-700 ease-out delay-200 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+            }`}
+          >
            {isLoading && updates.length === 0 ? (
              // Loading Skeletons
-             [...Array(3)].map((_, i) => (
-               <div key={i} className="update-card">
-                 <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+              [...Array(3)].map((_, i) => (
+                <div key={i} className="update-card w-full max-w-md">
+                  <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
                    <div className="skeleton h-48 w-full" />
                    <div className="p-6 space-y-3">
                      <div className="skeleton h-4 w-24" />
@@ -128,13 +128,13 @@ return (
                const isLocalVideo = isVideo && update.mediaUrl?.startsWith('/') && update.mediaUrl?.endsWith('.mp4')
                
                return (
-               <article
-                 key={update._id || update.id}
-                 className={`update-card bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl border border-gray-200 hover:border-emerald-500 hover:-translate-y-1 transition-all duration-500 ease-out ${
-                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                 }`}
-                 style={{ transitionDelay: `${300 + index * 100}ms` }}
-               >
+                <article
+                  key={update._id || update.id}
+                  className={`update-card bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl border border-gray-200 hover:border-emerald-500 hover:-translate-y-1 transition-all duration-500 ease-out w-full max-w-md ${
+                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                  }`}
+                  style={{ transitionDelay: `${300 + index * 100}ms` }}
+                >
                  {/* Media - Video or Image */}
                  {isVideo ? (
                     <div className="relative h-48 w-full bg-gray-900">
