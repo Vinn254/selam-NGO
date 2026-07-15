@@ -16,10 +16,8 @@ function LatestUpdates({ initialUpdates = [] }) {
   const [isLoading, setIsLoading] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const [expandedId, setExpandedId] = useState(null)
-  const sliderRef = useRef(null)
   const sectionRef = useRef(null)
   const apiUrl = getApiUrl()
-  const fetchTimeoutRef = useRef(null)
 
   // Intersection observer for scroll animation
   useEffect(() => {
@@ -70,19 +68,7 @@ function LatestUpdates({ initialUpdates = [] }) {
      }
    }, [fetchUpdates])
 
-  const scrollLeft = () => {
-    if (sliderRef.current) {
-      sliderRef.current.scrollBy({ left: -300, behavior: 'smooth' })
-    }
-  }
-
-  const scrollRight = () => {
-    if (sliderRef.current) {
-      sliderRef.current.scrollBy({ left: 300, behavior: 'smooth' })
-    }
-  }
-
-  const formatDate = (dateString) => {
+   const formatDate = (dateString) => {
     const date = new Date(dateString)
     return new Intl.DateTimeFormat('en-US', {
       month: 'short',
@@ -98,76 +84,53 @@ function LatestUpdates({ initialUpdates = [] }) {
     return null
   }
 
-  return (
-    <section ref={sectionRef} className="py-16 green-pattern-bg" id="updates">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className={`text-center mb-12 transition-all duration-700 ease-out ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}>
-          <div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4">
-              Latest Updates
-            </h2>
-            <p className="text-lg text-gray-600">
-              See what we've been doing in our communities
-            </p>
-          </div>
+return (
+     <section ref={sectionRef} className="py-16 green-pattern-bg" id="updates">
+       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+         {/* Section Header */}
+         <div className={`text-center mb-12 transition-all duration-700 ease-out ${
+           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+         }`}>
+           <div>
+             <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4">
+               Latest Updates
+             </h2>
+             <p className="text-lg text-gray-600">
+               See what we've been doing in our communities
+             </p>
+           </div>
+         </div>
 
-          {/* Navigation Buttons */}
-          <div className="hidden md:flex space-x-2">
-            <button
-              onClick={scrollLeft}
-              className="p-3 rounded-full bg-white shadow-md hover:bg-gray-50 transition-colors duration-200"
-              aria-label="Scroll left"
-            >
-              <svg className="w-6 h-6 text-gray-700" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-                <path d="M15 19l-7-7 7-7"></path>
-              </svg>
-            </button>
-            <button
-              onClick={scrollRight}
-              className="p-3 rounded-full bg-white shadow-md hover:bg-gray-50 transition-colors duration-200"
-              aria-label="Scroll right"
-            >
-              <svg className="w-6 h-6 text-gray-700" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-                <path d="M9 5l7 7-7 7"></path>
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        {/* Updates Slider */}
-        <div
-          ref={sliderRef}
-          className={`updates-slider transition-all duration-700 ease-out delay-200 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-          }`}
-        >
-          {isLoading && updates.length === 0 ? (
-            // Loading Skeletons
-            [...Array(3)].map((_, i) => (
-              <div key={i} className="update-card">
-                <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-                  <div className="skeleton h-48 w-full" />
-                  <div className="p-6 space-y-3">
-                    <div className="skeleton h-4 w-24" />
-                    <div className="skeleton h-6 w-full" />
-                    <div className="skeleton h-4 w-full" />
-                    <div className="skeleton h-4 w-3/4" />
-                  </div>
-                </div>
-              </div>
-            ))
-          ) : (
-            updates.map((update, index) => (
-              <article
-                key={update._id || update.id}
-                className={`update-card bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl border border-gray-200 hover:border-emerald-500 hover:-translate-y-1 transition-all duration-500 ease-out ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
-                style={{ transitionDelay: `${300 + index * 100}ms` }}
-              >
+         {/* Updates Grid */}
+         <div
+           className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-700 ease-out delay-200 ${
+             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+           }`}
+         >
+           {isLoading && updates.length === 0 ? (
+             // Loading Skeletons
+             [...Array(3)].map((_, i) => (
+               <div key={i} className="update-card">
+                 <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+                   <div className="skeleton h-48 w-full" />
+                   <div className="p-6 space-y-3">
+                     <div className="skeleton h-4 w-24" />
+                     <div className="skeleton h-6 w-full" />
+                     <div className="skeleton h-4 w-full" />
+                     <div className="skeleton h-4 w-3/4" />
+                   </div>
+                 </div>
+               </div>
+             ))
+           ) : (
+             updates.map((update, index) => (
+               <article
+                 key={update._id || update.id}
+                 className={`update-card bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl border border-gray-200 hover:border-emerald-500 hover:-translate-y-1 transition-all duration-500 ease-out ${
+                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                 }`}
+                 style={{ transitionDelay: `${300 + index * 100}ms` }}
+               >
                 {/* Media - Video or Image */}
 {update.mediaType === 'video' || update.mediaUrl?.includes('youtube') || update.mediaUrl?.includes('youtu.be') ? (
                    // Video Thumbnail with Play Button
