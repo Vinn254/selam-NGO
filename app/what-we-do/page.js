@@ -41,8 +41,23 @@ const programs = [
     ],
     schedule: 'Weekly workshops with Shofco sponsorship',
     impact: 'Vocational skills and income generation for 100+ community members through Shofco sponsorship',
-    image: '/vid2.mp4',
+    image: '',
     mediaType: 'video',
+  },
+  {
+    id: 9,
+    title: 'COMMUNITY WOMEN SUPPORT GROUP',
+    description: 'A supportive space for women to come together, share experiences, and access resources for personal and professional growth. This program, supported by SHOFCO, provides mentorship, educational workshops, and community networking opportunities. Women are equipped with the tools they need to become leaders and change-makers in their communities.',
+    initiatives: [
+      'Mentorship and peer support groups',
+      'Educational workshops and training',
+      'Community networking events',
+      'Leadership development programs',
+      'Resource access and referrals',
+    ],
+    schedule: 'Bi-weekly meetings',
+    impact: 'Strengthened community bonds and increased women\'s participation in leadership roles through SHOFCO partnership',
+    image: '/new3.jpeg',
   },
   {
     id: 5,
@@ -174,63 +189,67 @@ export default function WhatWeDoPage() {
                    {/* Cool Top Border with Gradient Animation */}
                    <div className="h-1 bg-gradient-to-r from-emerald-400 via-teal-500 to-emerald-600 rounded-full"></div>
                    
-                   <div className={`flex flex-col lg:flex-row h-full ${
-                     index % 2 === 1 ? 'lg:flex-row-reverse' : ''
-                   }`}>
-                       {/* Photo Section */}
-                       <div className="relative lg:w-2/5 h-64 lg:h-auto overflow-hidden">
-                         <img
-                           src={program.image}
-                           alt={program.title}
-                           width={600}
-                           height={400}
-                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                         />
-                         <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                         {program.id === 5 || program.id === 6 ? (
-                           <div className="absolute top-4 left-4">
-                             <span className="px-3 py-1 bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-xs font-bold rounded-full shadow-lg animate-pulse">
-                               NEW
-                             </span>
-                           </div>
-                         ) : null}
-                       </div>
-                       
-                       {/* Content Section */}
-                       <div className="lg:w-3/5 p-8 flex flex-col justify-center">
-                         <h2 className="text-2xl md:text-3xl font-display font-bold text-gray-900 mb-4 group-hover:text-emerald-700 transition-colors duration-300">
-                           {program.title}
-                         </h2>
-                         <p className="text-gray-600 mb-6 leading-relaxed">
-                           {program.description}
-                         </p>
-                         
-                         <div className="space-y-3 mb-6">
-                           {program.initiatives.map((initiative, idx) => (
-                             <div key={idx} className="flex items-center gap-3 text-gray-700">
-                               <span className="w-2 h-2 bg-emerald-500 rounded-full flex-shrink-0"></span>
-                               <span className="text-sm">{initiative}</span>
-                             </div>
-                           ))}
-                         </div>
-                         
-                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-auto">
-                           <div className="rounded-xl bg-emerald-50 p-4 border border-emerald-200 hover:border-emerald-400 transition-colors duration-300">
-                             <div className="text-xs uppercase text-emerald-600 mb-1 font-semibold">Schedule</div>
-                             <div className="font-bold text-emerald-800">{program.schedule}</div>
-                           </div>
-                           <div className="rounded-xl bg-teal-50 p-4 border border-teal-200 hover:border-teal-400 transition-colors duration-300">
-                             <div className="text-xs uppercase text-teal-600 mb-1 font-semibold">Impact</div>
-                             <div className="text-sm text-teal-800">{program.impact}</div>
-                           </div>
-                         </div>
-                       </div>
-</div>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </section>
+                   <div className={`flex flex-col lg:flex-row ${program.image ? 'h-full' : ''}`}>
+                     {program.image ? (
+                       <>
+                        {/* Photo Section */}
+                        <div className={`relative lg:w-2/5 h-64 lg:h-auto overflow-hidden ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
+                          <img
+                            src={program.image}
+                            alt={program.title}
+                            width={600}
+                            height={400}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                          {program.id === 5 || program.id === 6 ? (
+                            <div className="absolute top-4 left-4">
+                              <span className="px-3 py-1 bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-xs font-bold rounded-full shadow-lg animate-pulse">
+                                NEW
+                              </span>
+                            </div>
+                          ) : null}
+                        </div>
+                       </>
+                     ) : (
+                       <div className="lg:w-2/5 hidden lg:block"></div>
+                     )}
+                     
+                        {/* Content Section */}
+                        <div className={`${program.image ? 'lg:w-3/5' : 'lg:w-full'} p-8 flex flex-col justify-center`}>
+                          <h2 className="text-2xl md:text-3xl font-display font-bold text-gray-900 mb-4 group-hover:text-emerald-700 transition-colors duration-300">
+                            {program.title}
+                          </h2>
+                          <p className="text-gray-600 mb-6 leading-relaxed">
+                            {program.description}
+                          </p>
+                          
+                          <div className="space-y-3 mb-6">
+                            {program.initiatives.map((initiative, idx) => (
+                              <div key={idx} className="flex items-center gap-3 text-gray-700">
+                                <span className="w-2 h-2 bg-emerald-500 rounded-full flex-shrink-0"></span>
+                                <span className="text-sm">{initiative}</span>
+                              </div>
+                            ))}
+                          </div>
+                          
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-auto">
+                            <div className="rounded-xl bg-emerald-50 p-4 border border-emerald-200 hover:border-emerald-400 transition-colors duration-300">
+                              <div className="text-xs uppercase text-emerald-600 mb-1 font-semibold">Schedule</div>
+                              <div className="font-bold text-emerald-800">{program.schedule}</div>
+                            </div>
+                            <div className="rounded-xl bg-teal-50 p-4 border border-teal-200 hover:border-teal-400 transition-colors duration-300">
+                              <div className="text-xs uppercase text-teal-600 mb-1 font-semibold">Impact</div>
+                              <div className="text-sm text-teal-800">{program.impact}</div>
+                            </div>
+                          </div>
+                        </div>
+                   </div>
+                 </article>
+               ))}
+             </div>
+           </div>
+         </section>
 
         {/* Program Photo Gallery */}
         <section className="py-20 bg-white">

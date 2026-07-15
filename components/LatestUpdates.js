@@ -123,7 +123,11 @@ return (
                </div>
              ))
            ) : (
-             updates.map((update, index) => (
+             updates.map((update, index) => {
+               const isVideo = update.mediaType === 'video' || update.mediaUrl?.includes('youtube') || update.mediaUrl?.includes('youtu.be')
+               const isLocalVideo = isVideo && update.mediaUrl?.startsWith('/') && update.mediaUrl?.endsWith('.mp4')
+               
+               return (
                <article
                  key={update._id || update.id}
                  className={`update-card bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl border border-gray-200 hover:border-emerald-500 hover:-translate-y-1 transition-all duration-500 ease-out ${
@@ -131,123 +135,141 @@ return (
                  }`}
                  style={{ transitionDelay: `${300 + index * 100}ms` }}
                >
-                {/* Media - Video or Image */}
-{update.mediaType === 'video' || update.mediaUrl?.includes('youtube') || update.mediaUrl?.includes('youtu.be') ? (
-                   // Video Thumbnail with Play Button
-                   <div className="relative h-48 w-full bg-gray-900">
-                     {update.mediaUrl ? (
-                       update.mediaUrl.startsWith('/') ? (
-                         <img src={update.mediaUrl} alt={update.title} className="h-48 w-full object-cover" loading="lazy" />
-                       ) : (
-                         <Image
-                           src={update.mediaUrl}
-                           alt={update.title}
-                           fill
-                           sizes="320px"
-                           className="object-cover"
-                           loading="lazy"
-                           unoptimized
-                         />
-                       )
-                     ) : (
-                       <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 to-teal-700" />
-                     )}
-                     {/* Play Button Overlay */}
-                     <div className="absolute inset-0 flex items-center justify-center">
-                       <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
-                         <svg className="w-8 h-8 text-emerald-600 ml-1" fill="currentColor" viewBox="0 0 24 24">
-                           <path d="M8 5v14l11-7z" />
-                         </svg>
-                       </div>
-                     </div>
-                     {/* Video Badge */}
-                     <div className="absolute top-3 left-3">
-                       <span className="px-2 py-1 bg-red-600 text-white text-xs font-semibold rounded">
-                         VIDEO
-                       </span>
-                     </div>
-                   </div>
-                 ) : (
-                   // Image
-                   update.mediaUrl ? (
-                     <div className="relative h-48 w-full bg-gray-200 overflow-hidden group">
-                       {update.mediaUrl.startsWith('/') ? (
-                         <img
-                           src={update.mediaUrl}
-                           alt={update.title}
-                           className="h-48 w-full object-cover transition-all duration-700 ease-out group-hover:scale-110 group-hover:rotate-1"
-                           loading="lazy"
-                         />
-                       ) : (
-                         <Image
-                           src={update.mediaUrl}
-                           alt={update.title}
-                           fill
-                           sizes="320px"
-                           className="object-cover transition-all duration-700 ease-out group-hover:scale-110"
-                           loading="lazy"
-                           unoptimized
-                         />
-                       )}
-                       {/* Animated Overlay Gradient */}
-                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                       {/* Special Badge for Latest Updates (selam1 & selam2) */}
-                       {update.id === 'home-latest-1' || update.id === 'home-latest-2' ? (
-                         <div className="absolute top-3 left-3">
-                           <span className="px-3 py-1 bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-xs font-bold rounded-full shadow-lg animate-pulse">
-                             NEW
-                           </span>
-                         </div>
-                       ) : null}
-                     </div>
-                   ) : (
-                     <div className="relative h-48 w-full bg-gradient-to-br from-emerald-600 to-teal-700" />
-                   )
-                 )}
+                 {/* Media - Video or Image */}
+                 {isVideo ? (
+                    <div className="relative h-48 w-full bg-gray-900">
+                      {isLocalVideo ? (
+                        <video
+                          src={update.mediaUrl}
+                          alt={update.title}
+                          className="h-48 w-full object-cover"
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          onMouseEnter={(e) => e.target.play()}
+                          onMouseLeave={(e) => { e.target.pause(); e.target.currentTime = 0; }}
+                        />
+                      ) : update.mediaUrl ? (
+                        update.mediaUrl.startsWith('/') ? (
+                          <img src={update.mediaUrl} alt={update.title} className="h-48 w-full object-cover" loading="lazy" />
+                        ) : (
+                          <Image
+                            src={update.mediaUrl}
+                            alt={update.title}
+                            fill
+                            sizes="320px"
+                            className="object-cover"
+                            loading="lazy"
+                            unoptimized
+                          />
+                        )
+                      ) : (
+                        <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 to-teal-700" />
+                      )}
+                      {!isLocalVideo && (
+                        <>
+                      {/* Play Button Overlay */}
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
+                          <svg className="w-8 h-8 text-emerald-600 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z" />
+                          </svg>
+                        </div>
+                      </div>
+                      {/* Video Badge */}
+                      <div className="absolute top-3 left-3">
+                        <span className="px-2 py-1 bg-red-600 text-white text-xs font-semibold rounded">
+                          VIDEO
+                        </span>
+                      </div>
+                        </>
+                      )}
+                    </div>
+                  ) : (
+                    // Image
+                    update.mediaUrl ? (
+                      <div className="relative h-48 w-full bg-gray-200 overflow-hidden group">
+                        {update.mediaUrl.startsWith('/') ? (
+                          <img
+                            src={update.mediaUrl}
+                            alt={update.title}
+                            className="h-48 w-full object-cover transition-all duration-700 ease-out group-hover:scale-110 group-hover:rotate-1"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <Image
+                            src={update.mediaUrl}
+                            alt={update.title}
+                            fill
+                            sizes="320px"
+                            className="object-cover transition-all duration-700 ease-out group-hover:scale-110"
+                            loading="lazy"
+                            unoptimized
+                          />
+                        )}
+                        {/* Animated Overlay Gradient */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        {/* Special Badge for Latest Updates (selam1 & selam2) */}
+                        {update.id === 'home-latest-1' || update.id === 'home-latest-2' ? (
+                          <div className="absolute top-3 left-3">
+                            <span className="px-3 py-1 bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-xs font-bold rounded-full shadow-lg animate-pulse">
+                              NEW
+                            </span>
+                          </div>
+                        ) : null}
+                      </div>
+                    ) : (
+                      <div className="relative h-48 w-full bg-gradient-to-br from-emerald-600 to-teal-700" />
+                    )
+                  )}
 
-                {/* Content */}
-                <div className="p-6">
-                  {/* Date */}
-                  <time className="text-sm text-emerald-600 font-semibold">
-                    {formatDate(update.createdAt || update.date)}
-                  </time>
+                 {/* Content */}
+                 <div className="p-6">
+                   {/* Date */}
+                   <time className="text-sm text-emerald-600 font-semibold">
+                     {formatDate(update.createdAt || update.date)}
+                   </time>
 
-                  {/* Title */}
-                  <h3 className="text-xl font-display font-bold text-gray-900 mt-2 mb-3 line-clamp-2">
-                    {update.title}
-                  </h3>
+                   {/* Title */}
+                   <h3 className="text-xl font-display font-bold text-gray-900 mt-2 mb-3 line-clamp-2">
+                     {update.title}
+                   </h3>
 
-                  {/* Description */}
-                  <p className={`text-gray-600 mb-4 ${expandedId === (update._id || update.id) ? '' : 'line-clamp-3'}`}>
-                    {update.description}
-                  </p>
+                   {/* Description */}
+                   <p className={`text-gray-600 mb-4 ${expandedId === (update._id || update.id) ? '' : 'line-clamp-3'}`}>
+                     {update.description}
+                   </p>
 
-                  {/* Learn more / Watch Video Link */}
-                  <button
-                    onClick={() => setExpandedId(expandedId === (update._id || update.id) ? null : (update._id || update.id))}
-                    className="inline-flex items-center space-x-1 text-emerald-600 font-semibold hover:text-emerald-700 transition-colors duration-200 group"
-                  >
-                    <span>{expandedId === (update._id || update.id) ? 'Show less' : (update.mediaType === 'video' || update.mediaUrl?.includes('youtube') || update.mediaUrl?.includes('youtu.be') ? 'Watch Video' : 'Learn more')}</span>
-                    <svg 
-                      className={`w-4 h-4 transform transition-transform duration-200 ${expandedId === (update._id || update.id) ? 'rotate-180' : 'group-hover:translate-x-1'}`} 
-                      fill="none" 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      strokeWidth="2" 
-                      viewBox="0 0 24 24" 
-                      stroke="currentColor"
-                    >
-                      <path d="M19 9l-7 7-7-7"></path>
-                    </svg>
-                  </button>
-                </div>
-              </article>
-            ))
-          )}
-        </div>
-      </div>
-    </section>
-  )
+                   {/* Learn more / Watch Video Link */}
+                   {!isLocalVideo && (
+                   <button
+                     onClick={() => setExpandedId(expandedId === (update._id || update.id) ? null : (update._id || update.id))}
+                     className="inline-flex items-center space-x-1 text-emerald-600 font-semibold hover:text-emerald-700 transition-colors duration-200 group"
+                   >
+                     <span>{expandedId === (update._id || update.id) ? 'Show less' : (update.mediaType === 'video' || update.mediaUrl?.includes('youtube') || update.mediaUrl?.includes('youtu.be') ? 'Watch Video' : 'Learn more')}</span>
+                     <svg 
+                       className={`w-4 h-4 transform transition-transform duration-200 ${expandedId === (update._id || update.id) ? 'rotate-180' : 'group-hover:translate-x-1'}`} 
+                       fill="none" 
+                       strokeLinecap="round" 
+                       strokeLinejoin="round" 
+                       strokeWidth="2" 
+                       viewBox="0 0 24 24" 
+                       stroke="currentColor"
+                     >
+                       <path d="M19 9l-7 7-7-7"></path>
+                     </svg>
+                   </button>
+                   )}
+                 </div>
+               </article>
+               )
+             })
+           )}
+         </div>
+       </div>
+     </section>
+   )
 }
 
 export default memo(LatestUpdates)
