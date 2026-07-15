@@ -15,13 +15,13 @@ export const metadata = {
 
 const partnerCategories = [
   {
-    title: 'Government Partners',
-    description: 'Collaborating with local and national authorities',
+    title: 'Strategic Partners',
+    description: 'Key organizational partners supporting our mission',
     partners: [
+      { name: 'SHOFCO', type: 'Strategic Partner - Women Empowerment Programs' },
+      { name: 'Smiles Dental Clinic', type: 'Health Partner - Oral Health Education' },
       { name: 'Ministry of Health', type: 'Government Agency' },
       { name: 'Ministry of Education', type: 'Government Agency' },
-      { name: 'Regional Health Bureaus', type: 'Local Government' },
-      { name: 'Woreda Administrations', type: 'Local Government' },
     ],
   },
   {

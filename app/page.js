@@ -52,22 +52,30 @@ export default async function HomePage() {
   const initialUpdates = await getUpdates()
 
 // Replace LatestUpdates on the homepage with a curated set of recent program photos
-   // Latest updates with cool animations - selam1 (oral health child education) and selam2 (detergent making class)
+   // Latest updates with new women empowerment program content with SHOFCO
    const curatedUpdates = [
      {
        id: 'home-latest-1',
-       title: 'Oral Health Child Education',
-       description: 'Teaching children essential oral hygiene practices for lifelong healthy smiles. Interactive sessions with fun demonstrations on proper brushing techniques and dental care habits.',
-       mediaUrl: '/selam1.jpeg',
+       title: 'Women Empowerment Program with SHOFCO',
+       description: 'Empowering women through skills training and community support in partnership with SHOFCO. Together we are creating sustainable change and building stronger communities.',
+       mediaUrl: '/new1.jpeg',
        createdAt: new Date().toISOString(),
        mediaType: 'image',
      },
      {
        id: 'home-latest-2',
-       title: 'Detergent Making Skills Training',
-       description: 'Empowering community members with practical vocational skills through hands-on detergent making workshops. Creating sustainable income opportunities for families.',
-       mediaUrl: '/selam2.PNG',
+       title: 'Vocational Training Workshop - SHOFCO Partnership',
+       description: 'Hands-on vocational training session for women in the community. This program, sponsored by SHOFCO, focuses on practical skills development for income generation.',
+       mediaUrl: '/vid1.mp4',
        createdAt: new Date(Date.now() - 86400000).toISOString(), // Yesterday
+       mediaType: 'video',
+     },
+     {
+       id: 'home-latest-3',
+       title: 'Community Women Support Group',
+       description: 'Women from the community coming together for support, education, and empowerment activities. Building a network of strong, capable women leaders.',
+       mediaUrl: '/new2.jpeg',
+       createdAt: new Date(Date.now() - 172800000).toISOString(), // 2 days ago
        mediaType: 'image',
      },
      {
@@ -91,22 +99,6 @@ export default async function HomePage() {
        title: 'Marginalized Aid Program',
        description: 'Weekly visits bringing hope and essential support to vulnerable families and abandoned elderly in the community.',
        mediaUrl: '/photo3.jpeg',
-       createdAt: new Date().toISOString(),
-       mediaType: 'image',
-     },
-     {
-       id: 'home-pic-4',
-       title: 'Kids Fun Time Program',
-       description: 'Children engage in dance, games, and learning activities in a safe weekend environment for talent development.',
-       mediaUrl: '/photo4.jpeg',
-       createdAt: new Date().toISOString(),
-       mediaType: 'image',
-     },
-     {
-       id: 'home-pic-5',
-       title: 'Community Outreach Activities',
-       description: 'Ongoing community engagement showcasing our commitment to empowering vulnerable families through various programs.',
-       mediaUrl: '/photo5.jpeg',
        createdAt: new Date().toISOString(),
        mediaType: 'image',
      },

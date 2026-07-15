@@ -15,6 +15,36 @@ export const metadata = {
 
 const programs = [
   {
+    id: 7,
+    title: 'WOMEN EMPOWERMENT PROGRAM',
+    description: 'Empowering women through skills training, education, and community support in partnership with SHOFCO. This program focuses on building confidence, providing vocational training, and creating sustainable income opportunities for women in Kisumu County. Through this partnership, we have reached over 200 women with practical skills and business development support.',
+    initiatives: [
+      'Vocational skills training with SHOFCO',
+      'Business development and entrepreneurship',
+      'Community support networks',
+      'Leadership and confidence building',
+      'Sustainable income generation projects',
+    ],
+    schedule: 'Weekly sessions with SHOFCO',
+    impact: '200+ women empowered with vocational skills and business support through SHOFCO partnership',
+    image: '/new1.jpeg',
+  },
+  {
+    id: 8,
+    title: 'DETERGENT MAKING SKILLS TRAINING',
+    description: 'Empowering community members with practical vocational skills through hands-on detergent making workshops. Generously sponsored by Shofco, this program provides training in chemical mixing, quality control, packaging, and business skills development. Participants gain valuable income-generating skills while contributing to community hygiene programs.',
+    initiatives: [
+      'Chemical mixing training sponsored by Shofco',
+      'Quality control and safety skills',
+      'Packaging and labeling techniques',
+      'Business skills development and entrepreneurship',
+    ],
+    schedule: 'Weekly workshops with Shofco sponsorship',
+    impact: 'Vocational skills and income generation for 100+ community members through Shofco sponsorship',
+    image: '/vid2.mp4',
+    mediaType: 'video',
+  },
+  {
     id: 5,
     title: 'ORAL HEALTH CHILD EDUCATION',
     description: 'Teaching children essential oral hygiene practices for lifelong healthy smiles. In partnership with Smiles Dental Clinic, we provide interactive sessions with fun demonstrations on proper brushing techniques and dental care habits. This collaborative program has reached over 500 children in local schools, creating a foundation for healthy oral habits that will benefit them throughout their lives.',
@@ -27,20 +57,6 @@ const programs = [
     schedule: 'Monthly health sessions',
     impact: 'Improved oral hygiene awareness and healthier habits for over 500 children through Smiles Dental Clinic partnership',
     image: '/selam1.jpeg',
-  },
-  {
-    id: 6,
-    title: 'DETERGENT MAKING SKILLS TRAINING',
-    description: 'Empowering community members with practical vocational skills through hands-on detergent making workshops. Generously sponsored by Shofco, this program provides training in chemical mixing, quality control, packaging, and business skills development. Participants gain valuable income-generating skills while contributing to community hygiene programs.',
-    initiatives: [
-      'Chemical mixing training sponsored by Shofco',
-      'Quality control and safety skills',
-      'Packaging and labeling techniques',
-      'Business skills development and entrepreneurship',
-    ],
-    schedule: 'Weekly workshops with Shofco sponsorship',
-    impact: 'Vocational skills and income generation for 100+ community members through Shofco sponsorship',
-    image: '/selam2.PNG',
   },
   {
     id: 1,
@@ -103,6 +119,11 @@ const programs = [
 ]
 
 const galleryImages = [
+  '/new1.jpeg',
+  '/new2.jpeg',
+  '/new3.jpeg',
+  '/new4.jpeg',
+  '/new5.jpeg',
   '/selam1.jpeg',
   '/selam2.PNG',
   '/photo1.jpeg',

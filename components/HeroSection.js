@@ -5,18 +5,28 @@ import Image from 'next/image'
 
 const heroImages = [
   {
-    src: '/IM1.JPG',
-    alt: 'Community empowerment through education',
+    src: '/new1.jpeg',
+    alt: 'Women empowerment program with SHOFCO partnership',
     priority: true,
   },
   {
-    src: '/IM2.JPG',
-    alt: 'Healthcare initiatives in rural areas',
+    src: '/new2.jpeg',
+    alt: 'Community development and skills training',
     priority: false,
   },
   {
-    src: '/IM3.JPG',
-    alt: 'Sustainable development projects',
+    src: '/new3.jpeg',
+    alt: 'Youth mentorship and education initiatives',
+    priority: false,
+  },
+  {
+    src: '/new4.jpeg',
+    alt: 'Health awareness and support programs',
+    priority: false,
+  },
+  {
+    src: '/new5.jpeg',
+    alt: 'Sustainable community impact projects',
     priority: false,
   },
 ]
