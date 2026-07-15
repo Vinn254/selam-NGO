@@ -41,8 +41,7 @@ const programs = [
     ],
     schedule: 'Weekly workshops with Shofco sponsorship',
     impact: 'Vocational skills and income generation for 100+ community members through Shofco sponsorship',
-    image: '',
-    mediaType: 'video',
+    image: '/selam2.PNG',
   },
   {
     id: 9,
