@@ -20,13 +20,13 @@ const heroImages = [
     priority: false,
   },
   {
-    src: '/new4.jpeg',
-    alt: 'Health awareness and support programs',
+    src: '/photo3.jpeg',
+    alt: 'Marginalized aid and community support',
     priority: false,
   },
   {
-    src: '/new5.jpeg',
-    alt: 'Sustainable community impact projects',
+    src: '/photo4.jpeg',
+    alt: 'Kids fun time and talent development',
     priority: false,
   },
 ]
