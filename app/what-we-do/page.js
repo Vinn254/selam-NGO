@@ -59,6 +59,22 @@ const programs = [
     image: '/new3.jpeg',
   },
   {
+    id: 10,
+    title: 'WOMEN VOCATIONAL TRAINING WORKSHOP',
+    description: 'Hands-on vocational training session for women in the community. This program, sponsored by SHOFCO, focuses on practical skills development for income generation. The workshop provides women with the opportunity to learn new trades, develop business skills, and connect with mentors who can guide them toward financial independence.',
+    initiatives: [
+      'Practical vocational skills training',
+      'Business planning and development',
+      'SHOFCO-sponsored mentorship',
+      'Income generation strategies',
+      'Community market access support',
+    ],
+    schedule: 'Monthly workshop sessions',
+    impact: 'Empowered women with vocational skills and SHOFCO-supported pathways to sustainable income',
+    image: '/vid2.mp4',
+    mediaType: 'video',
+  },
+  {
     id: 5,
     title: 'ORAL HEALTH CHILD EDUCATION',
     description: 'Teaching children essential oral hygiene practices for lifelong healthy smiles. In partnership with Smiles Dental Clinic, we provide interactive sessions with fun demonstrations on proper brushing techniques and dental care habits. This collaborative program has reached over 500 children in local schools, creating a foundation for healthy oral habits that will benefit them throughout their lives.',
@@ -177,78 +193,91 @@ export default function WhatWeDoPage() {
 
 {/* Programs - Photo and Description Layout */}
          <section className="py-40 bg-slate-50">
-           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-             <div className="space-y-20">
-               {programs.map((program, index) => (
-                 <article 
-                   key={program.id} 
-                   className="group bg-white rounded-3xl shadow-xl transition-all duration-500 overflow-hidden hover:shadow-2xl hover:-translate-y-2 animate-fade-in"
-                   style={{ animationDelay: `${index * 100}ms` }}
-                 >
-                   {/* Cool Top Border with Gradient Animation */}
-                   <div className="h-1 bg-gradient-to-r from-emerald-400 via-teal-500 to-emerald-600 rounded-full"></div>
-                   
-                   <div className={`flex flex-col lg:flex-row ${program.image ? 'h-full' : ''}`}>
-                     {program.image ? (
-                       <>
-                        {/* Photo Section */}
-                        <div className={`relative lg:w-2/5 h-64 lg:h-auto overflow-hidden ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
-                          <img
-                            src={program.image}
-                            alt={program.title}
-                            width={600}
-                            height={400}
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                          />
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="grid md:grid-cols-2 gap-8">
+                {programs.map((program, index) => (
+                  <article 
+                    key={program.id} 
+                    className="group bg-white rounded-3xl shadow-xl transition-all duration-500 overflow-hidden hover:shadow-2xl hover:-translate-y-2 animate-fade-in"
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
+                    {/* Cool Top Border with Gradient Animation */}
+                    <div className="h-1 bg-gradient-to-r from-emerald-400 via-teal-500 to-emerald-600 rounded-full"></div>
+                    
+                    <div className="flex flex-col h-full">
+                        {/* Photo/Video Section */}
+                        <div className="relative h-64 overflow-hidden">
+                          {program.mediaType === 'video' && program.image?.endsWith('.mp4') ? (
+                            <video
+                              src={program.image}
+                              alt={program.title}
+                              className="w-full h-full object-cover"
+                              autoPlay
+                              muted
+                              loop
+                              playsInline
+                            />
+                          ) : (
+                            <img
+                              src={program.image}
+                              alt={program.title}
+                              width={600}
+                              height={400}
+                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                          )}
                           <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                          {program.id === 5 || program.id === 6 ? (
+                          {program.id === 5 || program.id === 6 || program.id === 7 || program.id === 9 ? (
                             <div className="absolute top-4 left-4">
                               <span className="px-3 py-1 bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-xs font-bold rounded-full shadow-lg animate-pulse">
                                 NEW
                               </span>
                             </div>
                           ) : null}
+                          {program.mediaType === 'video' && program.image?.endsWith('.mp4') && (
+                            <div className="absolute top-4 right-4">
+                              <span className="px-2 py-1 bg-red-600 text-white text-xs font-semibold rounded">
+                                VIDEO
+                              </span>
+                            </div>
+                          )}
                         </div>
-                       </>
-                     ) : (
-                       <div className="lg:w-2/5 hidden lg:block"></div>
-                     )}
-                     
+                        
                         {/* Content Section */}
-                        <div className={`${program.image ? 'lg:w-3/5' : 'lg:w-full'} p-8 flex flex-col justify-center`}>
-                          <h2 className="text-2xl md:text-3xl font-display font-bold text-gray-900 mb-4 group-hover:text-emerald-700 transition-colors duration-300">
+                        <div className="p-6 flex flex-col justify-center flex-grow">
+                          <h2 className="text-xl md:text-2xl font-display font-bold text-gray-900 mb-3 group-hover:text-emerald-700 transition-colors duration-300">
                             {program.title}
                           </h2>
-                          <p className="text-gray-600 mb-6 leading-relaxed">
+                          <p className="text-gray-600 mb-4 leading-relaxed text-sm">
                             {program.description}
                           </p>
                           
-                          <div className="space-y-3 mb-6">
+                          <div className="space-y-2 mb-4">
                             {program.initiatives.map((initiative, idx) => (
-                              <div key={idx} className="flex items-center gap-3 text-gray-700">
-                                <span className="w-2 h-2 bg-emerald-500 rounded-full flex-shrink-0"></span>
-                                <span className="text-sm">{initiative}</span>
+                              <div key={idx} className="flex items-center gap-2 text-gray-700">
+                                <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full flex-shrink-0"></span>
+                                <span className="text-xs">{initiative}</span>
                               </div>
                             ))}
                           </div>
                           
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-auto">
-                            <div className="rounded-xl bg-emerald-50 p-4 border border-emerald-200 hover:border-emerald-400 transition-colors duration-300">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-auto">
+                            <div className="rounded-xl bg-emerald-50 p-3 border border-emerald-200 hover:border-emerald-400 transition-colors duration-300">
                               <div className="text-xs uppercase text-emerald-600 mb-1 font-semibold">Schedule</div>
-                              <div className="font-bold text-emerald-800">{program.schedule}</div>
+                              <div className="font-bold text-emerald-800 text-sm">{program.schedule}</div>
                             </div>
-                            <div className="rounded-xl bg-teal-50 p-4 border border-teal-200 hover:border-teal-400 transition-colors duration-300">
+                            <div className="rounded-xl bg-teal-50 p-3 border border-teal-200 hover:border-teal-400 transition-colors duration-300">
                               <div className="text-xs uppercase text-teal-600 mb-1 font-semibold">Impact</div>
-                              <div className="text-sm text-teal-800">{program.impact}</div>
+                              <div className="text-xs text-teal-800">{program.impact}</div>
                             </div>
                           </div>
                         </div>
-                   </div>
-                 </article>
-               ))}
-             </div>
-           </div>
-         </section>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
 
         {/* Program Photo Gallery */}
         <section className="py-20 bg-white">
