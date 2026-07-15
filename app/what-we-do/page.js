@@ -61,8 +61,9 @@ const programs = [
   {
     id: 10,
     title: 'WOMEN VOCATIONAL TRAINING WORKSHOP',
-    description: 'Hands-on vocational training session for women in the community. This program, sponsored by SHOFCO, focuses on practical skills development for income generation. The workshop provides women with the opportunity to learn new trades, develop business skills, and connect with mentors who can guide them toward financial independence.',
+    description: 'Hands-on vocational training session for women in the community, including hands-on detergent mixing and other practical skills. This SHOFCO-sponsored program focuses on real-world, income-generating skills development through guided practice and mentorship. Women gain confidence, technical ability, and business readiness so they can create sustainable livelihoods for themselves and their families.',
     initiatives: [
+      'Hands-on detergent mixing and production practice',
       'Practical vocational skills training',
       'Business planning and development',
       'SHOFCO-sponsored mentorship',
@@ -70,7 +71,7 @@ const programs = [
       'Community market access support',
     ],
     schedule: 'Monthly workshop sessions',
-    impact: 'Empowered women with vocational skills and SHOFCO-supported pathways to sustainable income',
+    impact: 'Empowered women with SHOFCO-supported vocational skills and sustainable income pathways',
     image: '/vid2.mp4',
     mediaType: 'video',
   },

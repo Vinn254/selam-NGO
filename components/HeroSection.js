@@ -20,7 +20,7 @@ const heroImages = [
     priority: false,
   },
   {
-    src: '/photo3.jpeg',
+    src: '/photo9.jpeg',
     alt: 'Marginalized aid and community support',
     priority: false,
   },
